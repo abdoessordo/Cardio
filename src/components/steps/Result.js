@@ -128,16 +128,22 @@ export default function Result({ end }) {
     ) {
       return <strong>none</strong>;
     }
+
     return (
       <strong>
-        {cardiovascular_risk_factor.map((item, index) => (
-          <span key={index}>
-            {item}
-            {/* adding , or and between items */}
-            {index < cardiovascular_risk_factor.length - 2 && ", "}
-            {index === cardiovascular_risk_factor.length - 2 && " and "}
-          </span>
-        ))}
+        {cardiovascular_risk_factor.map((item, index) => {
+          if (typeof item === "object") {
+            item = `${Object.keys(item)[0]} (${item[Object.keys(item)[0]]})`;
+          }
+          return (
+            <span key={index}>
+              {item}
+              {/* adding , or and between items */}
+              {index < cardiovascular_risk_factor.length - 2 && ", "}
+              {index === cardiovascular_risk_factor.length - 2 && " and "}
+            </span>
+          );
+        })}
       </strong>
     );
   };
