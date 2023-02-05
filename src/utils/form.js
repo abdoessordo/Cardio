@@ -587,7 +587,7 @@ export const form = {
                     {
                       title: "Risk Evaluation",
                       nestedQuestion: {
-                        type: "radio",
+                        type: "checkbox",
                         options: [
                           {
                             label: "High thrombotic risk",
@@ -718,7 +718,7 @@ export const form = {
                     {
                       title: "Risk Evaluation",
                       nestedQuestion: {
-                        type: "radio",
+                        type: "checkbox",
                         options: [
                           {
                             label: "High thrombotic risk",

@@ -230,8 +230,8 @@ export default function Result({ end }) {
       [
         "High surgical risk (>5%)",
         "Intermediate surgical risk (1-5%)",
-      ].includes(type_of_surgery_or_intervention) &&
-      antecedent.length > 0
+      ].includes(type_of_surgery_or_intervention)
+      && (antecedent.length > 0 || examination.includes("Symptoms/signs suggestive of cardio-vascular disease"))
     ) {
       ARR.push(
         {
