@@ -20,7 +20,7 @@ export default function CheckboxGroup({ name, options, sections }) {
         {options?.map((option, index) => {
           if (option.label === "Coronary artery disease") {
             return (
-              <div>
+              <div key={index}>
                 <input
                   type="checkbox"
                   name="Coronary artery disease"
@@ -28,7 +28,7 @@ export default function CheckboxGroup({ name, options, sections }) {
                   value="Coronary artery disease"
                   onChange={(e) => handleChange(e)}
                 />
-                <label for="Coronary artery disease">
+                <label htmlFor="Coronary artery disease">
                   Coronary artery disease
                 </label>
                 <br />
@@ -42,7 +42,7 @@ export default function CheckboxGroup({ name, options, sections }) {
                         id="coronary_acute"
                         value="coronary_acute"
                       />
-                      <label for="coronary_acute">
+                      <label htmlFor="coronary_acute">
                         Acute (acute coronary syndrome)
                       </label>
                       <br />
@@ -54,7 +54,7 @@ export default function CheckboxGroup({ name, options, sections }) {
                         id="coronary_chronic"
                         value="coronary_chronic"
                       />
-                      <label for="coronary_chronic">
+                      <label htmlFor="coronary_chronic">
                         Chronic (chronic coronary syndrome)
                       </label>
                       <br />
@@ -67,7 +67,7 @@ export default function CheckboxGroup({ name, options, sections }) {
                         id="Stented"
                         value="Stented"
                       />
-                      <label for="Stented">Stented</label>
+                      <label htmlFor="Stented">Stented</label>
                       <br />
                     </div>
                     <div>
@@ -77,9 +77,7 @@ export default function CheckboxGroup({ name, options, sections }) {
                         id="not_stented"
                         value="not_stented"
                       />
-                      <label for="not_stented">
-                        Chronic (chronic coronary syndrome)
-                      </label>
+                      <label htmlFor="not_stented">Not stented</label>
                       <br />
                     </div>
 
@@ -90,7 +88,7 @@ export default function CheckboxGroup({ name, options, sections }) {
                         id="bypass_graft"
                         value="bypass_graft"
                       />
-                      <label for="bypass_graft">Bypass graft</label>
+                      <label htmlFor="bypass_graft">Bypass graft</label>
                       <br />
                     </div>
                     <div>
@@ -100,7 +98,7 @@ export default function CheckboxGroup({ name, options, sections }) {
                         id="not_bypass_graft"
                         value="not_bypass_graft"
                       />
-                      <label for="not_bypass_graft">Not bypass graft</label>
+                      <label htmlFor="not_bypass_graft">Not bypass graft</label>
                       <br />
                     </div>
                   </div>

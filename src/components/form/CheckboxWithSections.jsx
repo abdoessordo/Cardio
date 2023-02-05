@@ -158,27 +158,29 @@ export default function CheckboxWithSections({
       let tempUserData = userData;
       for (let item of tempUserData[groupName]) {
         if (typeof item === "object" && item[input_name]) {
-          console.log("input_name:", item[input_name]);
           let new_input_name;
-          console.log("nestedGroupName:", nestedGroupName);
           for (let nestedItem of item[input_name]) {
-            console.log("nestedItem:", nestedItem);
             // get the key
             let key = Object.keys(nestedItem)[0];
-            console.log("key:", key);
-            console.log("nestedGroupName:", nestedGroupName);
             if (nestedGroupName === key) {
               nestedItem[key] = value;
-            } else if(["vitamin_k_antagonist", "non_vitamin_k_antagonist_oral_anticoagulants"].includes(nestedGroupName) && nestedGroupName !== key) {
-             // remove object that have different key
-              item[input_name] = item[input_name].filter((item) => typeof item === "string" || Object.keys(item)[0] === nestedGroupName);
-              console.log("item[input_name]:", item[input_name]);
+            } else if (
+              [
+                "vitamin_k_antagonist",
+                "non_vitamin_k_antagonist_oral_anticoagulants",
+              ].includes(nestedGroupName) &&
+              nestedGroupName !== key
+            ) {
+              // remove object that have different key
+              item[input_name] = item[input_name].filter(
+                (item) =>
+                  typeof item === "string" ||
+                  Object.keys(item)[0] === nestedGroupName
+              );
             }
           }
         }
       }
-
-      console.log("tempUserData:", tempUserData);
 
       setUserData({ ...tempUserData });
     }
@@ -209,13 +211,10 @@ export default function CheckboxWithSections({
         );
       }
 
-      console.log("userData", userData);
-
       setUserData({ ...userData });
 
       // update userData
       let tempUserData = userData;
-      console.log("tempUserData", tempUserData);
       for (let item of tempUserData[groupName]) {
         if (typeof item === "object" && item[input_name]) {
           for (let nestedItem of item[input_name]) {
@@ -225,8 +224,6 @@ export default function CheckboxWithSections({
           }
         }
       }
-
-      console.log("tempUserData", tempUserData);
 
       return;
     }
@@ -248,7 +245,6 @@ export default function CheckboxWithSections({
         <div className="flex flex-col ml-5">
           {sections.map((section, sectionIndex) => {
             // handling sections
-            // console.log("section", section);
             return (
               <div key={sectionIndex}>
                 {/* Wrapper */}
@@ -266,7 +262,6 @@ export default function CheckboxWithSections({
 
                     {/* Section Options */}
                     {section.nestedQuestion.options.map((option, index) => {
-                      // console.log("option", option);
                       return (
                         <div
                           key={index}
@@ -314,7 +309,6 @@ export default function CheckboxWithSections({
                             <div className="flex flex-col ml-5">
                               {option.nestedQuestion.options.map(
                                 (nestedOptions, nestedIndex) => {
-                                  // console.log("nestedOptions", nestedOptions);
                                   return (
                                     <div key={nestedIndex}>
                                       <input
@@ -328,6 +322,159 @@ export default function CheckboxWithSections({
                                         {nestedOptions.label}
                                       </label>
                                       <br />
+                                      {console.log(nestedOptions)}
+
+                                      {nestedOptions.label ===
+                                        "High risk of stent thrombosis " && (
+                                        <div className="ml-5">
+                                          <div>
+                                            <input
+                                              id="history_of_stent_thrombosis"
+                                              type="checkbox"
+                                              name="history_of_stent_thrombosis"
+                                              value="history_of_stent_thrombosis"
+                                            />
+                                            <label htmlFor="history_of_stent_thrombosis">
+                                              History of stent thrombosis under
+                                              antiplatelet therapy
+                                            </label>
+                                            <br />
+                                          </div>
+
+                                          <div>
+                                            <input
+                                              id="reduced_left_ventricular_ejection_fraction"
+                                              type="checkbox"
+                                              name="reduced_left_ventricular_ejection_fraction"
+                                              value="reduced_left_ventricular_ejection_fraction"
+                                            />
+                                            <label htmlFor="reduced_left_ventricular_ejection_fraction">
+                                              Reduced left ventricular ejection
+                                              fraction (40%)
+                                            </label>
+                                            <br />
+                                          </div>
+
+                                          <div>
+                                            <input
+                                              id="poorly_controlled_diabetes"
+                                              type="checkbox"
+                                              name="poorly_controlled_diabetes"
+                                              value="poorly_controlled_diabetes"
+                                            />
+                                            <label htmlFor="poorly_controlled_diabetes">
+                                              Poorly controlled diabetes
+                                            </label>
+                                            <br />
+                                          </div>
+
+                                          <div>
+                                            <input
+                                              id="severely_impaired_renal_function"
+                                              type="checkbox"
+                                              name="severely_impaired_renal_function"
+                                              value="severely_impaired_renal_function"
+                                            />
+                                            <label htmlFor="severely_impaired_renal_function">
+                                              Severely impaired renal
+                                              function/haemodialysis
+                                            </label>
+                                            <br />
+                                          </div>
+
+                                          <div>
+                                            <input
+                                              id="recent_complex_pci"
+                                              type="checkbox"
+                                              name="recent_complex_pci"
+                                              value="recent_complex_pci"
+                                            />
+                                            <label htmlFor="recent_complex_pci">
+                                              Recent complex PCI (i.e. severely
+                                              calcified lesion, left main PCI,
+                                              chronic total occlusion,
+                                              bifurcational/crush technique,
+                                              bypass graft PCI)
+                                            </label>
+                                            <br />
+                                          </div>
+
+                                          <div>
+                                            <input
+                                              id="stent_malapposition"
+                                              type="checkbox"
+                                              name="stent_malapposition"
+                                              value="stent_malapposition"
+                                            />
+                                            <label htmlFor="stent_malapposition">
+                                              Stent malapposition/residual
+                                              dissection.
+                                            </label>
+                                            <br />
+                                          </div>
+                                        </div>
+                                      )}
+
+                                      {nestedOptions.label ===
+                                        "Very high thromboembolic risk" && (
+                                        <div className="ml-5">
+                                          <div>
+                                            <input
+                                              id="recent_stroke_3_months"
+                                              type="checkbox"
+                                              name="recent_stroke_3_months"
+                                              value="recent_stroke_3_months"
+                                            />
+                                            <label htmlFor="recent_stroke_3_months">
+                                              {"Recent stroke <3 months"}
+                                            </label>
+                                            <br />
+                                          </div>
+
+                                          <div>
+                                            <input
+                                              id="high_risk_of_venous_thromboembolism_recurrences"
+                                              type="checkbox"
+                                              name="high_risk_of_venous_thromboembolism_recurrences"
+                                              value="high_risk_of_venous_thromboembolism_recurrences"
+                                            />
+                                            <label htmlFor="high_risk_of_venous_thromboembolism_recurrences">
+                                              High risk of venous
+                                              thromboembolism recurrences (e.g.
+                                              antithrombin 3 deficiency or
+                                              protein C and/or S deficiency)
+                                            </label>
+                                            <br />
+                                          </div>
+
+                                          <div>
+                                            <input
+                                              id="left_ventricular_apex_thrombus"
+                                              type="checkbox"
+                                              name="left_ventricular_apex_thrombus"
+                                              value="left_ventricular_apex_thrombus"
+                                            />
+                                            <label htmlFor="left_ventricular_apex_thrombus">
+                                              Left ventricular apex thrombus
+                                            </label>
+                                            <br />
+                                          </div>
+
+                                          <div>
+                                            <input
+                                              id="artial_fibrillation_with_a_very_high_stroke_risk"
+                                              type="checkbox"
+                                              name="artial_fibrillation_with_a_very_high_stroke_risk"
+                                              value="artial_fibrillation_with_a_very_high_stroke_risk"
+                                            />
+                                            <label htmlFor="artial_fibrillation_with_a_very_high_stroke_risk">
+                                              Artial fibrillation with a very
+                                              high stroke risk
+                                            </label>
+                                            <br />
+                                          </div>
+                                        </div>
+                                      )}
                                     </div>
                                   );
                                 }
