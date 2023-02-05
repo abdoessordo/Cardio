@@ -1,9 +1,16 @@
+import { useState } from "react";
 import Checkbox from "./Checkbox";
 import CheckboxWithCheckboxOptions from "./CheckboxWithCheckboxOptions";
 import CheckboxWithRadioOptions from "./CheckboxWithRadioOptions";
 import CheckboxWithSections from "./CheckboxWithSections";
 
 export default function CheckboxGroup({ name, options, sections }) {
+  const [checked, setChecked] = useState(false);
+
+  const handleChange = (e) => {
+    setChecked(!checked);
+  };
+
   // console.log("options", options);
   if (sections) {
     return "";
@@ -11,6 +18,96 @@ export default function CheckboxGroup({ name, options, sections }) {
     return (
       <>
         {options?.map((option, index) => {
+          if (option.label === "Coronary artery disease") {
+            return (
+              <div>
+                <input
+                  type="checkbox"
+                  name="Coronary artery disease"
+                  id="Coronary artery disease"
+                  value="Coronary artery disease"
+                  onChange={(e) => handleChange(e)}
+                />
+                <label for="Coronary artery disease">
+                  Coronary artery disease
+                </label>
+                <br />
+
+                {checked && (
+                  <div className="ml-5" id="acute">
+                    <div>
+                      <input
+                        type="radio"
+                        name="coronary"
+                        id="coronary_acute"
+                        value="coronary_acute"
+                      />
+                      <label for="coronary_acute">
+                        Acute (acute coronary syndrome)
+                      </label>
+                      <br />
+                    </div>
+                    <div>
+                      <input
+                        type="radio"
+                        name="coronary"
+                        id="coronary_chronic"
+                        value="coronary_chronic"
+                      />
+                      <label for="coronary_chronic">
+                        Chronic (chronic coronary syndrome)
+                      </label>
+                      <br />
+                    </div>
+
+                    <div>
+                      <input
+                        type="radio"
+                        name="isStented"
+                        id="Stented"
+                        value="Stented"
+                      />
+                      <label for="Stented">Stented</label>
+                      <br />
+                    </div>
+                    <div>
+                      <input
+                        type="radio"
+                        name="isStented"
+                        id="not_stented"
+                        value="not_stented"
+                      />
+                      <label for="not_stented">
+                        Chronic (chronic coronary syndrome)
+                      </label>
+                      <br />
+                    </div>
+
+                    <div>
+                      <input
+                        type="radio"
+                        name="bypassGraft"
+                        id="bypass_graft"
+                        value="bypass_graft"
+                      />
+                      <label for="bypass_graft">Bypass graft</label>
+                      <br />
+                    </div>
+                    <div>
+                      <input
+                        type="radio"
+                        name="bypassGraft"
+                        id="not_bypass_graft"
+                        value="not_bypass_graft"
+                      />
+                      <label for="not_bypass_graft">Not bypass graft</label>
+                      <br />
+                    </div>
+                  </div>
+                )}
+              </div>
+            );
+          }
           if (option.sections) {
             return (
               <div key={index}>
