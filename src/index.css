@@ -276,8 +276,8 @@ body {
 
 .popup{
   background-color: #eee;
-  width: 50%;
-  height: 50%;
+  width: 90%;
+  height: 90%;
   position: fixed;
   top: 50%;
   left: 50%;
@@ -302,4 +302,8 @@ body {
 
 .popup__body{
   padding: 10px;
+}
+
+#todo-urgent{
+  margin-inline: 2rem;
 }

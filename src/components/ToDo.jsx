@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import { useStepperContext } from "../../contexts/StepperContext";
-import _ from "lodash";
-import DownloadButton from "../DownloadButton";
 
-export default function Result({ end }) {
+import _ from "lodash";
+import { useStepperContext } from "../contexts/StepperContext";
+
+export default function ToDo({ end }) {
   const { userData } = useStepperContext();
   const [preAssessmentTodoList, setPreAssessmentTodoList] = useState([]);
   const [preAssessmentTodoList2, setPreAssessmentTodoList2] = useState([]);
@@ -22,176 +22,13 @@ export default function Result({ end }) {
 
   useEffect(() => {
     preAssessment();
+    console.log("preAssessmentTodoList", preAssessmentTodoList);
   }, []);
-
-  const get_patient_name = () => {
-    if (patient_name === "" || typeof patient_name === "undefined") {
-      return <strong>none</strong>;
-    }
-    return <strong>{patient_name}</strong>;
-  };
-
-  const get_cv_atcd = () => {
-    if (cv_atcd === "" || cv_atcd === [] || typeof cv_atcd === "undefined") {
-      return <strong>none</strong>;
-    }
-    return (
-      <strong>
-        {cv_atcd.map((item, index) => {
-          if (typeof item === "object") {
-            // flatten the object
-            let key = Object.keys(item)[0];
-            if (key === "Heart failure") {
-              item = `${key} (${item[key]})`;
-            } else if (key === "Mechanical prosthetic heart valve") {
-              if (typeof item[key] === "object") {
-                let tempitem = " (";
-
-                for (let index = 0; index < item[key].length; index++) {
-                  const elem = item[key][index];
-                  if (typeof elem === "object") {
-                    let nestedKey = Object.keys(elem)[0];
-                    tempitem += nestedKey.split(":")[0];
-                    tempitem += " (";
-                    if (elem[nestedKey]) {
-                      for (
-                        let nestedIndex = 0;
-                        nestedIndex < elem[nestedKey].length;
-                        nestedIndex++
-                      ) {
-                        const nestedElem = elem[nestedKey][nestedIndex];
-                        tempitem += nestedElem;
-                        if (nestedIndex < elem[nestedKey].length - 2) {
-                          tempitem += ", ";
-                        } else if (nestedIndex === elem[nestedKey].length - 2) {
-                          tempitem += " and ";
-                        }
-                      }
-                    }
-                    tempitem += ")";
-                  } else {
-                    tempitem += elem;
-                  }
-                  if (index < item[key].length - 2) {
-                    tempitem += ", ";
-                  } else if (index === item[key].length - 2) {
-                    tempitem += " and ";
-                  }
-                }
-                item = `${key} ${tempitem} )`;
-              } else {
-                item = `${key} (${item[key]})`;
-              }
-            }
-          }
-
-          return (
-            <span key={index}>
-              {typeof item !== Object && item}
-              {/* adding , or and between items */}
-              {index < cv_atcd.length - 2 && ", "}
-              {index === cv_atcd.length - 2 && " and "}
-            </span>
-          );
-        })}
-      </strong>
-    );
-  };
-
-  const get_non_cv_atcd = () => {
-    if (
-      non_cv_atcd === "" ||
-      non_cv_atcd === [] ||
-      typeof non_cv_atcd === "undefined"
-    ) {
-      return <strong>none</strong>;
-    }
-    return (
-      <strong>
-        {non_cv_atcd.map((item, index) => (
-          <span key={index}>
-            {item}
-            {/* adding , or and between items */}
-            {index < non_cv_atcd.length - 2 && ", "}
-            {index === non_cv_atcd.length - 2 && " and "}
-          </span>
-        ))}
-      </strong>
-    );
-  };
-
-  const get_cardiovascular_risk_factor = () => {
-    if (
-      cardiovascular_risk_factor === "" ||
-      cardiovascular_risk_factor === [] ||
-      typeof cardiovascular_risk_factor === "undefined"
-    ) {
-      return <strong>none</strong>;
-    }
-    return (
-      <strong>
-        {cardiovascular_risk_factor.map((item, index) => (
-          <span key={index}>
-            {item}
-            {/* adding , or and between items */}
-            {index < cardiovascular_risk_factor.length - 2 && ", "}
-            {index === cardiovascular_risk_factor.length - 2 && " and "}
-          </span>
-        ))}
-      </strong>
-    );
-  };
-
-  const get_surgery_details = () => {
-    // check if timing of surgery is an object
-    if (typeof timing_of_surgery === "object") {
-      // get the key of the object
-      let key = Object.keys(timing_of_surgery)[0];
-      timing_of_surgery = `${key} (${timing_of_surgery[key]})`;
-    }
-    return (
-      <strong>
-        {type_of_surgery_or_intervention} {timing_of_surgery}
-      </strong>
-    );
-  };
-
-  const get_examination = () => {
-    if (
-      examination === "" ||
-      examination === [] ||
-      typeof examination === "undefined"
-    ) {
-      return <strong>none</strong>;
-    }
-
-    // get first key of object
-    // let key = Object.keys(examination[0])[0];
-
-    return (
-      <strong>
-        {examination.map((item, index) => (
-          <span key={index}>
-            {typeof item === "object" ? " " : item}
-            {/* adding , or and between items */}
-            {index < examination.length - 2 && ", "}
-            {index === examination.length - 2 && " and "}
-          </span>
-        ))}
-      </strong>
-    );
-  };
-
-  const get_bleeding_risk = () => {
-    if (bleeding_risk === "" || typeof bleeding_risk === "undefined") {
-      return <strong>no bleeding risk</strong>;
-    }
-    return <strong>{bleeding_risk}</strong>;
-  };
 
   function preAssessment() {
     let ARR = [];
     let ARR2 = [];
+    let ARR3 = [];
     // initialize empty array if type undefined
     if (typeof cardiovascular_risk_factor === "undefined") {
       cardiovascular_risk_factor = [];
@@ -830,6 +667,16 @@ export default function Result({ end }) {
       );
     }
 
+    // emergent
+    if (
+      ["Emergent non-cardiac surgery", "Urgent non-cardiac surgery"].includes(
+        timing_of_surgery
+      )
+    )
+    {
+      
+    }
+
     if (end) {
       setPreAssessmentTodoList(ARR2);
     } else {
@@ -839,151 +686,6 @@ export default function Result({ end }) {
 
   if (end) {
     return (
-      <div className="container md:mt-10">
-        <div className="flex flex-col items-center">
-          <div className="wrapper">
-            <svg
-              className="checkmark"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 52 52"
-            >
-              <circle
-                className="checkmark__circle"
-                cx="26"
-                cy="26"
-                r="25"
-                fill="none"
-              />
-              <path
-                className="checkmark__check"
-                fill="none"
-                d="M14.1 27.2l7.1 7.2 16.7-16.8"
-              />
-            </svg>
-          </div>
-
-          <div className="mt-3 text-xl font-semibold uppercase text-green-500">
-            Recommendations regarding medications
-          </div>
-
-          <br />
-          <div className="mt-5 text-xl font-semibold uppercase text-green-500">
-            <u>TO DO PLEASE</u>
-          </div>
-        </div>
-        <div>
-          <div
-            className="text-lg font-semibold text-gray-500"
-            style={
-              preAssessmentTodoList.length === 0
-                ? { textAlign: "center" }
-                : null
-            }
-          >
-            {preAssessmentTodoList?.length === 0 &&
-              timing_of_surgery !== "Time-sensitive non-cardiac surgery" && (
-                <span>
-                  <strong>Nothing to do</strong>
-                </span>
-              )}
-            <ul>
-              {!end &&
-                timing_of_surgery === "Time-sensitive non-cardiac surgery" && (
-                  <li>
-                    <div>
-                      <strong>Timing of surgery: </strong>
-                      <span>
-                        Multidisciplinary decision of individualized cardiac
-                        testing. If time, manage as elective non-cardiac surgery{" "}
-                        <br />
-                      </span>
-                    </div>
-                  </li>
-                )}
-              {preAssessmentTodoList?.map((item, index) => (
-                <li key={index}>
-                  <div className={item.class}>
-                    <span>
-                      {item.label} <strong>{item.span}</strong>
-                    </span>
-                  </div>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* <DownloadButton /> */}
-
-          {end && (
-            <div className="mt-5">
-              <a className="mt-10" href="/user/dashboard">
-                <button className="h-10 px-5 text-green-700 transition-colors duration-150 border border-gray-300 rounded-lg focus:shadow-outline hover:bg-green-500 hover:text-green-100">
-                  Close
-                </button>
-              </a>
-            </div>
-          )}
-        </div>
-      </div>
-    );
-  }
-  return (
-    <div className="container md:mt-10">
-      <div className="flex flex-col items-center">
-        <div className="wrapper">
-          <svg
-            className="checkmark"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 52 52"
-          >
-            <circle
-              className="checkmark__circle"
-              cx="26"
-              cy="26"
-              r="25"
-              fill="none"
-            />
-            <path
-              className="checkmark__check"
-              fill="none"
-              d="M14.1 27.2l7.1 7.2 16.7-16.8"
-            />
-          </svg>
-        </div>
-
-        <div className="mt-3 text-xl font-semibold uppercase text-green-500">
-          Cardiology opinion
-        </div>
-        <div
-          className="text-lg font-semibold text-gray-500 mt-5"
-          id="resultText"
-        >
-          It's about the patient Mr/Mrs {get_patient_name()}, having as a
-          cardiovascular risk factor {get_cardiovascular_risk_factor()}, as
-          cardiovascular antecedents {get_cv_atcd()} and as non cardiovascular
-          antecedent {get_non_cv_atcd()}, undergoing a {get_surgery_details()},
-          with a {get_bleeding_risk()}. The examination found{" "}
-          {get_examination()}
-        </div>
-
-        <br />
-        <br />
-        <br />
-        <div className="mt-5 text-xl font-semibold uppercase text-green-500">
-          <u>TO DO PLEASE</u>
-        </div>
-        {/* <div className="text-lg font-semibold text-gray-500">
-          {timing_of_surgery === "Time-sensitive non-cardiac surgery" && (
-            <>
-              <strong>Timing of surgery</strong>
-              <span>
-                (Multidisciplinary decision of individualized cardiac testing.
-                If time, manage as elective non-cardiac surgery) <br />
-              </span>
-            </>
-          )}
-        </div> */}
-      </div>
       <div>
         <div
           className="text-lg font-semibold text-gray-500"
@@ -998,18 +700,19 @@ export default function Result({ end }) {
               </span>
             )}
           <ul>
-            {timing_of_surgery === "Time-sensitive non-cardiac surgery" && (
-              <li>
-                <div>
-                  <strong>Timing of surgery: </strong>
-                  <span>
-                    Multidisciplinary decision of individualized cardiac
-                    testing. If time, manage as elective non-cardiac surgery{" "}
-                    <br />
-                  </span>
-                </div>
-              </li>
-            )}
+            {!end &&
+              timing_of_surgery === "Time-sensitive non-cardiac surgery" && (
+                <li>
+                  <div>
+                    <strong>Timing of surgery: </strong>
+                    <span>
+                      Multidisciplinary decision of individualized cardiac
+                      testing. If time, manage as elective non-cardiac surgery{" "}
+                      <br />
+                    </span>
+                  </div>
+                </li>
+              )}
             {preAssessmentTodoList?.map((item, index) => (
               <li key={index}>
                 <div className={item.class}>
@@ -1025,29 +728,69 @@ export default function Result({ end }) {
         {/* <DownloadButton /> */}
 
         {end && (
-          <a className="mt-10" href="/user/dashboard">
-            <button className="h-10 px-5 text-green-700 transition-colors duration-150 border border-gray-300 rounded-lg focus:shadow-outline hover:bg-green-500 hover:text-green-100">
-              Close
-            </button>
-          </a>
+          <div className="mt-5">
+            <a className="mt-10" href="/user/dashboard">
+              <button className="h-10 px-5 text-green-700 transition-colors duration-150 border border-gray-300 rounded-lg focus:shadow-outline hover:bg-green-500 hover:text-green-100">
+                Close
+              </button>
+            </a>
+          </div>
         )}
       </div>
+    );
+  }
+
+  return (
+    <div>
+      <div
+        className="text-lg font-semibold text-gray-500"
+        style={
+          preAssessmentTodoList.length === 0 ? { textAlign: "center" } : null
+        }
+      >
+        {preAssessmentTodoList?.length === 0 &&
+          timing_of_surgery !== "Time-sensitive non-cardiac surgery" && (
+            <span>
+              <strong>Nothing to do</strong>
+            </span>
+          )}
+        <ul>
+          {timing_of_surgery === "Time-sensitive non-cardiac surgery" && (
+            <li>
+              <div>
+                <strong>Timing of surgery: </strong>
+                <span>
+                  Multidisciplinary decision of individualized cardiac testing.
+                  If time, manage as elective non-cardiac surgery <br />
+                </span>
+              </div>
+            </li>
+          )}
+          {preAssessmentTodoList?.map((item, index) => (
+            <li key={index}>
+              <div className={item.class}>
+                <span>
+                  {item.label} <strong>{item.span}</strong>
+                </span>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      {/* <DownloadButton /> */}
+
+      {end && (
+        <a className="mt-10" href="/user/dashboard">
+          <button className="h-10 px-5 text-green-700 transition-colors duration-150 border border-gray-300 rounded-lg focus:shadow-outline hover:bg-green-500 hover:text-green-100">
+            Close
+          </button>
+        </a>
+      )}
     </div>
   );
 }
 
-/*
-transform this
-"examination": [
-        {
-          "Abnormal ECG": "[\"Pathological Q wave\"]"
-        },
-        "Acute coronary syndrome"
-      ]
-
-      to this
-["Abnormal ECG", "Acute coronary syndrome"]
-*/
 function transformExamination(examination) {
   let result = [];
   examination.forEach((item) => {

@@ -542,19 +542,19 @@ export const form = {
                               options: [
                                 {
                                   label: "Apixaban",
-                                  value: "apixaban",
+                                  value: "Apixaban",
                                 },
                                 {
                                   label: "Dabigatran",
-                                  value: "dabigatran",
+                                  value: "Dabigatran",
                                 },
                                 {
                                   label: "Edoxaban",
-                                  value: "edoxaban",
+                                  value: "Edoxaban",
                                 },
                                 {
                                   label: "Rivaroxaban",
-                                  value: "rivaroxaban",
+                                  value: "Rivaroxaban",
                                 },
                               ],
                             },
@@ -568,15 +568,15 @@ export const form = {
                               options: [
                                 {
                                   label: "Warfarin",
-                                  value: "warfarin",
+                                  value: "Warfarin",
                                 },
                                 {
                                   label: "Acenocoumarol(Sintrom*)",
-                                  value: "acenocoumarol_sintrom",
+                                  value: "Acenocoumarol(Sintrom*)",
                                 },
                                 {
                                   label: "Other Vitamin K antagonist",
-                                  value: "other_vitamin_k_antagonist",
+                                  value: "Other Vitamin K antagonist",
                                 },
                               ],
                             },

@@ -14,16 +14,16 @@ export default function CheckboxWithSections({
   const [parentChecked, setParentChecked] = useState(false);
   const [nestedParentChecked, setnestedParentChecked] = useState(false);
 
-  console.log("nestedParentChecked:", nestedParentChecked);
   // nested
   const [nestedGroupName, setNestedGroupName] = useState("");
 
   let groupList = userData[groupName] || [];
 
   const handleChild = (e) => {
-    console.log(e.target);
     // check if child is a nested question
     const isNestedQuestion = e.target.getAttribute("nested-question");
+    const nested_type = e.target.getAttribute("nested-type");
+
     if (isNestedQuestion) {
       setnestedParentChecked(e.target.checked);
       setNestedGroupName(e.target.value);
@@ -48,10 +48,9 @@ export default function CheckboxWithSections({
             (item) => typeof item === "object" && item[tempNestedGroupName]
           ) || [];
 
-        console.log("nestedGroupList:", nestedGroupList);
-
         // initialize empty array if not exist
         let initialized = false;
+
         // find the checked children list
         for (let item of userData[groupName]) {
           if (typeof item === "object" && item[input_name]) {
@@ -71,7 +70,12 @@ export default function CheckboxWithSections({
           let tempUserData = userData;
           for (let item of tempUserData[groupName]) {
             if (typeof item === "object" && item[input_name]) {
-              item[input_name].push({ [tempNestedGroupName]: [] });
+              if (nested_type === "checkbox") {
+                item[input_name].push({ [tempNestedGroupName]: [] });
+              }
+              if (nested_type === "radio") {
+                item[input_name].push({ [tempNestedGroupName]: "" });
+              }
             }
           }
           setUserData({ ...tempUserData });
@@ -91,8 +95,6 @@ export default function CheckboxWithSections({
       }
     }
 
-    console.log("checkedChildrenList", checkedChildrenList);
-
     const value = e.target.value;
     const isChecked = e.target.checked;
 
@@ -107,7 +109,6 @@ export default function CheckboxWithSections({
     // update the array
     for (let item of groupList) {
       if (typeof item === "object" && item[input_name]) {
-        // console.log("item", item);
         item[input_name] = checkedChildrenList;
         setUserData({ ...userData, [groupName]: groupList });
         return;
@@ -137,7 +138,6 @@ export default function CheckboxWithSections({
         for (let item of userData[groupName]) {
           if (Array.isArray(item)) {
             initialized = true;
-            console.log("initialized");
             break;
           }
         }
@@ -152,69 +152,84 @@ export default function CheckboxWithSections({
   };
 
   const handleGrandChild = (e) => {
-    // let checkedChildrenList =
-    //   userData[groupName]
-    //     .filter((item) => typeof item === "object" && item[input_name])
-    //     .filter((item) => typeof item === "object" && item[nestedGroupName]) ||
-    //   [];
-
-    let checkedChildrenList = [];
-
-    // find the checked children list
-    for (let item of userData[groupName]) {
-      if (typeof item === "object" && item[input_name]) {
-        for (let nestedItem of item[input_name]) {
-          if (typeof nestedItem === "object" && nestedItem[nestedGroupName]) {
-            checkedChildrenList = nestedItem[nestedGroupName];
-            break;
+    const { value, type } = e.target;
+    if (type === "radio") {
+      // update userData
+      let tempUserData = userData;
+      for (let item of tempUserData[groupName]) {
+        if (typeof item === "object" && item[input_name]) {
+          console.log("input_name:", item[input_name]);
+          let new_input_name;
+          console.log("nestedGroupName:", nestedGroupName);
+          for (let nestedItem of item[input_name]) {
+            console.log("nestedItem:", nestedItem);
+            // get the key
+            let key = Object.keys(nestedItem)[0];
+            console.log("key:", key);
+            console.log("nestedGroupName:", nestedGroupName);
+            if (nestedGroupName === key) {
+              nestedItem[key] = value;
+            } else if(["vitamin_k_antagonist", "non_vitamin_k_antagonist_oral_anticoagulants"].includes(nestedGroupName) && nestedGroupName !== key) {
+             // remove object that have different key
+              item[input_name] = item[input_name].filter((item) => typeof item === "string" || Object.keys(item)[0] === nestedGroupName);
+              console.log("item[input_name]:", item[input_name]);
+            }
           }
         }
       }
+
+      console.log("tempUserData:", tempUserData);
+
+      setUserData({ ...tempUserData });
     }
 
-    const value = e.target.value;
-    const isChecked = e.target.checked;
+    if (type === "checkbox") {
+      let checkedChildrenList = [];
 
-    if (isChecked) {
-      checkedChildrenList.push(value);
-    } else {
-      checkedChildrenList = checkedChildrenList.filter(
-        (item) => item !== value
-      );
-    }
-
-    console.log("userData", userData);
-
-    setUserData({ ...userData });
-
-    // update userData
-    let tempUserData = userData;
-    console.log("tempUserData", tempUserData);
-    for (let item of tempUserData[groupName]) {
-      if (typeof item === "object" && item[input_name]) {
-        for (let nestedItem of item[input_name]) {
-          if (typeof nestedItem === "object" && nestedItem[nestedGroupName]) {
-            nestedItem[nestedGroupName] = checkedChildrenList;
+      // find the checked children list
+      for (let item of userData[groupName]) {
+        if (typeof item === "object" && item[input_name]) {
+          for (let nestedItem of item[input_name]) {
+            if (typeof nestedItem === "object" && nestedItem[nestedGroupName]) {
+              checkedChildrenList = nestedItem[nestedGroupName];
+              break;
+            }
           }
         }
       }
+
+      const value = e.target.value;
+      const isChecked = e.target.checked;
+
+      if (isChecked) {
+        checkedChildrenList.push(value);
+      } else {
+        checkedChildrenList = checkedChildrenList.filter(
+          (item) => item !== value
+        );
+      }
+
+      console.log("userData", userData);
+
+      setUserData({ ...userData });
+
+      // update userData
+      let tempUserData = userData;
+      console.log("tempUserData", tempUserData);
+      for (let item of tempUserData[groupName]) {
+        if (typeof item === "object" && item[input_name]) {
+          for (let nestedItem of item[input_name]) {
+            if (typeof nestedItem === "object" && nestedItem[nestedGroupName]) {
+              nestedItem[nestedGroupName] = checkedChildrenList;
+            }
+          }
+        }
+      }
+
+      console.log("tempUserData", tempUserData);
+
+      return;
     }
-
-    console.log("tempUserData", tempUserData);
-
-    return;
-
-    // console.log("checkedChildrenList", checkedChildrenList)
-
-    // update the array
-    // for (let item of groupList) {
-    //   if (typeof item === "object" && item[input_name]) {
-    //     console.log("item", item);
-    //     item[input_name] = checkedChildrenList;
-    //     setUserData({ ...userData, [groupName]: groupList });
-    //     return;
-    //   }
-    // }
   };
 
   return (
@@ -267,6 +282,7 @@ export default function CheckboxWithSections({
                                 name={section.title}
                                 value={option.value}
                                 nested-question="true"
+                                nested-type={option.nestedQuestion.type}
                                 onChange={(e) => handleChild(e)}
                               />
                               <label htmlFor={option.value}>
