@@ -101,7 +101,7 @@ export default function App() {
   return <Questionnaire questions={questions} />;
 }
 
-function Questionnaire({questions}) {
+function Questionnaire({ questions }) {
   return (
     <>
       {questions.map((question, index) => {
@@ -110,8 +110,7 @@ function Questionnaire({questions}) {
             <Question question={question} nested={false} />
           </div>
         );
-      }
-      )}
+      })}
     </>
-  )
+  );
 }

@@ -72,7 +72,7 @@ const Question = ({
       console.log(object_);
       const path_exist = checkIfExist(path_);
       let tempUserData = userData;
-      
+
       if (path_exist) {
         for (let i = 0; i < path_.length - 1; i++) {
           object_ = object_[path_[i]];
@@ -295,7 +295,9 @@ const Question = ({
         return (
           <div
             key={index}
-            className={`${nested && index === question.options.length - 1 ? "mb-5" : ""}`}
+            className={`${
+              nested && index === question.options.length - 1 ? "mb-5" : ""
+            }`}
           >
             <input
               index={index}
@@ -362,7 +364,7 @@ const Question = ({
 
   function nestObject(str) {
     let arr = str.split(": ");
-    console.log(arr)
+    console.log(arr);
 
     let form = {};
     for (let i = arr.length - 1; i >= 0; i--) {
@@ -380,8 +382,7 @@ const Question = ({
   function nestArray(arr) {
     let form = {};
     let selected = [];
-    console.log(arr)
-
+    console.log(arr);
 
     // pushing selected options to array
     for (let i = 0; i < arr.length; i++) {

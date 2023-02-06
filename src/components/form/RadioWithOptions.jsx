@@ -13,17 +13,13 @@ export default function RadioWithOptions({
   const [nestedChecked, setNestedChecked] = useState(null);
 
   useEffect(() => {
-    console.log("userData:", userData);
     if (userData["current_use_of_oral_anticoagulants"] === null) {
       setParentChecked(null);
       setNestedChecked(null);
-      
     }
   }, []);
 
   let childChecked = {};
-
-
 
   const handleChild = (e) => {
     // check if child is a nested question

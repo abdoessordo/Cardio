@@ -10,7 +10,6 @@ import Result from "./components/steps/Result";
 function App() {
   const [currentStep, setCurrentStep] = useState(1);
 
-
   const steps = form.steps.map((step) => step.title);
 
   const handleClick = (direction) => {
@@ -44,17 +43,14 @@ function App() {
 
       {/* navigation button */}
       <UseContextProvider>
-      
-      {currentStep !== steps.length && (
-
-        <StepperControl
-          handleClick={handleClick}
-          currentStep={currentStep}
-          steps={steps}
-        />
+        {currentStep !== steps.length && (
+          <StepperControl
+            handleClick={handleClick}
+            currentStep={currentStep}
+            steps={steps}
+          />
         )}
       </UseContextProvider>
-        
     </div>
   );
 }

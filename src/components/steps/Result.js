@@ -1,12 +1,10 @@
 import { useEffect, useState } from "react";
 import { useStepperContext } from "../../contexts/StepperContext";
 import _ from "lodash";
-import DownloadButton from "../DownloadButton";
 
 export default function Result({ end }) {
   const { userData } = useStepperContext();
   const [preAssessmentTodoList, setPreAssessmentTodoList] = useState([]);
-  const [preAssessmentTodoList2, setPreAssessmentTodoList2] = useState([]);
 
   let {
     examination,
@@ -22,7 +20,7 @@ export default function Result({ end }) {
 
   useEffect(() => {
     preAssessment();
-  }, []);
+  });
 
   const get_patient_name = () => {
     if (patient_name === "" || typeof patient_name === "undefined") {
@@ -230,8 +228,11 @@ export default function Result({ end }) {
       [
         "High surgical risk (>5%)",
         "Intermediate surgical risk (1-5%)",
-      ].includes(type_of_surgery_or_intervention)
-      && (antecedent.length > 0 || examination.includes("Symptoms/signs suggestive of cardio-vascular disease"))
+      ].includes(type_of_surgery_or_intervention) &&
+      (antecedent.length > 0 ||
+        examination.includes(
+          "Symptoms/signs suggestive of cardio-vascular disease"
+        ))
     ) {
       ARR.push(
         {
