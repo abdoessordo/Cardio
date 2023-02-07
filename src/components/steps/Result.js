@@ -873,6 +873,263 @@ export default function Result({ end }) {
       );
     }
 
+    let aspirin_primary_prevention = false;
+    for (let med of medications_current_use) {
+      console.log("med", med);
+      console.log("med.antiplatelet", med.antiplatelets);
+      if (typeof med === "object" && med.antiplatelets?.length > 0) {
+        for (let antiplatelet_meds of med.antiplatelets) {
+          // console.log("antiplatelet_meds", antiplatelet_meds);
+          if (_.isEqual(antiplatelet_meds, { aspirin: "primary_prevention" })) {
+            aspirin_primary_prevention = true;
+            break;
+          }
+        }
+      }
+    }
+
+    if (aspirin_primary_prevention) {
+      ARR2.push({
+        label: "Interrupt Aspirin",
+        span: "",
+        class: "",
+      });
+    }
+
+    let is_Aspirin = false;
+    for (let med of medications_current_use) {
+      if (typeof med === "object" && med.antiplatelets?.length > 0) {
+        for (let antiplatelet_meds of med.antiplatelets) {
+          if (Object.keys(antiplatelet_meds)[0] === "aspirin") {
+            is_Aspirin = true;
+            break;
+          }
+        }
+      }
+    }
+
+    let is_P2Y12 = false;
+    for (let med of medications_current_use) {
+      if (typeof med === "object" && med.antiplatelets?.length > 0) {
+        for (let antiplatelet_meds of med.antiplatelets) {
+          if (Object.keys(antiplatelet_meds)[0] === "P2Y12 inhibitor") {
+            is_P2Y12 = true;
+            break;
+          }
+        }
+      }
+    }
+
+    if (
+      ["Low bleeding risk", "Minor bleeding risk"].includes(bleeding_risk) &&
+      is_Aspirin &&
+      is_P2Y12
+    ) {
+      ARR2.push({
+        label: "Continue aspirin and P2Y12 inhibitor",
+        span: "(Class I)",
+        class: "classI",
+      });
+    }
+
+    let antiplatelets_low_thrombotic_risk = false;
+    for (let med of medications_current_use) {
+      if (typeof med === "object" && med.antiplatelets?.length > 0) {
+        for (let antiplatelet_meds of med.antiplatelets) {
+          if (antiplatelet_meds === "low_thrombotic_risk") {
+            antiplatelets_low_thrombotic_risk = true;
+          }
+        }
+      }
+    }
+
+    let p2y12_ticarelor = false;
+    for (let med of medications_current_use) {
+      if (typeof med === "object" && med.antiplatelets?.length > 0) {
+        for (let antiplatelet_meds of med.antiplatelets) {
+          if (
+            _.isEqual(antiplatelet_meds, { p2y12_inhibitors: "ticagrelor" })
+          ) {
+            p2y12_ticarelor = true;
+            break;
+          }
+        }
+      }
+    }
+
+    if (
+      bleeding_risk === "High bleeding risk" &&
+      antiplatelets_low_thrombotic_risk &&
+      is_Aspirin &&
+      p2y12_ticarelor
+    ) {
+      ARR2.push(
+        {
+          label: "Continue Aspirin",
+          span: "(Class I)",
+          class: "classI",
+        },
+        {
+          label: "Interrupt Ticagrelor 3-5 days pre-operatively",
+          span: "(Class I)",
+          class: "classI",
+        },
+        {
+          label:
+            "Bridging with Tirofiban/Eptifibatide infusion 3 days pre-operatively, and interrupt it 4 hours pre-operatively or bridging with Cangrelor infusion immediately with interruption of Ticagrelor and interrupt it 1 hour pre-operatively",
+          span: "(Class I)",
+          class: "classI",
+        },
+        {
+          label:
+            "Initiate Clopidogrel (LD 300 mg ) 4 to 6 hours after non-cardiac surgery , followed by 75 mg once a day",
+          span: "(Class I)",
+          class: "classI",
+        }
+      );
+    }
+
+    let p2y12_clopidogrel = false;
+    for (let med of medications_current_use) {
+      if (typeof med === "object" && med.antiplatelets?.length > 0) {
+        for (let antiplatelet_meds of med.antiplatelets) {
+          if (
+            _.isEqual(antiplatelet_meds, { p2y12_inhibitors: "clopidogrel" })
+          ) {
+            p2y12_clopidogrel = true;
+            break;
+          }
+        }
+      }
+    }
+
+    if (
+      bleeding_risk === "High bleeding risk" &&
+      antiplatelets_low_thrombotic_risk &&
+      is_Aspirin &&
+      p2y12_clopidogrel
+    ) {
+      ARR2.push(
+        {
+          label: "Continue aspirin",
+          span: "(Class I)",
+          class: "classI",
+        },
+        {
+          label: "Interrupt Clopidogrel 5days pre-operatively",
+          span: "(Class I)",
+          class: "classI",
+        },
+        {
+          label:
+            "Bridging with Tirofiban/Eptifibatide infusion 3 days pre-operatively, and interrupt it 4 hours",
+          span: "(Class I)",
+          class: "classI",
+        },
+        {
+          label:
+            "Pre-operatively or bridging with Cangrelor infusion immediately with interruption of clopidogrel and interrupt it 1 hour per-operatively",
+          span: "(Class I)",
+          class: "classI",
+        },
+        {
+          label:
+            "Initiate clopidogrel (LD 300 mg) 4 to 6 hours after non-cardiac surgery, followed by 75 mg once a day",
+          span: "(Class I)",
+          class: "classI",
+        }
+      );
+    }
+
+    let p2y12_prasugrel = false;
+    for (let med of medications_current_use) {
+      if (typeof med === "object" && med.antiplatelets?.length > 0) {
+        for (let antiplatelet_meds of med.antiplatelets) {
+          if (_.isEqual(antiplatelet_meds, { p2y12_inhibitors: "prasugrel" })) {
+            p2y12_prasugrel = true;
+            break;
+          }
+        }
+      }
+    }
+
+    if (
+      bleeding_risk === "High bleeding risk" &&
+      antiplatelets_low_thrombotic_risk &&
+      is_Aspirin &&
+      p2y12_prasugrel
+    ) {
+      ARR2.push(
+        {
+          label: "Continue aspirin",
+          span: "(Class I)",
+          class: "classI",
+        },
+        {
+          label: "Interrupt Prasugrel 7 days pre-operatively",
+          span: "(Class I)",
+          class: "classI",
+        },
+        {
+          label:
+            "Bridging with Tirofiban/Eptifibatide infusion 3 days pre-operatively, and interrupt it 4 hours (Class I) pre-operatively or bridging with cangrelor infusion immediately with interruption of Prasugrel and interrupt it 1 hour pre-operatively",
+          span: "(Class I)",
+          class: "classI",
+        },
+        {
+          label:
+            "Initiate Clopidogrel (LD 300 mg) 4 to 6 hours after non-cardiac surgery, followed by 75 mg once a day",
+          span: "(Class I)",
+          class: "classI",
+        }
+      );
+    }
+
+    let antiplatelets_high_thrombotic_risk = false;
+    for (let med of medications_current_use) {
+      if (typeof med === "object" && med.antiplatelets?.length > 0) {
+        for (let antiplatelet_meds of med.antiplatelets) {
+          if (Object.keys(antiplatelet_meds) === "high_thrombotic_risk_1" && antiplatelet_meds.high_thrombotic_risk_1.length > 0) {
+            antiplatelets_high_thrombotic_risk = true;
+            break;
+          }
+        }
+      }
+    }
+
+    if (
+      timing_of_surgery === "Time sensitive non-cardiac surgery" &&
+      bleeding_risk === "High bleeding risk" &&
+      antiplatelets_high_thrombotic_risk &&
+      is_Aspirin &&
+      is_P2Y12
+    ) {
+      ARR2.push(
+        {
+          label: "Bridge with glycoprotein IIb/IIIa inhibitors or Cangrelor",
+          span: "",
+          class: ""
+        }
+      )
+    }
+
+    if (
+      bleeding_risk === "High bleeding risk" &&
+      antiplatelets_high_thrombotic_risk &&
+      elective_non_cardiac_surgery &&
+      is_Aspirin &&
+      is_P2Y12
+    ) {
+      ARR2.push(
+        {
+          label: "Defer non-cardiac surgery",
+          span: "(Class I)",
+          class: "classI",
+        }
+      );
+    }
+
+
     if (end) {
       setPreAssessmentTodoList(ARR2);
     } else {
