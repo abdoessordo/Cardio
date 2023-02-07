@@ -196,9 +196,6 @@ export default function Result({ end }) {
   };
 
   function preAssessment() {
-    console.log("type", type_of_surgery_or_intervention);
-    console.log("ee", examination, transformExamination(examination));
-    console.log("kole", userData);
     let ARR = [];
     let ARR2 = [];
     // initialize empty array if type undefined
@@ -228,7 +225,10 @@ export default function Result({ end }) {
     }
     // union of cv_atcd and non_cv_atcd
     let antecedent = [...cv_atcd, ...non_cv_atcd];
-
+    console.log("type", type_of_surgery_or_intervention);
+    console.log("ee", examination, transformExamination(examination));
+    console.log("kole", userData);
+    console.log(antecedent);
     if (
       [
         "High surgical risk (>5%)",
@@ -271,14 +271,9 @@ export default function Result({ end }) {
     }
 
     if (
-      (type_of_surgery_or_intervention === "High surgical risk (>5%)" ||
-        type_of_surgery_or_intervention ===
-          "Intermediate surgical risk (1-5%)") &&
-      (cardiovascular_risk_factor.length === 0 ||
-        antecedent.length === 0 ||
-        examination.includes(
-          "symptoms/signs suggestive of cardio-vascular disease"
-        ))
+      type_of_surgery_or_intervention === "High surgical risk (>5%)" &&
+      cardiovascular_risk_factor.length === 0 &&
+      antecedent.length === 0
     ) {
       ARR.push(
         {
@@ -321,6 +316,7 @@ export default function Result({ end }) {
       type_of_surgery_or_intervention === "Intermediate surgical risk (1-5%)" &&
       compareArrays(examination, list)
     ) {
+      console.log("kiderti liha");
       ARR.push({
         label: "Trans-thoracic echography (ETT)",
         span: "(Class IIb)",
@@ -1095,6 +1091,8 @@ function transformExamination(examination) {
 
 function compareArrays(examination, array2) {
   let new_examination = transformExamination(examination);
+  // console.log("cmp", new_examination);
+  if (examination.length === 0) return false;
   for (let element of new_examination) {
     if (!array2.includes(element)) {
       return false;
