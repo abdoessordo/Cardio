@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useStepperContext } from "../../contexts/StepperContext";
-import CheckboxWithCheckboxOptions from "./CheckboxWithCheckboxOptions";
 
 export default function CheckboxWithSections({
   id,
