@@ -1,6 +1,7 @@
 import { useState } from "react";
 import EmergentPopup from "../EmergentPopup";
 import Question from "../form/Question";
+import QuestionWithRecursion from "../form/Question (legacy)";
 
 export default function PartQuestions({ parts }) {
   const [showPopup, setShowPopup] = useState(false);
@@ -120,12 +121,30 @@ export default function PartQuestions({ parts }) {
 // }
 
 function Questionnaire({ questions, setShowPopup }) {
+  console.log(questions);
+  if (questions[0].name === "medications_current_use") {
+    return (
+      <>
+        {questions.map((question, index) => {
+          return (
+            <div key={index}>
+              
+              <QuestionWithRecursion question={question} nested={false} />
+  
+            </div>
+          );
+        })}
+      </>
+    );
+  }
   return (
     <>
       {questions.map((question, index) => {
         return (
           <div key={index}>
+            
             <Question question={question} setShowPopup={setShowPopup} />
+
           </div>
         );
       })}

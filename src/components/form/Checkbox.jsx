@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useStepperContext } from "../../contexts/StepperContext";
 
-export default function Checkbox({ id, name, label, value, groupName }) {
+export default function QCheckbox({ id, name, label, value, groupName }) {
   const [checked, setChecked] = useState(false);
 
   const { userData, setUserData } = useStepperContext();

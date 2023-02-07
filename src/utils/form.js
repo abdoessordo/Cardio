@@ -23,11 +23,7 @@ export const form = {
                 {
                   label: "Time-sensitive non-cardiac surgery",
                   value: "Time-sensitive non-cardiac surgery",
-                },
-                {
-                  label: "Elective non-cardiac surgery",
-                  value: "Elective non-cardiac surgery",
-                  name: "elective_non_cardiac_surgery",
+                  name: "time_sensitive_non_cardiac_surgery",
                   nestedQuestion: {
                     type: "radio",
                     options: [
@@ -41,6 +37,11 @@ export const form = {
                       },
                     ],
                   },
+                },
+                {
+                  label: "Elective non-cardiac surgery",
+                  value: "Elective non-cardiac surgery",
+                  
                 },
               ],
             },
@@ -483,10 +484,12 @@ export const form = {
                       {
                         label: "To treat arterial hypertension",
                         value: "to_treat_arterial_hypertension",
+                        parent: "Renin–angiotensin–aldosterone system inhibitors",
                       },
                       {
                         label: "To treat heart failure",
                         value: "to_treat_heart_failure",
+                        parent: "Renin–angiotensin–aldosterone system inhibitors",
                       },
                     ],
                   },
@@ -505,14 +508,17 @@ export const form = {
                       {
                         label: "To treat hypertension",
                         value: "to_treat_hypertension",
+                        parent: "Diuretics",
                       },
                       {
                         label: "To treat heart failure",
                         value: "to_treat_heart_failure1",
+                        parent: "Diuretics",
                       },
                       {
                         label: "Other indications",
                         value: "other_indications",
+                        parent: "Diuretics",
                       },
                     ],
                   },
