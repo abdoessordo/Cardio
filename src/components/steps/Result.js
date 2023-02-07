@@ -363,7 +363,7 @@ export default function Result({ end }) {
 
     if (
       ["Intermediate surgical risk (1-5%)", "High bleeding risk"].includes(
-        bleeding_risk
+        type_of_surgery_or_intervention
       )
     ) {
       ARR.push({
