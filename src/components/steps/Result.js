@@ -20,7 +20,7 @@ export default function Result({ end }) {
 
   useEffect(() => {
     preAssessment();
-  });
+  }, []);
 
   const get_patient_name = () => {
     if (patient_name === "" || typeof patient_name === "undefined") {
@@ -239,6 +239,17 @@ export default function Result({ end }) {
           "Symptoms/signs suggestive of cardio-vascular disease"
         ))
     ) {
+      // console.log(
+      //   "test",
+      //   [
+      //     "High surgical risk (>5%)",
+      //     "Intermediate surgical risk (1-5%)",
+      //   ].includes(type_of_surgery_or_intervention),
+      //   antecedent.length > 0,
+      //   examination.includes(
+      //     "Symptoms/signs suggestive of cardio-vascular disease"
+      //   )
+      // );
       ARR.push(
         {
           label: "Pre-operative 12-lead ECG",
@@ -260,9 +271,14 @@ export default function Result({ end }) {
     }
 
     if (
-      type_of_surgery_or_intervention === "High surgical risk (>5%)" &&
-      cardiovascular_risk_factor.length === 0 &&
-      antecedent.length === 0
+      (type_of_surgery_or_intervention === "High surgical risk (>5%)" ||
+        type_of_surgery_or_intervention ===
+          "Intermediate surgical risk (1-5%)") &&
+      (cardiovascular_risk_factor.length === 0 ||
+        antecedent.length === 0 ||
+        examination.includes(
+          "symptoms/signs suggestive of cardio-vascular disease"
+        ))
     ) {
       ARR.push(
         {
