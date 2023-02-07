@@ -5,15 +5,7 @@ import { useStepperContext } from "../../contexts/StepperContext";
 import Input from "./Input";
 import Select from "./Select";
 
-const QuestionWithRecursion = ({
-  question,
-  nested,
-  parent,
-  parentData,
-  setParentData,
-  parents,
-  setParents,
-}) => {
+const QuestionWithRecursion = ({ question, nested, parent }) => {
   const [selectedOption, setSelectedOption] = useState(null);
   const [selectedOptionsCheckbox, setSelectedOptionsCheckbox] = useState([]);
   const { userData, setUserData } = useStepperContext();
@@ -39,6 +31,7 @@ const QuestionWithRecursion = ({
 
     const { value } = e.target;
     console.log(value);
+
     if (selectedOptionsCheckbox.includes(value)) {
       // tempSelectedOptionsCheckbox = selectedOptionsCheckbox.filter(
       //   (option) => option !== value
@@ -67,6 +60,7 @@ const QuestionWithRecursion = ({
       const { [key_]: removed, ...rest } = userData;
       setUserData(rest);
     } else {
+      console.log(tempSelectedOptionsCheckbox);
       let { object_, key_, path_ } = nestArray(tempSelectedOptionsCheckbox);
       console.log(path_);
       console.log(object_);
@@ -94,6 +88,35 @@ const QuestionWithRecursion = ({
         setUserData({ ...userData, [key_]: object_[key_] });
       }
     }
+  };
+
+  const handleParent = (e) => {
+    const { name, value, checked } = e.target;
+    console.log("name: ", name);
+
+
+    let tempSelectedOptionsCheckbox = userData.medications_current_use || [];
+
+    console.log("tempSelectedOptionsCheckbox: ", tempSelectedOptionsCheckbox);
+
+    if (selectedOptionsCheckbox.includes(name)) {
+      // Remove from array
+      tempSelectedOptionsCheckbox = selectedOptionsCheckbox.filter( (option) => option !== name);
+    } else {
+      // Add to array
+      console.log("adding to array");
+      tempSelectedOptionsCheckbox.push(name);
+      console.log("tempSelectedOptionsCheckbox: ", tempSelectedOptionsCheckbox);
+    }
+    console.log("tempSelectedOptionsCheckbox: ", tempSelectedOptionsCheckbox);
+    setSelectedOptionsCheckbox(tempSelectedOptionsCheckbox);
+    setUserData({ ...userData, medications_current_use: tempSelectedOptionsCheckbox });
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    // console.log("name: ", name);
+    // console.log("value: ", value);
   };
 
   if (["results", "title"].includes(question.type)) {
@@ -164,17 +187,19 @@ const QuestionWithRecursion = ({
                           value={option.value}
                           name={option.label}
                           checked={selectedOptionsCheckbox.includes(
-                            option.value
+                            option.label
                           )}
-                          onChange={handleCheckboxChange}
+                          // onChange={handleCheckboxChange}
+                          onChange={handleChange}
                         />
                         <label htmlFor={`${option.value}`}>
                           {option.label}
                         </label>
+
                         {option.nestedQuestion && (
                           <div
                             className={
-                              selectedOptionsCheckbox.includes(option.value)
+                              selectedOptionsCheckbox.includes(option.label)
                                 ? "ml-4"
                                 : "ml-4 hidden"
                             }
@@ -183,8 +208,6 @@ const QuestionWithRecursion = ({
                               question={option.nestedQuestion}
                               nested={true}
                               parent={option.label}
-                              parents={parents}
-                              setParents={setParents}
                             />
                           </div>
                         )}
@@ -220,8 +243,9 @@ const QuestionWithRecursion = ({
               type="checkbox"
               value={option.value}
               name={option.label}
-              checked={selectedOptionsCheckbox.includes(option.value)}
-              onChange={handleCheckboxChange}
+              checked={selectedOptionsCheckbox.includes(option.label)}
+              // onChange={handleCheckboxChange}
+              onChange={handleParent}
             />
             {/* name={input_name} */}
             <label htmlFor={option.value}>{option.label}</label>
@@ -232,7 +256,7 @@ const QuestionWithRecursion = ({
                   <div
                     className={
                       // selectedOption === option.value ? "ml-4" : "ml-4 hidden"
-                      selectedOptionsCheckbox.includes(option.value)
+                      selectedOptionsCheckbox.includes(option.label)
                         ? "ml-4"
                         : "ml-4 hidden"
                     }
@@ -243,7 +267,7 @@ const QuestionWithRecursion = ({
                     <div
                       className={
                         // selectedOption === option.value ? "ml-4" : "ml-4 hidden"
-                        selectedOptionsCheckbox.includes(option.value)
+                        selectedOptionsCheckbox.includes(option.label)
                           ? "ml-4"
                           : "ml-4 hidden"
                       }
@@ -252,8 +276,6 @@ const QuestionWithRecursion = ({
                         question={section.nestedQuestion}
                         nested={true}
                         parent={option.label}
-                        parents={parents}
-                        setParents={setParents}
                       />
                     </div>
                   )}
@@ -263,18 +285,18 @@ const QuestionWithRecursion = ({
             {option.nestedQuestion && (
               <div
                 className={
-                  selectedOptionsCheckbox.includes(option.value)
+                  selectedOptionsCheckbox.includes(option.label)
                     ? "ml-4"
                     : "ml-4 hidden"
                 }
               >
-                <QuestionWithRecursion
-                  question={option.nestedQuestion}
-                  nested={true}
-                  parent={option.label}
-                  parents={parents}
-                  setParents={setParents}
-                />
+                <>
+                  <QuestionWithRecursion
+                    question={option.nestedQuestion}
+                    nested={true}
+                    parent={option.label}
+                  />
+                </>
               </div>
             )}
           </div>
@@ -304,7 +326,7 @@ const QuestionWithRecursion = ({
               id={`${option.value}`}
               type={question.type}
               value={option.value}
-              checked={selectedOption === option.value}
+              checked={selectedOption === option.label}
               onChange={handleOptionChange}
             />
             {/* name={input_name} */}
@@ -320,9 +342,6 @@ const QuestionWithRecursion = ({
                   nested={true}
                   parent={option.label}
                   parentData={questionData}
-                  setParentData={setQuestionData}
-                  parents={parents}
-                  setParents={setParents}
                 />
               </div>
             )}
@@ -382,7 +401,7 @@ const QuestionWithRecursion = ({
   function nestArray(arr) {
     let form = {};
     let selected = [];
-    console.log(arr);
+    // console.log(arr);
 
     // pushing selected options to array
     for (let i = 0; i < arr.length; i++) {
