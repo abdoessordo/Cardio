@@ -35,6 +35,7 @@ export default function CheckboxWithRadioOptions({
   };
 
   const handleParent = (e) => {
+	  
     setParentChecked(e.target.checked);
     if (!e.target.checked) {
       //remove from userData
@@ -47,12 +48,14 @@ export default function CheckboxWithRadioOptions({
       // initialize empty array if not exist
       if (!userData[groupName]) {
         setUserData({ ...userData, [groupName]: [] });
+      console.log(userData);
       }
     }
   };
 
   return (
     <>
+	  HHHHHHHHHHHhhhh
       <input
         id={id}
         type="checkbox"

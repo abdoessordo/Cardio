@@ -173,12 +173,14 @@ export default function Result({ end }) {
 
     // get first key of object
     // let key = Object.keys(examination[0])[0];
-
+    const handle = (item) => {
+      return Object.keys(item)[0];
+    };
     return (
       <strong>
         {examination.map((item, index) => (
           <span key={index}>
-            {typeof item === "object" ? " " : item}
+            {typeof item === "object" ? handle(item) : item}
             {/* adding , or and between items */}
             {index < examination.length - 2 && ", "}
             {index === examination.length - 2 && " and "}
@@ -196,6 +198,9 @@ export default function Result({ end }) {
   };
 
   function preAssessment() {
+    console.log("type", type_of_surgery_or_intervention);
+    console.log("ee", examination, transformExamination(examination));
+    console.log("kole", userData);
     let ARR = [];
     let ARR2 = [];
     // initialize empty array if type undefined
@@ -230,8 +235,11 @@ export default function Result({ end }) {
       [
         "High surgical risk (>5%)",
         "Intermediate surgical risk (1-5%)",
-      ].includes(type_of_surgery_or_intervention)
-      && (antecedent.length > 0 || examination.includes("Symptoms/signs suggestive of cardio-vascular disease"))
+      ].includes(type_of_surgery_or_intervention) &&
+      (antecedent.length > 0 ||
+        examination.includes(
+          "Symptoms/signs suggestive of cardio-vascular disease"
+        ))
     ) {
       ARR.push(
         {
@@ -320,15 +328,18 @@ export default function Result({ end }) {
         class: "classIIa",
       });
     }
-
+    console.log(type_of_surgery_or_intervention);
+    console.log(examination);
     if (
       type_of_surgery_or_intervention === "High surgical risk (>5%)" &&
-      examination ===
-        "Poor functional capacity (METs<4 –if the patient cannot climb two flights of stairs-)" &&
+      transformExamination(examination).includes(
+        "Poor functional capacity (METs<4 –if the patient cannot climb two flights of stairs-)"
+      ) &&
       transformExamination(examination).includes(
         "High clinical risk factor (RCRI >= 1)"
       )
     ) {
+      console.log("I'm here");
       ARR.push({
         label: "Stress imaging",
         span: "(Class I)",
@@ -1071,9 +1082,9 @@ function transformExamination(examination) {
 function compareArrays(examination, array2) {
   let new_examination = transformExamination(examination);
   for (let element of new_examination) {
-    if (array2.includes(element)) {
-      return true;
+    if (!array2.includes(element)) {
+      return false;
     }
   }
-  return false;
+  return true;
 }

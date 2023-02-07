@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Checkbox from "./Checkbox";
 import CheckboxWithCheckboxOptions from "./CheckboxWithCheckboxOptions";
 import CheckboxWithRadioOptions from "./CheckboxWithRadioOptions";
@@ -6,18 +6,24 @@ import CheckboxWithSections from "./CheckboxWithSections";
 
 export default function CheckboxGroup({ name, options, sections }) {
   const [checked, setChecked] = useState(false);
+  const [returnt, setReturn] = useState("");
 
   const handleChange = (e) => {
+	  console.log("checked");
     setChecked(!checked);
   };
 
+
   // console.log("options", options);
+  useEffect(
+	  ()=>{
   if (sections) {
-    return "";
+	  setReturn("")
   } else if (options) {
-    return (
+    setReturn (
       <>
         {options?.map((option, index) => {
+		console.log(option);
           if (option.label === "Coronary artery disease") {
             return (
               <div key={index}>
@@ -137,7 +143,7 @@ export default function CheckboxGroup({ name, options, sections }) {
           }
 
           if (option.nestedQuestion?.type === "radio") {
-            console.log("B");
+
             return (
               <div key={index}>
                 <CheckboxWithRadioOptions
@@ -173,4 +179,6 @@ export default function CheckboxGroup({ name, options, sections }) {
       </>
     );
   }
+  },[]);
+return returnt;
 }
