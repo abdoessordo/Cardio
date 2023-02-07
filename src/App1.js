@@ -40,12 +40,12 @@ export default function App() {
           },
         },
         {
-          value: "blue",
-          label: "blue",
+          value: "green",
+          label: "green",
         },
         {
-          value: "blue",
-          label: "blue",
+          value: "green",
+          label: "green",
         },
       ],
     },
@@ -87,12 +87,12 @@ export default function App() {
           },
         },
         {
-          value: "blue",
-          label: "blue",
+          value: "green",
+          label: "green",
         },
         {
-          value: "blue",
-          label: "blue",
+          value: "green",
+          label: "green",
         },
       ],
     },

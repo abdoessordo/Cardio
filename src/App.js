@@ -9,7 +9,7 @@ export default class App extends React.Component {
     return (
       <BrowserRouter>
         <Routes>
-          <Route index path="/home" element={<Welcome />} />
+          <Route index path="/" element={<Welcome />} />
           <Route path="/survey" element={<Survey />} />
           <Route path="*" element={<Survey />} />
         </Routes>

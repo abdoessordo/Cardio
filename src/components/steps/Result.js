@@ -265,7 +265,8 @@ export default function Result({ end }) {
         "High surgical risk (>5%)",
         "Intermediate surgical risk (1-5%)",
       ].includes(type_of_surgery_or_intervention) &&
-      (antecedent.length > 0 ||
+      (cv_atcd.length > 0 ||
+        cardiovascular_risk_factor.length > 0 ||
         examination.includes(
           "Symptoms/signs suggestive of cardio-vascular disease"
         ))
@@ -278,7 +279,7 @@ export default function Result({ end }) {
         },
         {
           label:
-            "Measure high sensitivity cardiac troponin before surgery, then 24H and 48H afterwards (Class I)",
+            "Measure high sensitivity cardiac troponin before surgery, then 24H and 48H afterwards",
           span: "(Class I)",
           class: "classI",
         },
@@ -1148,12 +1149,12 @@ export default function Result({ end }) {
             </svg>
           </div>
 
-          <div className="mt-3 text-xl font-semibold uppercase text-blue-500">
+          <div className="mt-3 text-xl font-semibold uppercase text-green-500">
             Recommendations regarding medications
           </div>
 
           <br />
-          <div className="mt-5 text-xl font-semibold uppercase text-blue-500">
+          <div className="mt-5 text-xl font-semibold uppercase text-green-500">
             <u>TO DO PLEASE</u>
           </div>
         </div>
@@ -1209,12 +1210,12 @@ export default function Result({ end }) {
             </ul>
           </div>
 
-          <DownloadButton />
+          {/* <DownloadButton /> */}
 
           {end && (
             <div className="mt-5">
               <a className="mt-10" href="/">
-                <button className="h-10 px-5 text-blue-700 transition-colors duration-150 border border-gray-300 rounded-lg focus:shadow-outline hover:bg-blue-500 hover:text-blue-100">
+                <button className="h-10 px-5 text-green-700 transition-colors duration-150 border border-gray-300 rounded-lg focus:shadow-outline hover:bg-green-500 hover:text-green-100">
                   Close
                 </button>
               </a>
@@ -1248,7 +1249,7 @@ export default function Result({ end }) {
           </svg>
         </div>
 
-        <div className="mt-3 text-xl font-semibold uppercase text-blue-500">
+        <div className="mt-3 text-xl font-semibold uppercase text-green-500">
           Cardiology opinion
         </div>
         <div
@@ -1266,7 +1267,7 @@ export default function Result({ end }) {
         <br />
         <br />
         <br />
-        <div className="mt-5 text-xl font-semibold uppercase text-blue-500">
+        <div className="mt-5 text-xl font-semibold uppercase text-green-500">
           <u>TO DO PLEASE</u>
         </div>
       </div>
@@ -1319,11 +1320,11 @@ export default function Result({ end }) {
           </ul>
         </div>
 
-        <DownloadButton />
+        {/* <DownloadButton /> */}
 
         {end && (
           <a className="mt-10" href="/">
-            <button className="h-10 px-5 text-blue-700 transition-colors duration-150 border border-gray-300 rounded-lg focus:shadow-outline hover:bg-blue-500 hover:text-blue-100">
+            <button className="h-10 px-5 text-green-700 transition-colors duration-150 border border-gray-300 rounded-lg focus:shadow-outline hover:bg-green-500 hover:text-green-100">
               Close
             </button>
           </a>
