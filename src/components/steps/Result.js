@@ -360,7 +360,7 @@ export default function Result({ end }) {
     }
 
     // Medications
-    if (medications_current_use?.includes("Beta-blockers")) {
+    if (medications_current_use?.includes("beta_bolckers")) {
       ARR2.push({
         label: "Continue using beta-blockers",
         span: "(Class I)",
@@ -368,7 +368,7 @@ export default function Result({ end }) {
       });
     }
 
-    if (medications_current_use?.includes("Statins")) {
+    if (medications_current_use?.includes("statins")) {
       ARR2.push({
         label: "Continue using Statins",
         span: "(Class I)",
@@ -388,16 +388,16 @@ export default function Result({ end }) {
         break;
       }
     }
-    let isRenin;
-    for (let med of medications_current_use) {
-      if (
-        typeof med === "object" &&
-        med["renin_angiotensin_aldosterone_system_inhibitors"]
-      ) {
-        isRenin =
-          med["renin_angiotensin_aldosterone_system_inhibitors"].length > 0;
-        break;
-      }
+
+    let isRenin = false;
+    if (
+      medications_current_use?.includes(
+        "renin_angiotensin_aldosterone_system_inhibitors"
+      ) &&
+      (medications_current_use?.includes("to_treat_arterial_hypertension") ||
+        medications_current_use?.includes("to_treat_heart_failure"))
+    ) {
+      isRenin = true;
     }
     if (stable_heart_failure && isRenin) {
       ARR2.push({
@@ -417,7 +417,7 @@ export default function Result({ end }) {
     }
 
     if (
-      medications_current_use?.includes("Calcium channel blockers") &&
+      medications_current_use?.includes("calcium_channel_blockers") &&
       cv_atcd.includes("Vasospastic angina")
     ) {
       ARR2.push({
@@ -429,14 +429,11 @@ export default function Result({ end }) {
     }
 
     let to_treat_hypertension = false;
-    for (let med of medications_current_use) {
-      if (
-        typeof med === "object" &&
-        med["diuretics"]?.includes("to_treat_hypertension")
-      ) {
-        to_treat_hypertension = true;
-        break;
-      }
+    if (
+      medications_current_use?.includes("to_treat_hypertension") &&
+      medications_current_use?.includes("diuretics")
+    ) {
+      to_treat_hypertension = true;
     }
     if (to_treat_hypertension) {
       ARR2.push({
@@ -448,7 +445,7 @@ export default function Result({ end }) {
 
     if (
       medications_current_use.includes(
-        "Sodium–glucose co-transporter-2 inhibitors"
+        "sodium_glucose_co_transporter_2_inhibitors"
       ) &&
       [
         "Intermediate surgical risk (1-5%)",
@@ -463,7 +460,7 @@ export default function Result({ end }) {
       });
     }
 
-    if (medications_current_use?.includes("Amiodarone")) {
+    if (medications_current_use?.includes("amiodarone")) {
       ARR2.push({
         label: "Continue Amiodarone",
         span: "",
@@ -471,7 +468,7 @@ export default function Result({ end }) {
       });
     }
 
-    if (medications_current_use?.includes("Ivabradine")) {
+    if (medications_current_use?.includes("ivabradine")) {
       ARR2.push({
         label: "Continue Ivabradine",
         span: "",
@@ -480,18 +477,16 @@ export default function Result({ end }) {
     }
 
     let vitamin_k_antagonist = false;
-    for (let med of medications_current_use) {
-      if (typeof med === "object" && med.oral_anticoagulants?.length > 0) {
-        for (let oral_meds of med.oral_anticoagulants) {
-          if (
-            typeof oral_meds === "object" &&
-            oral_meds.vitamin_k_antagonist?.length > 0
-          ) {
-            vitamin_k_antagonist = true;
-            break;
-          }
-        }
-      }
+    if (
+      medications_current_use?.includes("oral_anticoagulants") &&
+      userData.oral_anticoagulants === "vitamin_k_antagonist" &&
+      [
+        "Warfarin",
+        "Acenocoumarol(Sintrom*)",
+        "Other Vitamin K antagonist",
+      ].includes(userData.vitamin_k_antagonist)
+    ) {
+      vitamin_k_antagonist = true;
     }
 
     let elective_non_cardiac_surgery = false;
@@ -528,21 +523,15 @@ export default function Result({ end }) {
 
     let dabigatran_apixaban = false;
 
-    for (let med of medications_current_use) {
-      if (typeof med === "object" && med.oral_anticoagulants?.length > 0) {
-        for (let oral_meds of med.oral_anticoagulants) {
-          console.log(oral_meds);
-          if (
-            typeof oral_meds === "object" &&
-            ["Apixaban", "Dabigatran"].includes(
-              oral_meds.non_vitamin_k_antagonist_oral_anticoagulants
-            )
-          ) {
-            dabigatran_apixaban = true;
-            break;
-          }
-        }
-      }
+    if (
+      medications_current_use?.includes("oral_anticoagulants") &&
+      userData.oral_anticoagulants ===
+        "non_vitamin_k_antagonist_oral_anticoagulants" &&
+      ["Apixaban", "Dabigatran"].includes(
+        userData.non_vitamin_k_antagonist_oral_anticoagulants
+      )
+    ) {
+      dabigatran_apixaban = true;
     }
 
     if (
@@ -573,24 +562,16 @@ export default function Result({ end }) {
 
     let rivaroxaban_edoxaban = false;
 
-    for (let med of medications_current_use) {
-      if (typeof med === "object" && med.oral_anticoagulants?.length > 0) {
-        for (let oral_meds of med.oral_anticoagulants) {
-          console.log(oral_meds);
-          if (
-            typeof oral_meds === "object" &&
-            ["Rivaroxaban", "Edoxaban"].includes(
-              oral_meds.non_vitamin_k_antagonist_oral_anticoagulants
-            )
-          ) {
-            rivaroxaban_edoxaban = true;
-            break;
-          }
-        }
-      }
+    if (
+      medications_current_use?.includes("oral_anticoagulants") &&
+      userData.oral_anticoagulants ===
+        "non_vitamin_k_antagonist_oral_anticoagulants" &&
+      ["Rivaroxaban", "Rivaroxaban"].includes(
+        userData.non_vitamin_k_antagonist_oral_anticoagulants
+      )
+    ) {
+      rivaroxaban_edoxaban = true;
     }
-
-    console.log("rivaroxaban_edoxaban", rivaroxaban_edoxaban);
 
     if (
       rivaroxaban_edoxaban &&
@@ -620,21 +601,15 @@ export default function Result({ end }) {
 
     let non_vitamin_k_antagonist_oral_anticoagulants = false;
 
-    for (let med of medications_current_use) {
-      if (typeof med === "object" && med.oral_anticoagulants?.length > 0) {
-        for (let oral_meds of med.oral_anticoagulants) {
-          console.log(oral_meds);
-          if (
-            typeof oral_meds === "object" &&
-            ["Rivaroxaban", "Edoxaban", "Apixaban", "Dabigatran"].includes(
-              oral_meds.non_vitamin_k_antagonist_oral_anticoagulants
-            )
-          ) {
-            non_vitamin_k_antagonist_oral_anticoagulants = true;
-            break;
-          }
-        }
-      }
+    if (
+      medications_current_use?.includes("oral_anticoagulants") &&
+      userData.oral_anticoagulants ===
+        "non_vitamin_k_antagonist_oral_anticoagulants" &&
+      ["Rivaroxaban", "Rivaroxaban", "Apixaban", "Dabigatran"].includes(
+        userData.non_vitamin_k_antagonist_oral_anticoagulants
+      )
+    ) {
+      non_vitamin_k_antagonist_oral_anticoagulants = true;
     }
 
     if (
@@ -659,21 +634,13 @@ export default function Result({ end }) {
 
     let not_high_thrombotic_risk = true;
 
-    for (let med of medications_current_use) {
-      if (typeof med === "object" && med.oral_anticoagulants?.length > 0) {
-        for (let oral_meds of med.oral_anticoagulants) {
-          if (
-            typeof oral_meds === "object" &&
-            oral_meds.high_thrombotic_risk?.length > 0
-          ) {
-            not_high_thrombotic_risk = false;
-            break;
-          }
-        }
-      }
+    if (
+      medications_current_use?.includes("oral_anticoagulants") &&
+      !medications_current_use?.includes("high_thrombotic_risk")
+    ) {
+      not_high_thrombotic_risk = true;
     }
 
-    console.log("vitamin_k_antagonist", vitamin_k_antagonist);
     if (
       elective_non_cardiac_surgery &&
       bleeding_risk === "High bleeding risk" &&
@@ -722,30 +689,21 @@ export default function Result({ end }) {
     }
 
     let warfarin_acénocoumarol = false;
-    for (let med of medications_current_use) {
-      if (typeof med === "object" && med.oral_anticoagulants?.length > 0) {
-        for (let oral_meds of med.oral_anticoagulants) {
-          if (
-            typeof oral_meds === "object" &&
-            ["Warfarin", "Acénocoumarol"].includes(
-              oral_meds.vitamin_k_antagonist
-            )
-          ) {
-            warfarin_acénocoumarol = true;
-            break;
-          }
-        }
-      }
+
+    if (
+      medications_current_use?.includes("oral_anticoagulants") &&
+      userData.oral_anticoagulants === "vitamin_k_antagonist" &&
+      ["Warfarin", "Acénocoumarol"].includes(userData.vitamin_k_antagonist)
+    ) {
+      warfarin_acénocoumarol = true;
     }
 
     let mechanical_prosthetic_heart_valve = false;
-    for (let atc of cv_atcd) {
-      if (
-        typeof atc === "object" &&
-        atc["Mechanical prosthetic heart valve"]?.length > 0
-      ) {
-        mechanical_prosthetic_heart_valve = true;
-      }
+    if (
+      medications_current_use?.includes("oral_anticoagulants") &&
+      medications_current_use?.includes("mechanical_prosthetic_heart_valve")
+    ) {
+      mechanical_prosthetic_heart_valve = true;
     }
 
     if (
@@ -781,18 +739,17 @@ export default function Result({ end }) {
     });
 
     let high_thromboembolic_risk = false;
-    for (let med of medications_current_use) {
-      if (typeof med === "object" && med.oral_anticoagulants?.length > 0) {
-        for (let oral_meds of med.oral_anticoagulants) {
-          if (
-            typeof oral_meds === "object" &&
-            oral_meds.high_thromboembolic_risk?.length > 0
-          ) {
-            high_thromboembolic_risk = true;
-            break;
-          }
-        }
-      }
+    if (
+      medications_current_use?.includes("oral_anticoagulants") &&
+      medications_current_use?.includes("high_thromboembolic_risk") &&
+      (medications_current_use?.includes(
+        "patients_with_a_recent_thromboembolic_event"
+      ) ||
+        medications_current_use?.includes(
+          "patients_who_experienced_a_thromboembolic_event_during_previous_interruption_of_non_vitamin_k_oral_anticoagulant_therapy"
+        ))
+    ) {
+      high_thromboembolic_risk = true;
     }
 
     if (
@@ -846,19 +803,45 @@ export default function Result({ end }) {
       );
     }
 
+    let very_high_thromboembolic_risk = false;
+    if (
+      medications_current_use?.includes("oral_anticoagulants") &&
+      medications_current_use?.includes("high_thromboembolic_risk") &&
+      (medications_current_use?.includes("recent_stroke_less_than_3_months") ||
+        medications_current_use?.includes(
+          "high_risk_of_venous_thromboembolism_recurrences"
+        ) ||
+        medications_current_use?.includes("left_ventricular_apex_thrombus") ||
+        medications_current_use?.includes(
+          "artial_fibrillation_with_a_very_high_stroke_risk"
+        ))
+    ) {
+      very_high_thromboembolic_risk = true;
+    }
+
+    if (
+      elective_non_cardiac_surgery &&
+      bleeding_risk === "High bleeding risk" &&
+      (very_high_thromboembolic_risk || high_thromboembolic_risk) &&
+      non_vitamin_k_antagonist_oral_anticoagulants &&
+      not_possible_to_defer_surgery
+    ) {
+      ARR2.push({
+        label:
+          "Bridging with unfractionated heparin or low molecular weight heparin should be considered",
+        span: "(Class IIb)",
+        class: "classIIb",
+      });
+    }
+
     let aspirin_primary_prevention = false;
-    for (let med of medications_current_use) {
-      console.log("med", med);
-      console.log("med.antiplatelet", med.antiplatelets);
-      if (typeof med === "object" && med.antiplatelets?.length > 0) {
-        for (let antiplatelet_meds of med.antiplatelets) {
-          // console.log("antiplatelet_meds", antiplatelet_meds);
-          if (_.isEqual(antiplatelet_meds, { aspirin: "primary_prevention" })) {
-            aspirin_primary_prevention = true;
-            break;
-          }
-        }
-      }
+
+    if (
+      medications_current_use?.includes("antiplatelets") &&
+      medications_current_use?.includes("aspirin") &&
+      userData.aspirin === "primary_prevention"
+    ) {
+      aspirin_primary_prevention = true;
     }
 
     if (aspirin_primary_prevention) {
@@ -870,27 +853,25 @@ export default function Result({ end }) {
     }
 
     let is_Aspirin = false;
-    for (let med of medications_current_use) {
-      if (typeof med === "object" && med.antiplatelets?.length > 0) {
-        for (let antiplatelet_meds of med.antiplatelets) {
-          if (Object.keys(antiplatelet_meds)[0] === "aspirin") {
-            is_Aspirin = true;
-            break;
-          }
-        }
-      }
+
+    if (
+      medications_current_use?.includes("antiplatelets") &&
+      medications_current_use?.includes("aspirin") &&
+      ["primary_prevention", "secondary_prevention"].includes(userData.aspirin)
+    ) {
+      is_Aspirin = true;
     }
 
     let is_P2Y12 = false;
-    for (let med of medications_current_use) {
-      if (typeof med === "object" && med.antiplatelets?.length > 0) {
-        for (let antiplatelet_meds of med.antiplatelets) {
-          if (Object.keys(antiplatelet_meds)[0] === "P2Y12 inhibitor") {
-            is_P2Y12 = true;
-            break;
-          }
-        }
-      }
+
+    if (
+      medications_current_use?.includes("antiplatelets") &&
+      medications_current_use?.includes("p2y12_inhibitors") &&
+      ["ticagrelor", "clopidogrel", "prasugrel"].includes(
+        userData.p2y12_inhibitors
+      )
+    ) {
+      is_P2Y12 = true;
     }
 
     if (
@@ -906,28 +887,21 @@ export default function Result({ end }) {
     }
 
     let antiplatelets_low_thrombotic_risk = false;
-    for (let med of medications_current_use) {
-      if (typeof med === "object" && med.antiplatelets?.length > 0) {
-        for (let antiplatelet_meds of med.antiplatelets) {
-          if (antiplatelet_meds === "low_thrombotic_risk") {
-            antiplatelets_low_thrombotic_risk = true;
-          }
-        }
-      }
+
+    if (
+      medications_current_use?.includes("antiplatelets") &&
+      medications_current_use?.includes("low_thrombotic_risk")
+    ) {
+      antiplatelets_low_thrombotic_risk = true;
     }
 
     let p2y12_ticarelor = false;
-    for (let med of medications_current_use) {
-      if (typeof med === "object" && med.antiplatelets?.length > 0) {
-        for (let antiplatelet_meds of med.antiplatelets) {
-          if (
-            _.isEqual(antiplatelet_meds, { p2y12_inhibitors: "ticagrelor" })
-          ) {
-            p2y12_ticarelor = true;
-            break;
-          }
-        }
-      }
+    if (
+      medications_current_use?.includes("antiplatelets") &&
+      medications_current_use?.includes("p2y12_inhibitors") &&
+      userData.p2y12_inhibitors === "ticagrelor"
+    ) {
+      p2y12_ticarelor = true;
     }
 
     if (
@@ -963,23 +937,19 @@ export default function Result({ end }) {
     }
 
     let p2y12_clopidogrel = false;
-    for (let med of medications_current_use) {
-      if (typeof med === "object" && med.antiplatelets?.length > 0) {
-        for (let antiplatelet_meds of med.antiplatelets) {
-          if (
-            _.isEqual(antiplatelet_meds, { p2y12_inhibitors: "clopidogrel" })
-          ) {
-            p2y12_clopidogrel = true;
-            break;
-          }
-        }
-      }
+
+    if (
+      medications_current_use?.includes("antiplatelets") &&
+      medications_current_use?.includes("p2y12_inhibitors") &&
+      userData.p2y12_inhibitors === "clopidogrel"
+    ) {
+      p2y12_clopidogrel = true;
     }
 
     if (
-      bleeding_risk === "High bleeding risk" &&
-      antiplatelets_low_thrombotic_risk &&
-      is_Aspirin &&
+      // bleeding_risk === "High bleeding risk" &&
+      // antiplatelets_low_thrombotic_risk &&
+      // is_Aspirin &&
       p2y12_clopidogrel
     ) {
       ARR2.push(
@@ -1015,15 +985,12 @@ export default function Result({ end }) {
     }
 
     let p2y12_prasugrel = false;
-    for (let med of medications_current_use) {
-      if (typeof med === "object" && med.antiplatelets?.length > 0) {
-        for (let antiplatelet_meds of med.antiplatelets) {
-          if (_.isEqual(antiplatelet_meds, { p2y12_inhibitors: "prasugrel" })) {
-            p2y12_prasugrel = true;
-            break;
-          }
-        }
-      }
+    if (
+      medications_current_use?.includes("antiplatelets") &&
+      medications_current_use?.includes("p2y12_inhibitors") &&
+      userData.p2y12_inhibitors === "prasugrel"
+    ) {
+      p2y12_prasugrel = true;
     }
 
     if (
@@ -1059,18 +1026,14 @@ export default function Result({ end }) {
     }
 
     let antiplatelets_high_thrombotic_risk = false;
-    for (let med of medications_current_use) {
-      if (typeof med === "object" && med.antiplatelets?.length > 0) {
-        for (let antiplatelet_meds of med.antiplatelets) {
-          if (
-            Object.keys(antiplatelet_meds) === "high_thrombotic_risk_1" &&
-            antiplatelet_meds.high_thrombotic_risk_1.length > 0
-          ) {
-            antiplatelets_high_thrombotic_risk = true;
-            break;
-          }
-        }
-      }
+    if (
+      medications_current_use?.includes("antiplatelets") &&
+      medications_current_use?.includes("high_thrombotic_risk_1") &&
+      (medications_current_use?.includes("high_risk_of_stent_thrombosis") ||
+        medications_current_use?.includes("acute_coronary_syndrome") ||
+        medications_current_use?.includes("percutaneous_coronary_intervention"))
+    ) {
+      antiplatelets_high_thrombotic_risk = true;
     }
 
     if (
