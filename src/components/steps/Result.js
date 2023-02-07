@@ -234,7 +234,7 @@ export default function Result({ end }) {
         "High surgical risk (>5%)",
         "Intermediate surgical risk (1-5%)",
       ].includes(type_of_surgery_or_intervention)
-      && (antecedent.length > 0 ||
+      &&(antecedent.length > 0 ||
         examination.includes(
           "Symptoms/signs suggestive of cardio-vascular disease"
         ))
@@ -560,7 +560,7 @@ export default function Result({ end }) {
     if (
       dabigatran_apixaban &&
       elective_non_cardiac_surgery &&
-      ["Low bleeding risk", "Minor bleeding risk"].includes(bleeding_risk)
+      bleeding_risk === "Minor bleeding risk"
     ) {
       ARR2.push(
         {
@@ -602,6 +602,9 @@ export default function Result({ end }) {
       }
     }
 
+
+    console.log("rivaroxaban_edoxaban", rivaroxaban_edoxaban)
+
     if (
       rivaroxaban_edoxaban &&
       elective_non_cardiac_surgery &&
@@ -612,18 +615,18 @@ export default function Result({ end }) {
           label:
             "Continue and restart Non-vitamin K antagonsit oral anticoagulant>6h after surgery",
           span: "(Class I)",
-          class: "classIII",
+          class: "classI",
+        },
+        {
+          label:
+          "In patients taking the dose in the evening, the evening dose may be skipped",
+          span: "",
+          class: "",
         },
         {
           label: "Bridging is not recommended",
           span: "(Class III)",
           class: "classIII",
-        },
-        {
-          label:
-            "In patients taking the dose in the evening, the evening dose may be skipped",
-          span: "",
-          class: "",
         }
       );
     }
