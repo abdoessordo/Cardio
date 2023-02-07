@@ -233,8 +233,8 @@ export default function Result({ end }) {
       [
         "High surgical risk (>5%)",
         "Intermediate surgical risk (1-5%)",
-      ].includes(type_of_surgery_or_intervention)
-      &&(antecedent.length > 0 ||
+      ].includes(type_of_surgery_or_intervention) &&
+      (antecedent.length > 0 ||
         examination.includes(
           "Symptoms/signs suggestive of cardio-vascular disease"
         ))
@@ -260,10 +260,9 @@ export default function Result({ end }) {
     }
 
     if (
-      [
-        "Low surgical risk (<1%)",
-        "Intermediate surgical risk (1-5%)",
-      ].includes(type_of_surgery_or_intervention) &&
+      ["Low surgical risk (<1%)", "Intermediate surgical risk (1-5%)"].includes(
+        type_of_surgery_or_intervention
+      ) &&
       cardiovascular_risk_factor.length === 0 &&
       antecedent.length === 0
     ) {
@@ -347,8 +346,7 @@ export default function Result({ end }) {
     console.log(type_of_surgery_or_intervention);
     console.log(examination);
     if (
-      type_of_surgery_or_intervention === "High surgical risk (>5%)"
-      &&
+      type_of_surgery_or_intervention === "High surgical risk (>5%)" &&
       transformExamination(examination).includes(
         "Poor functional capacity (METs<4 –if the patient cannot climb two flights of stairs-)"
       ) &&
@@ -363,7 +361,11 @@ export default function Result({ end }) {
       });
     }
 
-    if (["Intermediate surgical risk (1-5%)", "High bleeding risk"].includes(bleeding_risk)) {
+    if (
+      ["Intermediate surgical risk (1-5%)", "High bleeding risk"].includes(
+        bleeding_risk
+      )
+    ) {
       ARR.push({
         label: "Measure haemoglobin pre-operatively",
         span: "(Class I)",
@@ -602,8 +604,7 @@ export default function Result({ end }) {
       }
     }
 
-
-    console.log("rivaroxaban_edoxaban", rivaroxaban_edoxaban)
+    console.log("rivaroxaban_edoxaban", rivaroxaban_edoxaban);
 
     if (
       rivaroxaban_edoxaban &&
@@ -619,7 +620,7 @@ export default function Result({ end }) {
         },
         {
           label:
-          "In patients taking the dose in the evening, the evening dose may be skipped",
+            "In patients taking the dose in the evening, the evening dose may be skipped",
           span: "",
           class: "",
         },
@@ -752,22 +753,26 @@ export default function Result({ end }) {
     }
 
     let mechanical_prosthetic_heart_valve = false;
-    for (let med of medications_current_use) {
-      if (typeof med === "object" && med.oral_anticoagulants?.length > 0) {
-        for (let oral_meds of med.oral_anticoagulants) {
-          console.log(oral_meds);
-          if (
-            typeof oral_meds === "object" &&
-            oral_meds.high_thrombotic_risk?.includes(
-              "mechanical_prosthetic_heart_valve"
-            )
-          ) {
-            mechanical_prosthetic_heart_valve = true;
-            break;
-          }
-        }
+    for (let atc of cv_atcd) {
+      if (
+        typeof atc === "object" &&
+        atc["Mechanical prosthetic heart valve"]?.length > 0
+      ) {
+        mechanical_prosthetic_heart_valve = true;
       }
     }
+
+    console.log("warfarin_acénocoumarol", warfarin_acénocoumarol);
+    console.log("elective_non_cardiac_surgery", elective_non_cardiac_surgery);
+    console.log(
+      "bleeding_risk === High bleeding risk",
+      bleeding_risk === "High bleeding risk"
+    );
+    console.log(
+      "mechanical_prosthetic_heart_valve",
+      mechanical_prosthetic_heart_valve
+    );
+
     if (
       warfarin_acénocoumarol &&
       elective_non_cardiac_surgery &&
@@ -1082,7 +1087,10 @@ export default function Result({ end }) {
     for (let med of medications_current_use) {
       if (typeof med === "object" && med.antiplatelets?.length > 0) {
         for (let antiplatelet_meds of med.antiplatelets) {
-          if (Object.keys(antiplatelet_meds) === "high_thrombotic_risk_1" && antiplatelet_meds.high_thrombotic_risk_1.length > 0) {
+          if (
+            Object.keys(antiplatelet_meds) === "high_thrombotic_risk_1" &&
+            antiplatelet_meds.high_thrombotic_risk_1.length > 0
+          ) {
             antiplatelets_high_thrombotic_risk = true;
             break;
           }
@@ -1097,13 +1105,11 @@ export default function Result({ end }) {
       is_Aspirin &&
       is_P2Y12
     ) {
-      ARR2.push(
-        {
-          label: "Bridge with glycoprotein IIb/IIIa inhibitors or Cangrelor",
-          span: "",
-          class: ""
-        }
-      )
+      ARR2.push({
+        label: "Bridge with glycoprotein IIb/IIIa inhibitors or Cangrelor",
+        span: "",
+        class: "",
+      });
     }
 
     if (
@@ -1113,15 +1119,12 @@ export default function Result({ end }) {
       is_Aspirin &&
       is_P2Y12
     ) {
-      ARR2.push(
-        {
-          label: "Defer non-cardiac surgery",
-          span: "(Class I)",
-          class: "classI",
-        }
-      );
+      ARR2.push({
+        label: "Defer non-cardiac surgery",
+        span: "(Class I)",
+        class: "classI",
+      });
     }
-
 
     if (end) {
       setPreAssessmentTodoList(ARR2);
