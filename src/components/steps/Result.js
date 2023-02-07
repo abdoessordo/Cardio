@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useStepperContext } from "../../contexts/StepperContext";
 // import Dwon
-import _ from "lodash";
+import _, { conforms } from "lodash";
 
 export default function Result({ end }) {
   const { userData } = useStepperContext();
@@ -175,11 +175,39 @@ export default function Result({ end }) {
     const handle = (item) => {
       return Object.keys(item)[0];
     };
+    let temp_examination = [];
+    for (let item of examination) {
+      if (typeof item === "string") {
+        temp_examination.push(item);
+      }
+      if (item[handle(item)]?.length === 0) {
+        console.log("CONTINUe");
+        continue;
+      } else if (Array.isArray(item[handle(item)]) && item[handle(item)]?.length > 0) {
+        console.log("ARRAAAAY::: ", item[handle(item)])
+        let temp_item = `${handle(item)} (`;
+        for (let i = 0; i < item[handle(item)].length; i++) {
+          let child = item[handle(item)][i];
+          console.log("children: ", child)
+          temp_item += child;
+          if (i < (item[handle(item)].length - 2)) {
+            temp_item += ", ";
+          }
+          if (i === (item[handle(item)].length - 2)) {
+            temp_item += " and ";
+          }
+        }
+        temp_item += ")";
+        temp_examination.push(temp_item);
+      } 
+    }
+    console.log("temp_examination: ", temp_examination);
     return (
       <strong>
-        {examination.map((item, index) => (
+        {temp_examination.map((item, index) => (
           <span key={index}>
             {typeof item === "object" ? handle(item) : item}
+            {console.log("item[handle]: ", item[handle(item)])}
             {/* adding , or and between items */}
             {index < examination.length - 2 && ", "}
             {index === examination.length - 2 && " and "}
@@ -348,9 +376,10 @@ export default function Result({ end }) {
     }
 
     if (
-      ["Intermediate surgical risk (1-5%)", "High surgical risk (>5%)"].includes(
-        type_of_surgery_or_intervention
-      )
+      [
+        "Intermediate surgical risk (1-5%)",
+        "High surgical risk (>5%)",
+      ].includes(type_of_surgery_or_intervention)
     ) {
       ARR.push({
         label: "Measure haemoglobin pre-operatively",
@@ -739,7 +768,8 @@ export default function Result({ end }) {
     }
 
     let possible_to_defer_surgery = _.isEqual(timing_of_surgery, {
-      "Time-sensitive non-cardiac surgery": "Possible to defer non-cardiac surgery",
+      "Time-sensitive non-cardiac surgery":
+        "Possible to defer non-cardiac surgery",
     });
 
     let high_thromboembolic_risk = false;
@@ -1121,10 +1151,10 @@ export default function Result({ end }) {
             {preAssessmentTodoList?.length === 0 &&
               timing_of_surgery !== "Time-sensitive non-cardiac surgery" && (
                 <div>
-                  <div class="text-lg font-semibold text-gray-500">
+                  <div className="text-lg font-semibold text-gray-500">
                     <ul>
                       <li>
-                        <div class="">
+                        <div>
                           <span>
                             Proceed to surgery without additional pre-operative
                             risk assessment <strong></strong>
@@ -1232,10 +1262,10 @@ export default function Result({ end }) {
           {preAssessmentTodoList?.length === 0 &&
             timing_of_surgery !== "Time-sensitive non-cardiac surgery" && (
               <div>
-                <div class="text-lg font-semibold text-gray-500">
+                <div className="text-lg font-semibold text-gray-500">
                   <ul>
                     <li>
-                      <div class="">
+                      <div>
                         <span>
                           Proceed to surgery without additional pre-operative
                           risk assessment <strong></strong>
