@@ -878,13 +878,7 @@ export default function Result({ end }) {
       aspirin_primary_prevention = true;
     }
 
-    if (aspirin_primary_prevention) {
-      ARR2.push({
-        label: "Interrupt Aspirin",
-        span: "",
-        class: "",
-      });
-    }
+   
 
     let is_Aspirin = false;
 
@@ -908,6 +902,8 @@ export default function Result({ end }) {
       is_P2Y12 = true;
     }
 
+    let nothing_set = true
+
     if (
       ["Low bleeding risk", "Minor bleeding risk"].includes(bleeding_risk) &&
       is_Aspirin &&
@@ -918,6 +914,7 @@ export default function Result({ end }) {
         span: "(Class I)",
         class: "classI",
       });
+      nothing_set = false;
     }
 
     let antiplatelets_low_thrombotic_risk = false;
@@ -968,6 +965,8 @@ export default function Result({ end }) {
           class: "classI",
         }
       );
+      nothing_set = false;
+
     }
 
     let p2y12_clopidogrel = false;
@@ -1016,6 +1015,8 @@ export default function Result({ end }) {
           class: "classI",
         }
       );
+      nothing_set = false;
+
     }
 
     let p2y12_prasugrel = false;
@@ -1057,6 +1058,8 @@ export default function Result({ end }) {
           class: "classI",
         }
       );
+      nothing_set = false;
+
     }
 
     let antiplatelets_high_thrombotic_risk = false;
@@ -1071,7 +1074,7 @@ export default function Result({ end }) {
     }
 
     if (
-      timing_of_surgery === "Time sensitive non-cardiac surgery" &&
+      time_sensitive_non_cardiac_surgery &&
       bleeding_risk === "High bleeding risk" &&
       antiplatelets_high_thrombotic_risk &&
       is_Aspirin &&
@@ -1082,6 +1085,8 @@ export default function Result({ end }) {
         span: "",
         class: "",
       });
+      nothing_set = false;
+
     }
 
     if (
@@ -1096,6 +1101,17 @@ export default function Result({ end }) {
         span: "(Class I)",
         class: "classI",
       });
+      nothing_set = false;
+
+    }
+
+    if (nothing_set && aspirin_primary_prevention) {
+      ARR2.push({
+        label: "Interrupt Aspirin",
+        span: "",
+        class: "",
+      });
+
     }
 
     if (end) {
