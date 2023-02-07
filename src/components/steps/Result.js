@@ -230,8 +230,11 @@ export default function Result({ end }) {
       [
         "High surgical risk (>5%)",
         "Intermediate surgical risk (1-5%)",
-      ].includes(type_of_surgery_or_intervention)
-      && (antecedent.length > 0 || examination.includes("Symptoms/signs suggestive of cardio-vascular disease"))
+      ].includes(type_of_surgery_or_intervention) &&
+      (antecedent.length > 0 ||
+        examination.includes(
+          "Symptoms/signs suggestive of cardio-vascular disease"
+        ))
     ) {
       ARR.push(
         {
@@ -251,6 +254,22 @@ export default function Result({ end }) {
           class: "classIIa",
         }
       );
+    }
+
+    if (
+      [
+        "High surgical risk (>5%)",
+        "Intermediate surgical risk (1-5%)",
+      ].includes(type_of_surgery_or_intervention) &&
+      cardiovascular_risk_factor.length === 0 &&
+      antecedent.length === 0
+    ) {
+      ARR.push({
+        label:
+          "Proceed to surgery without additional pre-operative risk assessment",
+        span: "",
+        class: "",
+      });
     }
 
     if (

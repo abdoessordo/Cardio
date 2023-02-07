@@ -137,7 +137,6 @@ export default function CheckboxGroup({ name, options, sections }) {
           }
 
           if (option.nestedQuestion?.type === "radio") {
-            console.log("B");
             return (
               <div key={index}>
                 <CheckboxWithRadioOptions
