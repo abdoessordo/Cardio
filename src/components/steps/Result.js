@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useStepperContext } from "../../contexts/StepperContext";
+// import Dwon
 import _ from "lodash";
 
 import DownloadButton from "../DownloadButton";
@@ -168,7 +169,7 @@ export default function Result({ end }) {
       examination === [] ||
       typeof examination === "undefined"
     ) {
-      return <strong>none</strong>;
+      return <strong>Asymptomatic</strong>;
     }
 
     // get first key of object
@@ -262,21 +263,6 @@ export default function Result({ end }) {
     }
 
     if (
-      ["Low surgical risk (<1%)", "Intermediate surgical risk (1-5%)"].includes(
-        type_of_surgery_or_intervention
-      ) &&
-      cardiovascular_risk_factor.length === 0 &&
-      antecedent.length === 0
-    ) {
-      ARR.push({
-        label:
-          "Proceed to surgery without additional pre-operative risk assessment",
-        span: "",
-        class: "",
-      });
-    }
-
-    if (
       type_of_surgery_or_intervention === "High surgical risk (>5%)" &&
       cardiovascular_risk_factor.length === 0 &&
       antecedent.length === 0
@@ -365,7 +351,7 @@ export default function Result({ end }) {
 
     if (
       ["Intermediate surgical risk (1-5%)", "High bleeding risk"].includes(
-        bleeding_risk
+        type_of_surgery_or_intervention
       )
     ) {
       ARR.push({
@@ -763,17 +749,6 @@ export default function Result({ end }) {
         mechanical_prosthetic_heart_valve = true;
       }
     }
-
-    console.log("warfarin_acénocoumarol", warfarin_acénocoumarol);
-    console.log("elective_non_cardiac_surgery", elective_non_cardiac_surgery);
-    console.log(
-      "bleeding_risk === High bleeding risk",
-      bleeding_risk === "High bleeding risk"
-    );
-    console.log(
-      "mechanical_prosthetic_heart_valve",
-      mechanical_prosthetic_heart_valve
-    );
 
     if (
       warfarin_acénocoumarol &&
@@ -1180,9 +1155,20 @@ export default function Result({ end }) {
           >
             {preAssessmentTodoList?.length === 0 &&
               timing_of_surgery !== "Time-sensitive non-cardiac surgery" && (
-                <span>
-                  <strong>Nothing to do</strong>
-                </span>
+                <div>
+                  <div class="text-lg font-semibold text-gray-500">
+                    <ul>
+                      <li>
+                        <div class="">
+                          <span>
+                            Proceed to surgery without additional pre-operative
+                            risk assessment <strong></strong>
+                          </span>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
               )}
             <ul>
               {!end &&
@@ -1291,9 +1277,20 @@ export default function Result({ end }) {
         >
           {preAssessmentTodoList?.length === 0 &&
             timing_of_surgery !== "Time-sensitive non-cardiac surgery" && (
-              <span>
-                <strong>Nothing to do</strong>
-              </span>
+              <div>
+                <div class="text-lg font-semibold text-gray-500">
+                  <ul>
+                    <li>
+                      <div class="">
+                        <span>
+                          Proceed to surgery without additional pre-operative
+                          risk assessment <strong></strong>
+                        </span>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
             )}
           <ul>
             {timing_of_surgery === "Time-sensitive non-cardiac surgery" && (
