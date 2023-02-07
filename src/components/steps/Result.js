@@ -373,7 +373,7 @@ export default function Result({ end }) {
       });
     }
 
-    if (["Low bleeding risk", "High bleeding risk"].includes(bleeding_risk)) {
+    if (["Intermediate surgical risk (1-5%)", "High bleeding risk"].includes(bleeding_risk)) {
       ARR.push({
         label: "Measure haemoglobin pre-operatively",
         span: "(Class I)",
