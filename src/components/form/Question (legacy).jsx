@@ -14,91 +14,6 @@ const QuestionWithRecursion = ({ question, nested, parent }) => {
 
   setQuestionParent();
 
-  // append parent to parents
-  // setParents([...parents, question.parent]);
-
-  // const handleOptionChange = (e) => {
-  //   isParent(e);
-  //   const { value } = e.target;
-  //   setSelectedOption(value);
-  //   console.log(value);
-  //   setUserData([...userData, value]);
-  // };
-
-  // const handleCheckboxChange = (e) => {
-  //   isParent(e);
-  //   let tempSelectedOptionsCheckbox = [];
-
-  //   const { value, type } = e.target;
-  //   console.log(value);
-  //   console.log(type);
-
-  //   if (type === "radio") {
-  //     console.log("radio");
-  //     // console.log(value);
-  //     // setSelectedOption(value);
-  //     // setUserData([...userData, value]);
-  //     return;
-  //   }
-
-  //   if (selectedOptionsCheckbox.includes(value)) {
-  //     // tempSelectedOptionsCheckbox = selectedOptionsCheckbox.filter(
-  //     //   (option) => option !== value
-  //     // );
-
-  //     for (let i = 0; i < selectedOptionsCheckbox.length; i++) {
-  //       if (selectedOptionsCheckbox[i] !== value) {
-  //         tempSelectedOptionsCheckbox.push(selectedOptionsCheckbox[i]);
-  //       } else {
-  //         // check if nested and uncheck all the nested options
-  //         if (nested) {
-  //           // remove from child state
-  //           console.log(selectedOptionsCheckbox);
-  //         }
-  //       }
-  //     }
-  //   } else {
-  //     tempSelectedOptionsCheckbox = [...selectedOptionsCheckbox, value];
-  //   }
-
-  //   setSelectedOptionsCheckbox(tempSelectedOptionsCheckbox);
-
-  //   if (tempSelectedOptionsCheckbox.length === 0) {
-  //     // remove the key from userData
-  //     const key_ = value.split(": ")[0];
-  //     const { [key_]: removed, ...rest } = userData;
-  //     setUserData(rest);
-  //   } else {
-  //     console.log(tempSelectedOptionsCheckbox);
-  //     let { object_, key_, path_ } = nestArray(tempSelectedOptionsCheckbox);
-  //     console.log(path_);
-  //     console.log(object_);
-  //     const path_exist = checkIfExist(path_);
-  //     let tempUserData = userData;
-
-  //     if (path_exist) {
-  //       for (let i = 0; i < path_.length - 1; i++) {
-  //         object_ = object_[path_[i]];
-  //         tempUserData = tempUserData[path_[i]];
-  //       }
-  //       if (Array.isArray(tempUserData)) {
-  //         tempUserData.push(object_);
-  //       } else {
-  //         tempUserData = [object_];
-  //       }
-  //       console.log(tempUserData);
-  //       // nest the object
-  //       for (let i = path_.length - 2; i >= 0; i--) {
-  //         tempUserData = { [path_[i]]: tempUserData };
-  //       }
-
-  //       setUserData(tempUserData);
-  //     } else {
-  //       setUserData({ ...userData, [key_]: object_[key_] });
-  //     }
-  //   }
-  // };
-
   const handleParent = (e) => {
     const { value, type } = e.target;
     // console.log("checked: ", checked);
@@ -131,8 +46,6 @@ const QuestionWithRecursion = ({ question, nested, parent }) => {
   if (["results", "title"].includes(question.type)) {
     return null;
   }
-
-  // console.log(question);
 
   if (question.type === "select") {
     return (
