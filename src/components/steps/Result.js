@@ -272,7 +272,7 @@ export default function Result({ end }) {
 
     if (
       [
-        "High surgical risk (>5%)",
+        "Low surgical risk (<1%)",
         "Intermediate surgical risk (1-5%)",
       ].includes(type_of_surgery_or_intervention) &&
       cardiovascular_risk_factor.length === 0 &&
@@ -312,7 +312,7 @@ export default function Result({ end }) {
       "Newly detected murmurs",
     ];
     if (
-      compareArrays(examination, list) &&
+      _.isEqual(examination, list) &&
       type_of_surgery_or_intervention === "High surgical risk (>5%)"
     ) {
       ARR.push({
@@ -330,7 +330,7 @@ export default function Result({ end }) {
     ];
     if (
       type_of_surgery_or_intervention === "Intermediate surgical risk (1-5%)" &&
-      compareArrays(examination, list)
+      _.isEqual(examination, list)
     ) {
       console.log("kiderti liha");
       ARR.push({
@@ -344,9 +344,12 @@ export default function Result({ end }) {
       "Poor functional capacity (METs<4 –if the patient cannot climb two flights of stairs-)",
       "Asymptomatic",
     ];
+
+    console.log(_.isEqual(examination, list));
+    console.log(_.isEqual(examination, list))
     if (
       type_of_surgery_or_intervention === "High surgical risk (>5%)" &&
-      compareArrays(examination, list)
+      _.isEqual(examination, list)
     ) {
       ARR.push({
         label: "Stress imaging",
@@ -1360,16 +1363,4 @@ function transformExamination(examination) {
     }
   });
   return result;
-}
-
-function compareArrays(examination, array2) {
-  let new_examination = transformExamination(examination);
-  // console.log("cmp", new_examination);
-  if (examination.length === 0) return false;
-  for (let element of new_examination) {
-    if (!array2.includes(element)) {
-      return false;
-    }
-  }
-  return true;
 }
