@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { useStepperContext } from "../../contexts/StepperContext";
 import _ from "lodash";
 
+import DownloadButton from "../DownloadButton";
+
 export default function Result({ end }) {
   const { userData } = useStepperContext();
   const [preAssessmentTodoList, setPreAssessmentTodoList] = useState([]);
@@ -1208,7 +1210,7 @@ export default function Result({ end }) {
             </ul>
           </div>
 
-          {/* <DownloadButton /> */}
+          <DownloadButton />
 
           {end && (
             <div className="mt-5">
@@ -1318,7 +1320,7 @@ export default function Result({ end }) {
           </ul>
         </div>
 
-        {/* <DownloadButton /> */}
+        <DownloadButton />
 
         {end && (
           <a className="mt-10" href="/user/dashboard">
