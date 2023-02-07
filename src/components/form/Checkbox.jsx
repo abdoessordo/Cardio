@@ -7,21 +7,21 @@ export default function Checkbox({ id, name, label, value, groupName }) {
   const { userData, setUserData } = useStepperContext();
 
   let checkedList = userData[groupName] || [];
-  
+
   const handleChange = (e) => {
     const { name } = e.target;
     setChecked(!checked);
 
     if (checked) {
-        const index = checkedList.indexOf(name);
-        if (index > -1) {
-            checkedList.splice(index, 1);
-        }
+      const index = checkedList.indexOf(name);
+      if (index > -1) {
+        checkedList.splice(index, 1);
+      }
     } else {
-        checkedList.push(name);
+      checkedList.push(name);
     }
     setUserData({ ...userData, [groupName]: checkedList });
-	  console.log(userData);
+    console.log(userData);
   };
 
   return (
@@ -37,7 +37,6 @@ export default function Checkbox({ id, name, label, value, groupName }) {
     </>
   );
 }
-
 
 // {
 //   patient_name: "",

@@ -14,7 +14,7 @@ export default function CheckboxGroup({ name, options, sections }) {
   // console.log("options", options);
   if (sections) {
     return "";
-  } else if (options) {w
+  } else if (options) {
     return (
       <>
         {options?.map((option, index) => {
