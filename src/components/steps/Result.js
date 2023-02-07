@@ -762,17 +762,6 @@ export default function Result({ end }) {
       }
     }
 
-    console.log("warfarin_acénocoumarol", warfarin_acénocoumarol);
-    console.log("elective_non_cardiac_surgery", elective_non_cardiac_surgery);
-    console.log(
-      "bleeding_risk === High bleeding risk",
-      bleeding_risk === "High bleeding risk"
-    );
-    console.log(
-      "mechanical_prosthetic_heart_valve",
-      mechanical_prosthetic_heart_valve
-    );
-
     if (
       warfarin_acénocoumarol &&
       elective_non_cardiac_surgery &&

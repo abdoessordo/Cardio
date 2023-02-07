@@ -26,6 +26,7 @@ export default function Question({ question, setShowPopup }) {
                 name={section.name}
                 options={section.options}
                 sections={undefined}
+                question={question}
               />
             </div>
           </div>
@@ -68,6 +69,7 @@ export default function Question({ question, setShowPopup }) {
           options={question.options}
           sections={question.sections}
           name={question.name}
+          question={question}
         />
       )}
     </div>

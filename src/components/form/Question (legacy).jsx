@@ -21,6 +21,8 @@ const QuestionWithRecursion = ({
   const [questionData, setQuestionData] = useState({});
   setQuestionParent();
 
+  // append parent to parents
+  // setParents([...parents, question.parent]);
 
   const handleOptionChange = (e) => {
     isParent(e);
@@ -98,43 +100,45 @@ const QuestionWithRecursion = ({
     return null;
   }
 
-  // // console.log(question);
+  // console.log(question);
 
-  // if (question.type === "select") {
-  //   return (
-  //     <>
-  //       <div classvalue="mt-3 h-6 text-xs font-bold uppercase leading-8 text-gray-500">
-  //         {question.label}
-  //       </div>
-  //       <Select
-  //         options={question.options}
-  //         name={question.name}
-  //         placeholder={question.label}
-  //       />
-  //     </>
-  //   );
-  // }
+  if (question.type === "select") {
+    return (
+      <>
+        <div classvalue="mt-3 h-6 text-xs font-bold uppercase leading-8 text-gray-500">
+          {question.label}
+        </div>
+        <Select
+          options={question.options}
+          name={question.name}
+          placeholder={question.label}
+        />
+      </>
+    );
+  }
 
-  // if (question.type === "input") {
-  //   return (
-  //     <>
-  //       <div className="mt-3 h-6 text-xs font-bold uppercase leading-8 text-gray-500">
-  //         {question.label}
-  //       </div>
-  //       <Input
-  //         name={question.name}
-  //         placeholder={question.label}
-  //         type={question.input_type}
-  //       />
-  //     </>
-  //   );
-  // }
+  if (question.type === "input") {
+    return (
+      <>
+        <div className="mt-3 h-6 text-xs font-bold uppercase leading-8 text-gray-500">
+          {question.label}
+        </div>
+        <Input
+          name={question.name}
+          placeholder={question.label}
+          type={question.input_type}
+        />
+      </>
+    );
+  }
 
   if (question.type === "checkbox") {
     if (question.sections) {
       return (
         <div>
-          
+          <div className="mt-3 h-6 text-xs font-bold uppercase leading-8 text-gray-500">
+            {question.label}
+          </div>
 
           {question.sections?.map((section, sectionIndex) => {
             return (
@@ -175,7 +179,7 @@ const QuestionWithRecursion = ({
                                 : "ml-4 hidden"
                             }
                           >
-                            <Question
+                            <QuestionWithRecursion
                               question={option.nestedQuestion}
                               nested={true}
                               parent={option.label}
@@ -244,7 +248,7 @@ const QuestionWithRecursion = ({
                           : "ml-4 hidden"
                       }
                     >
-                      <Question
+                      <QuestionWithRecursion
                         question={section.nestedQuestion}
                         nested={true}
                         parent={option.label}
@@ -264,7 +268,7 @@ const QuestionWithRecursion = ({
                     : "ml-4 hidden"
                 }
               >
-                <Question
+                <QuestionWithRecursion
                   question={option.nestedQuestion}
                   nested={true}
                   parent={option.label}
@@ -311,7 +315,7 @@ const QuestionWithRecursion = ({
                   selectedOption === option.value ? "ml-4" : "ml-4 hidden"
                 }
               >
-                <Question
+                <QuestionWithRecursion
                   question={option.nestedQuestion}
                   nested={true}
                   parent={option.label}
@@ -428,3 +432,32 @@ const QuestionWithRecursion = ({
 };
 
 export default QuestionWithRecursion;
+
+/*
+form = {
+    "Timing of surgery": {
+        " Elective non-cardiac surgery": " Not possible to defer non-cardiac surgery"
+    }
+}
+*/
+
+/*
+[
+    "Cardiovascular risk factor: Family history of cardiovascular disease: Myocardial infarction or sudden death <55 years with father or brother",
+    "Cardiovascular risk factor: Family history of cardiovascular disease: Myocardial infarction or sudden death <65 years with mother or sister",
+    "Cardiovascular risk factor: Family history of cardiovascular disease: Cerebrovascular accident <45 years with parents or brother/sister"
+]
+*/
+
+/*
+
+{
+  Cardio Cardiovascular risk factor: {
+    Family history of cardiovascular disase: [
+      "Myocardial infarction or sudden death <55 years with father or brother",
+      "Myocardial infarction or sudden death <65 years with mother or sister",
+      "Cerebrovascular accident <45 years with parents or brother/sister"
+    ]
+  }
+}
+*/
