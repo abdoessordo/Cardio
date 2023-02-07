@@ -1,12 +1,10 @@
 import { useEffect, useState } from "react";
 import { useStepperContext } from "../../contexts/StepperContext";
 import _ from "lodash";
-import DownloadButton from "../DownloadButton";
 
 export default function Result({ end }) {
   const { userData } = useStepperContext();
   const [preAssessmentTodoList, setPreAssessmentTodoList] = useState([]);
-  const [preAssessmentTodoList2, setPreAssessmentTodoList2] = useState([]);
 
   let {
     examination,
@@ -22,7 +20,7 @@ export default function Result({ end }) {
 
   useEffect(() => {
     preAssessment();
-  }, []);
+  });
 
   const get_patient_name = () => {
     if (patient_name === "" || typeof patient_name === "undefined") {

@@ -1,13 +1,10 @@
 import { useState, useEffect } from "react";
 import { useStepperContext } from "../contexts/StepperContext";
 import Question from "./form/Question";
-import RadioGroup from "./form/RadioGroup";
 import _ from "lodash";
-import ToDo from "./ToDo";
 
 export default function EmergentPopup({ questions, setShowPopup }) {
   const { userData, setUserData } = useStepperContext();
-  const [showTodo, setShowTodo] = useState(false);
   const [preAssessmentTodoList, setPreAssessmentTodoList] = useState([]);
 
   useEffect(() => {
@@ -86,33 +83,36 @@ export default function EmergentPopup({ questions, setShowPopup }) {
       return;
     }
 
-    if (_.isEqual(current_use_of_oral_anticoagulants, { yes: "vitamin_k_antagonist_oral_anticoagulants" })) {
+    if (
+      _.isEqual(current_use_of_oral_anticoagulants, {
+        yes: "vitamin_k_antagonist_oral_anticoagulants",
+      })
+    ) {
       setPreAssessmentTodoList([
-            {
-              label: "Check for blood coagulation tests: full coagulation panel (prothrombin time, activated partial thromboplastin time, anti-factor Xa, diluted thrombin time, etc.)",
-              span: "",
-              class: "",
-            },
-            {
-              label: "Urgent measurement of Index National Ratio (INR)",
-              span: "",
-              class: "",
-            },
-            {
-              label: "Immediate interruption of non-vitamin K oral anticoagulant (Class I, Level C)",
-              span: "",
-              class: "classI",
-            },
-            {
-              label: "Targeted haemostatic measures",
-              span: "",
-              class: "",
-            },
-
-      ])
-    }
-    
-    else {
+        {
+          label:
+            "Check for blood coagulation tests: full coagulation panel (prothrombin time, activated partial thromboplastin time, anti-factor Xa, diluted thrombin time, etc.)",
+          span: "",
+          class: "",
+        },
+        {
+          label: "Urgent measurement of Index National Ratio (INR)",
+          span: "",
+          class: "",
+        },
+        {
+          label:
+            "Immediate interruption of non-vitamin K oral anticoagulant (Class I, Level C)",
+          span: "",
+          class: "classI",
+        },
+        {
+          label: "Targeted haemostatic measures",
+          span: "",
+          class: "",
+        },
+      ]);
+    } else {
       setPreAssessmentTodoList([]);
     }
   }

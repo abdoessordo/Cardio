@@ -14,15 +14,15 @@ export const form = {
               options: [
                 {
                   label: "Emergent non-cardiac surgery",
-                  value: "Emergent non-cardiac surgery"
+                  value: "Emergent non-cardiac surgery",
                 },
                 {
                   label: "Urgent non-cardiac surgery",
-                  value: "Urgent non-cardiac surgery"
+                  value: "Urgent non-cardiac surgery",
                 },
                 {
                   label: "Time-sensitive non-cardiac surgery",
-                  value: "Time-sensitive non-cardiac surgery"
+                  value: "Time-sensitive non-cardiac surgery",
                 },
                 {
                   label: "Elective non-cardiac surgery",
@@ -33,7 +33,7 @@ export const form = {
                     options: [
                       {
                         label: "Possible to defer non-cardiac surgery",
-                        value: "Possible to defer non-cardiac surgery"
+                        value: "Possible to defer non-cardiac surgery",
                       },
                       {
                         label: "Not possible to defer non-cardiac surgery",
@@ -194,7 +194,7 @@ export const form = {
                         label:
                           "Myocardial infarction or sudden death <55 years with father or brother",
                         value:
-                        "Myocardial infarction or sudden death <55 years with father or brother",
+                          "Myocardial infarction or sudden death <55 years with father or brother",
                       },
                       {
                         label:
@@ -258,7 +258,8 @@ export const form = {
                           {
                             label:
                               "Mechanical aortic valve replacement(AVR), associated with",
-                            value: "Mechanical aortic valve replacement(AVR), associated with",
+                            value:
+                              "Mechanical aortic valve replacement(AVR), associated with",
                             name: "mechanical_aortic_valve_replacement_associated_with",
                             nestedQuestion: {
                               type: "checkbox",
@@ -279,9 +280,8 @@ export const form = {
                                   label: "Hypercoagulable state",
                                   value: "Hypercoagulable state",
                                 },
-                              ]
-                            }
-
+                              ],
+                            },
                           },
                           {
                             label:
@@ -357,7 +357,8 @@ export const form = {
                 {
                   label:
                     "Poor functional capacity (METs<4 –if the patient cannot climb two flights of stairs-)",
-                  value: "Poor functional capacity (METs<4 –if the patient cannot climb two flights of stairs-)",
+                  value:
+                    "Poor functional capacity (METs<4 –if the patient cannot climb two flights of stairs-)",
                 },
                 {
                   label: "High clinical risk factor (RCRI >= 1)",
@@ -385,8 +386,7 @@ export const form = {
                       },
                       {
                         label: "Serum creatinine level ≥2 mg/dL",
-                        value:
-                          "Serum creatinine level ≥2 mg/dL",
+                        value: "Serum creatinine level ≥2 mg/dL",
                       },
                       {
                         label: "High-risk surgery",
@@ -608,9 +608,9 @@ export const form = {
                                     type: "checkbox",
                                     options: [
                                       {
-                                        label:
-                                          "Recent stroke < 3 months",
-                                        value: "recent_stroke_less_than_3_months",
+                                        label: "Recent stroke < 3 months",
+                                        value:
+                                          "recent_stroke_less_than_3_months",
                                       },
                                       {
                                         label:
@@ -670,7 +670,7 @@ export const form = {
                     {
                       title: "Used Medications",
                       nestedQuestion: {
-                        type: "checkbox", 
+                        type: "checkbox",
                         options: [
                           {
                             label: "Aspirin",

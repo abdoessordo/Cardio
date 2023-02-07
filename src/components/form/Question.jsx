@@ -1,29 +1,10 @@
 import { useStepperContext } from "../../contexts/StepperContext";
 import CheckboxGroup from "./CheckboxGroup";
-import RadioWithOptions from "./RadioWithOptions";
 import Input from "./Input";
 import Select from "./Select";
 import RadioGroup from "./RadioGroup";
 
 export default function Question({ question, setShowPopup }) {
-  const { userData, setUserData } = useStepperContext();
-
-  const handleRadioChange = (e) => {
-    setUserData({ ...userData, [e.target.name]: e.target.value });
-  };
-
-  const handleCheckboxChange = (e) => {
-    const { name } = e.target;
-    let checkedList = userData[name] || [];
-    const index = checkedList.indexOf(name);
-    if (index > -1) {
-      checkedList.splice(index, 1);
-    } else {
-      checkedList.push(name);
-    }
-    setUserData({ ...userData, [name]: checkedList });
-  };
-
   return (
     <div>
       {/* Question Label */}

@@ -1,11 +1,6 @@
 import { useState } from "react";
 import EmergentPopup from "../EmergentPopup";
-import CheckboxGroup from "../form/CheckboxGroup";
-import Input from "../form/Input";
 import Question from "../form/Question";
-import Radio from "../form/Radio";
-import RadioWithOptions from "../form/RadioWithOptions";
-import Select from "../form/Select";
 
 export default function PartQuestions({ parts }) {
   const [showPopup, setShowPopup] = useState(false);
@@ -59,7 +54,7 @@ export default function PartQuestions({ parts }) {
         {
           label: "No",
           value: "no",
-        }
+        },
       ],
     },
   ];
@@ -80,7 +75,10 @@ export default function PartQuestions({ parts }) {
         <div key={index} className={`${index === 0 ? "" : "mt-5"}`}>
           <Part key={index} part={part} setShowPopup={setShowPopup} />
           {index === 0 && showPopup && (
-            <EmergentPopup questions={popUpQuestionnaure} setShowPopup={setShowPopup} />
+            <EmergentPopup
+              questions={popUpQuestionnaure}
+              setShowPopup={setShowPopup}
+            />
           )}
         </div>
       ))}
