@@ -225,31 +225,20 @@ export default function Result({ end }) {
     }
     // union of cv_atcd and non_cv_atcd
     let antecedent = [...cv_atcd, ...non_cv_atcd];
-    console.log("type", type_of_surgery_or_intervention);
-    console.log("ee", examination, transformExamination(examination));
-    console.log("kole", userData);
-    console.log(antecedent);
+    // console.log("type", type_of_surgery_or_intervention);
+    // console.log("ee", examination, transformExamination(examination));
+    // console.log("kole", userData);
+    // console.log(antecedent);
     if (
       [
         "High surgical risk (>5%)",
         "Intermediate surgical risk (1-5%)",
-      ].includes(type_of_surgery_or_intervention) &&
-      (antecedent.length > 0 ||
+      ].includes(type_of_surgery_or_intervention)
+      && (antecedent.length > 0 ||
         examination.includes(
           "Symptoms/signs suggestive of cardio-vascular disease"
         ))
     ) {
-      // console.log(
-      //   "test",
-      //   [
-      //     "High surgical risk (>5%)",
-      //     "Intermediate surgical risk (1-5%)",
-      //   ].includes(type_of_surgery_or_intervention),
-      //   antecedent.length > 0,
-      //   examination.includes(
-      //     "Symptoms/signs suggestive of cardio-vascular disease"
-      //   )
-      // );
       ARR.push(
         {
           label: "Pre-operative 12-lead ECG",
@@ -345,8 +334,6 @@ export default function Result({ end }) {
       "Asymptomatic",
     ];
 
-    console.log(_.isEqual(examination, list));
-    console.log(_.isEqual(examination, list))
     if (
       type_of_surgery_or_intervention === "High surgical risk (>5%)" &&
       _.isEqual(examination, list)
@@ -360,7 +347,8 @@ export default function Result({ end }) {
     console.log(type_of_surgery_or_intervention);
     console.log(examination);
     if (
-      type_of_surgery_or_intervention === "High surgical risk (>5%)" &&
+      type_of_surgery_or_intervention === "High surgical risk (>5%)"
+      &&
       transformExamination(examination).includes(
         "Poor functional capacity (METs<4 –if the patient cannot climb two flights of stairs-)"
       ) &&
@@ -368,7 +356,6 @@ export default function Result({ end }) {
         "High clinical risk factor (RCRI >= 1)"
       )
     ) {
-      console.log("I'm here");
       ARR.push({
         label: "Stress imaging",
         span: "(Class I)",
