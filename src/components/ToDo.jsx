@@ -6,14 +6,12 @@ import { useStepperContext } from "../contexts/StepperContext";
 export default function ToDo({ end }) {
   const { userData } = useStepperContext();
   const [preAssessmentTodoList, setPreAssessmentTodoList] = useState([]);
-  const [preAssessmentTodoList2, setPreAssessmentTodoList2] = useState([]);
 
   let {
     examination,
     timing_of_surgery,
     type_of_surgery_or_intervention,
     bleeding_risk,
-    patient_name,
     cardiovascular_risk_factor,
     cv_atcd,
     non_cv_atcd,
@@ -28,7 +26,6 @@ export default function ToDo({ end }) {
   function preAssessment() {
     let ARR = [];
     let ARR2 = [];
-    let ARR3 = [];
     // initialize empty array if type undefined
     if (typeof cardiovascular_risk_factor === "undefined") {
       cardiovascular_risk_factor = [];
@@ -672,9 +669,7 @@ export default function ToDo({ end }) {
       ["Emergent non-cardiac surgery", "Urgent non-cardiac surgery"].includes(
         timing_of_surgery
       )
-    )
-    {
-      
+    ) {
     }
 
     if (end) {

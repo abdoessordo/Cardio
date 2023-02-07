@@ -27,7 +27,6 @@ export const form = {
                 {
                   label: "Elective non-cardiac surgery",
                   value: "elective_non_cardiac_surgery",
-                  // name: "elective_non_cardiac_surgery",
                   nestedQuestion: {
                     type: "radio",
                     options: [
@@ -209,7 +208,7 @@ export const form = {
                           "cerebrovascular_accident_less_than_45_years_with_parents_or_brother_sister",
                       },
                     ],
-                  }
+                  },
                 },
               ],
             },
@@ -290,7 +289,7 @@ export const form = {
                         value: "high_risk_surgery",
                       },
                     ],
-                  }
+                  },
                 },
                 {
                   label: "Abnormal ECG",
@@ -317,7 +316,7 @@ export const form = {
                         value: "left_bundle_branch_block",
                       },
                     ],
-                  }
+                  },
                 },
                 {
                   label: "High NT-pro-BNP/BNP",

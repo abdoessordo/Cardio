@@ -1,12 +1,10 @@
 import { useEffect, useState } from "react";
 import { useStepperContext } from "../../contexts/StepperContext";
 import _ from "lodash";
-import DownloadButton from "../DownloadButton";
 
 export default function Result({ end }) {
   const { userData } = useStepperContext();
   const [preAssessmentTodoList, setPreAssessmentTodoList] = useState([]);
-  const [preAssessmentTodoList2, setPreAssessmentTodoList2] = useState([]);
 
   let {
     examination,
@@ -173,12 +171,14 @@ export default function Result({ end }) {
 
     // get first key of object
     // let key = Object.keys(examination[0])[0];
-
+    const handle = (item) => {
+      return Object.keys(item)[0];
+    };
     return (
       <strong>
         {examination.map((item, index) => (
           <span key={index}>
-            {typeof item === "object" ? " " : item}
+            {typeof item === "object" ? handle(item) : item}
             {/* adding , or and between items */}
             {index < examination.length - 2 && ", "}
             {index === examination.length - 2 && " and "}
@@ -225,7 +225,10 @@ export default function Result({ end }) {
     }
     // union of cv_atcd and non_cv_atcd
     let antecedent = [...cv_atcd, ...non_cv_atcd];
-
+    console.log("type", type_of_surgery_or_intervention);
+    console.log("ee", examination, transformExamination(examination));
+    console.log("kole", userData);
+    console.log(antecedent);
     if (
       [
         "High surgical risk (>5%)",
@@ -236,6 +239,17 @@ export default function Result({ end }) {
           "Symptoms/signs suggestive of cardio-vascular disease"
         ))
     ) {
+      // console.log(
+      //   "test",
+      //   [
+      //     "High surgical risk (>5%)",
+      //     "Intermediate surgical risk (1-5%)",
+      //   ].includes(type_of_surgery_or_intervention),
+      //   antecedent.length > 0,
+      //   examination.includes(
+      //     "Symptoms/signs suggestive of cardio-vascular disease"
+      //   )
+      // );
       ARR.push(
         {
           label: "Pre-operative 12-lead ECG",
@@ -318,6 +332,7 @@ export default function Result({ end }) {
       type_of_surgery_or_intervention === "Intermediate surgical risk (1-5%)" &&
       compareArrays(examination, list)
     ) {
+      console.log("kiderti liha");
       ARR.push({
         label: "Trans-thoracic echography (ETT)",
         span: "(Class IIb)",
@@ -339,15 +354,18 @@ export default function Result({ end }) {
         class: "classIIa",
       });
     }
-
+    console.log(type_of_surgery_or_intervention);
+    console.log(examination);
     if (
       type_of_surgery_or_intervention === "High surgical risk (>5%)" &&
-      examination ===
-        "Poor functional capacity (METs<4 –if the patient cannot climb two flights of stairs-)" &&
+      transformExamination(examination).includes(
+        "Poor functional capacity (METs<4 –if the patient cannot climb two flights of stairs-)"
+      ) &&
       transformExamination(examination).includes(
         "High clinical risk factor (RCRI >= 1)"
       )
     ) {
+      console.log("I'm here");
       ARR.push({
         label: "Stress imaging",
         span: "(Class I)",
@@ -1089,10 +1107,12 @@ function transformExamination(examination) {
 
 function compareArrays(examination, array2) {
   let new_examination = transformExamination(examination);
+  // console.log("cmp", new_examination);
+  if (examination.length === 0) return false;
   for (let element of new_examination) {
-    if (array2.includes(element)) {
-      return true;
+    if (!array2.includes(element)) {
+      return false;
     }
   }
-  return false;
+  return true;
 }
