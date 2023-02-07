@@ -23,11 +23,7 @@ export const form = {
                 {
                   label: "Time-sensitive non-cardiac surgery",
                   value: "Time-sensitive non-cardiac surgery",
-                },
-                {
-                  label: "Elective non-cardiac surgery",
-                  value: "Elective non-cardiac surgery",
-                  name: "elective_non_cardiac_surgery",
+                  name: "time_sensitive_non_cardiac_surgery",
                   nestedQuestion: {
                     type: "radio",
                     options: [
@@ -41,6 +37,11 @@ export const form = {
                       },
                     ],
                   },
+                },
+                {
+                  label: "Elective non-cardiac surgery",
+                  value: "Elective non-cardiac surgery",
+                  
                 },
               ],
             },

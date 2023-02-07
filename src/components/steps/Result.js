@@ -348,7 +348,7 @@ export default function Result({ end }) {
     }
 
     if (
-      ["Intermediate surgical risk (1-5%)", "High bleeding risk"].includes(
+      ["Intermediate surgical risk (1-5%)", "High surgical risk (>5%)"].includes(
         type_of_surgery_or_intervention
       )
     ) {
@@ -489,18 +489,22 @@ export default function Result({ end }) {
       vitamin_k_antagonist = true;
     }
 
-    let elective_non_cardiac_surgery = false;
+    let time_sensitive_non_cardiac_surgery = false;
     if (
       _.isEqual(timing_of_surgery, {
-        "Elective non-cardiac surgery": "Possible to defer non-cardiac surgery",
+        "Time-sensitive non-cardiac surgery":
+          "Possible to defer non-cardiac surgery",
       }) ||
       _.isEqual(timing_of_surgery, {
-        "Elective non-cardiac surgery":
+        "Time-sensitive non-cardiac surgery":
           "Noy possible to defer non-cardiac surgery",
       })
     ) {
-      elective_non_cardiac_surgery = true;
+      time_sensitive_non_cardiac_surgery = true;
     }
+
+    let elective_non_cardiac_surgery =
+      timing_of_surgery === "Elective non-cardiac surgery";
 
     if (
       vitamin_k_antagonist &&
@@ -708,7 +712,7 @@ export default function Result({ end }) {
 
     if (
       warfarin_acénocoumarol &&
-      elective_non_cardiac_surgery &&
+      time_sensitive_non_cardiac_surgery &&
       bleeding_risk === "High bleeding risk" &&
       mechanical_prosthetic_heart_valve
     ) {
@@ -735,7 +739,7 @@ export default function Result({ end }) {
     }
 
     let possible_to_defer_surgery = _.isEqual(timing_of_surgery, {
-      "Elective non-cardiac surgery": "Possible to defer non-cardiac surgery",
+      "Time-sensitive non-cardiac surgery": "Possible to defer non-cardiac surgery",
     });
 
     let high_thromboembolic_risk = false;
@@ -759,14 +763,14 @@ export default function Result({ end }) {
     ) {
       ARR2.push({
         label:
-          "Defer non-cardiac surgery (>3 months after stroke or venousthromboembolism)",
+          "Defer non-cardiac surgery (>3 months after stroke or venous thromboembolism)",
         span: "",
         class: "",
       });
     }
 
     let not_possible_to_defer_surgery = _.isEqual(timing_of_surgery, {
-      "Elective non-cardiac surgery":
+      "Time-sensitive non-cardiac surgery":
         "Not possible to defer non-cardiac surgery",
     });
 
@@ -947,9 +951,9 @@ export default function Result({ end }) {
     }
 
     if (
-      // bleeding_risk === "High bleeding risk" &&
-      // antiplatelets_low_thrombotic_risk &&
-      // is_Aspirin &&
+      bleeding_risk === "High bleeding risk" &&
+      antiplatelets_low_thrombotic_risk &&
+      is_Aspirin &&
       p2y12_clopidogrel
     ) {
       ARR2.push(
@@ -1217,17 +1221,6 @@ export default function Result({ end }) {
         <div className="mt-5 text-xl font-semibold uppercase text-green-500">
           <u>TO DO PLEASE</u>
         </div>
-        {/* <div className="text-lg font-semibold text-gray-500">
-          {timing_of_surgery === "Time-sensitive non-cardiac surgery" && (
-            <>
-              <strong>Timing of surgery</strong>
-              <span>
-                (Multidisciplinary decision of individualized cardiac testing.
-                If time, manage as elective non-cardiac surgery) <br />
-              </span>
-            </>
-          )}
-        </div> */}
       </div>
       <div>
         <div
