@@ -236,7 +236,6 @@ export default function Result({ end }) {
         temp_examination.push(temp_item);
       }
     }
-    console.log("temp_examination: ", temp_examination);
     return (
       <strong>
         {temp_examination.map((item, index) => (
