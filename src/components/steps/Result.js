@@ -20,10 +20,24 @@ export default function Result({ end }) {
     non_cv_atcd,
     medications_current_use,
   } = userData;
+  console.log(userData);
+  if (userData["Coronary artery disease"]) {
+    if (userData.coronary) {
+      cv_atcd.push(userData.coronary);
+    }
+    if (userData.isStented) {
+      cv_atcd.push(userData.isStented);
+    }
+    if (userData.bypassGraft) {
+      cv_atcd.push(userData.bypassGraft);
+    }
+    console.log(cv_atcd);
+  }
 
   useEffect(() => {
     preAssessment();
   }, []);
+  console.log(userData["Coronary artery disease"]);
 
   const get_patient_name = () => {
     if (patient_name === "" || typeof patient_name === "undefined") {
@@ -329,12 +343,24 @@ export default function Result({ end }) {
       });
     }
 
-    let list = [
-      "Poor functional capacity (METs<4 –if the patient cannot climb two flights of stairs-)",
-      "High NT-pro-BNP/BNP",
-      "Abnormal ECG",
-      "High clinical risk factor (RCRI >= 1)",
-    ];
+    let high_clinical_risk_factor = false;
+    for (let exam of examination) {
+      if (
+        typeof exam === "object" &&
+        exam["High clinical risk factor (RCRI >= 1)"]?.length > 0
+      ) {
+        high_clinical_risk_factor = true;
+      }
+    }
+
+    let abnormal_ecg = false;
+    for (let exam of examination) {
+      if (typeof exam === "object" && exam["Abnormal ECG"]?.length > 0) {
+        abnormal_ecg = true;
+      }
+    }
+
+    console.log("abnormal_ecg: ", abnormal_ecg);
 
     if (
       type_of_surgery_or_intervention === "Intermediate surgical risk (1-5%)" &&
@@ -342,10 +368,9 @@ export default function Result({ end }) {
         "Poor functional capacity (METs<4 –if the patient cannot climb two flights of stairs-)"
       ) ||
         examination.includes("High NT-pro-BNP/BNP") ||
-        examination.includes("High clinical risk factor (RCRI >= 1)") ||
-        examination.includes("Abnormal ECG"))
+        high_clinical_risk_factor ||
+        abnormal_ecg)
     ) {
-      console.log("kiderti liha");
       ARR.push({
         label: "Trans-thoracic echography (ETT)",
         span: "(Class IIb)",
@@ -370,18 +395,6 @@ export default function Result({ end }) {
         class: "classIIa",
       });
     }
-
-    let high_clinical_risk_factor = false;
-    for (let exam of examination) {
-      if (
-        typeof exam === "object" &&
-        exam["High clinical risk factor (RCRI >= 1)"].length > 0
-      ) {
-        high_clinical_risk_factor = true;
-      }
-    }
-
-    console.log("high_clinical_risk_factor: ", high_clinical_risk_factor);
 
     if (
       type_of_surgery_or_intervention === "High surgical risk (>5%)" &&
@@ -830,10 +843,10 @@ export default function Result({ end }) {
         "Not possible to defer non-cardiac surgery",
     });
 
-    console.log(elective_non_cardiac_surgery )
-    console.log(bleeding_risk === "High bleeding risk" )
-    console.log(warfarin_acénocoumarol )
-    console.log(mechanical_prosthetic_heart_valve)
+    console.log(elective_non_cardiac_surgery);
+    console.log(bleeding_risk === "High bleeding risk");
+    console.log(warfarin_acénocoumarol);
+    console.log(mechanical_prosthetic_heart_valve);
 
     if (
       elective_non_cardiac_surgery &&
