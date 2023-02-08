@@ -185,23 +185,26 @@ export default function Result({ end }) {
       if (item[handle(item)]?.length === 0) {
         console.log("CONTINUe");
         continue;
-      } else if (Array.isArray(item[handle(item)]) && item[handle(item)]?.length > 0) {
-        console.log("ARRAAAAY::: ", item[handle(item)])
+      } else if (
+        Array.isArray(item[handle(item)]) &&
+        item[handle(item)]?.length > 0
+      ) {
+        console.log("ARRAAAAY::: ", item[handle(item)]);
         let temp_item = `${handle(item)} (`;
         for (let i = 0; i < item[handle(item)].length; i++) {
           let child = item[handle(item)][i];
-          console.log("children: ", child)
+          console.log("children: ", child);
           temp_item += child;
-          if (i < (item[handle(item)].length - 2)) {
+          if (i < item[handle(item)].length - 2) {
             temp_item += ", ";
           }
-          if (i === (item[handle(item)].length - 2)) {
+          if (i === item[handle(item)].length - 2) {
             temp_item += " and ";
           }
         }
         temp_item += ")";
         temp_examination.push(temp_item);
-      } 
+      }
     }
     console.log("temp_examination: ", temp_examination);
     return (
@@ -311,13 +314,12 @@ export default function Result({ end }) {
       );
     }
 
-    let list = [
-      "Poor functional capacity (METs<4 –if the patient cannot climb two flights of stairs-)",
-      "High NT-pro-BNP/BNP",
-      "Newly detected murmurs",
-    ];
     if (
-      _.isEqual(examination, list) &&
+      (examination.includes(
+        "Poor functional capacity (METs<4 –if the patient cannot climb two flights of stairs-)"
+      ) ||
+        examination.includes("High NT-pro-BNP/BNP") ||
+        examination.includes("Newly detected murmurs")) &&
       type_of_surgery_or_intervention === "High surgical risk (>5%)"
     ) {
       ARR.push({
@@ -327,7 +329,7 @@ export default function Result({ end }) {
       });
     }
 
-    list = [
+    let list = [
       "Poor functional capacity (METs<4 –if the patient cannot climb two flights of stairs-)",
       "High NT-pro-BNP/BNP",
       "Abnormal ECG",
@@ -881,8 +883,6 @@ export default function Result({ end }) {
       aspirin_primary_prevention = true;
     }
 
-   
-
     let is_Aspirin = false;
 
     if (
@@ -905,7 +905,7 @@ export default function Result({ end }) {
       is_P2Y12 = true;
     }
 
-    let nothing_set = true
+    let nothing_set = true;
 
     if (
       ["Low bleeding risk", "Minor bleeding risk"].includes(bleeding_risk) &&
@@ -969,7 +969,6 @@ export default function Result({ end }) {
         }
       );
       nothing_set = false;
-
     }
 
     let p2y12_clopidogrel = false;
@@ -1019,7 +1018,6 @@ export default function Result({ end }) {
         }
       );
       nothing_set = false;
-
     }
 
     let p2y12_prasugrel = false;
@@ -1062,7 +1060,6 @@ export default function Result({ end }) {
         }
       );
       nothing_set = false;
-
     }
 
     let antiplatelets_high_thrombotic_risk = false;
@@ -1089,7 +1086,6 @@ export default function Result({ end }) {
         class: "",
       });
       nothing_set = false;
-
     }
 
     if (
@@ -1105,7 +1101,6 @@ export default function Result({ end }) {
         class: "classI",
       });
       nothing_set = false;
-
     }
 
     if (nothing_set && aspirin_primary_prevention) {
@@ -1114,7 +1109,6 @@ export default function Result({ end }) {
         span: "",
         class: "",
       });
-
     }
 
     if (end) {
