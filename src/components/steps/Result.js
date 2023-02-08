@@ -524,10 +524,10 @@ export default function Result({ end }) {
       });
     }
 
-    console.log("medications_current_use", medications_current_use)
-    console.log(medications_current_use.includes("diuretics"))
-    console.log(medications_current_use.includes("to_treat_heart_failure1"))
-    console.log(medications_current_use.includes("other_indications"))
+    console.log("medications_current_use", medications_current_use);
+    console.log(medications_current_use.includes("diuretics"));
+    console.log(medications_current_use.includes("to_treat_heart_failure1"));
+    console.log(medications_current_use.includes("other_indications"));
 
     //
     if (
@@ -791,15 +791,11 @@ export default function Result({ end }) {
     ) {
       mechanical_prosthetic_heart_valve = true;
     }
-    // console.log(warfarin_acénocoumarol);
-    // console.log(time_sensitive_non_cardiac_surgery);
-    // console.log(bleeding_risk === "High bleeding risk");
-    // console.log(mechanical_prosthetic_heart_valve);
 
     if (
-      warfarin_acénocoumarol &&
-      time_sensitive_non_cardiac_surgery &&
+      elective_non_cardiac_surgery &&
       bleeding_risk === "High bleeding risk" &&
+      warfarin_acénocoumarol &&
       mechanical_prosthetic_heart_valve
     ) {
       ARR2.push(
@@ -861,18 +857,20 @@ export default function Result({ end }) {
         "Not possible to defer non-cardiac surgery",
     });
 
-    console.log(elective_non_cardiac_surgery);
-    console.log(bleeding_risk === "High bleeding risk");
-    console.log(warfarin_acénocoumarol);
-    console.log(mechanical_prosthetic_heart_valve);
+    // console.log(time_sensitive_non_cardiac_surgery )
+    console.log(bleeding_risk === "High bleeding risk" )
+    console.log(not_high_thrombotic_risk )
+    console.log(not_possible_to_defer_surgery)
+    console.log(vitamin_k_antagonist)
 
     if (
-      elective_non_cardiac_surgery &&
+      // time_sensitive_non_cardiac_surgery &&
       bleeding_risk === "High bleeding risk" &&
-      warfarin_acénocoumarol &&
-      mechanical_prosthetic_heart_valve
-      // not_possible_to_defer_surgery &&
-      // high_thromboembolic_risk &&
+      not_high_thrombotic_risk &&
+      not_possible_to_defer_surgery &&
+      vitamin_k_antagonist
+      // warfarin_acénocoumarol &&
+      // mechanical_prosthetic_heart_valve
       // vitamin_k_antagonist
     ) {
       ARR2.push(
@@ -889,7 +887,7 @@ export default function Result({ end }) {
         },
         {
           label:
-            "The restarting dose should be the maintenance dose plus a boosting   dose of 50% FOR 2 DAYS",
+            "The restarting dose should be the maintenance dose plus a boosting dose of 50% FOR 2 DAYS",
           span: "(Class I)",
           class: "classI",
         },
