@@ -373,20 +373,23 @@ export default function Result({ end }) {
 
     let high_clinical_risk_factor = false;
     for (let exam of examination) {
-      if (typeof exam === "object" && exam["High clinical risk factor (RCRI >= 1)"].length > 0) {
-        high_clinical_risk_factor = true
+      if (
+        typeof exam === "object" &&
+        exam["High clinical risk factor (RCRI >= 1)"].length > 0
+      ) {
+        high_clinical_risk_factor = true;
       }
     }
 
-    console.log("high_clinical_risk_factor: ", high_clinical_risk_factor)
+    console.log("high_clinical_risk_factor: ", high_clinical_risk_factor);
 
     if (
       type_of_surgery_or_intervention === "High surgical risk (>5%)" &&
       examination.includes(
         "Poor functional capacity (METs<4 –if the patient cannot climb two flights of stairs-)"
       ) &&
-        high_clinical_risk_factor
-      ) {
+      high_clinical_risk_factor
+    ) {
       ARR.push({
         label: "Stress imaging",
         span: "(Class I)",
@@ -757,6 +760,10 @@ export default function Result({ end }) {
     ) {
       mechanical_prosthetic_heart_valve = true;
     }
+    // console.log(warfarin_acénocoumarol);
+    // console.log(time_sensitive_non_cardiac_surgery);
+    // console.log(bleeding_risk === "High bleeding risk");
+    // console.log(mechanical_prosthetic_heart_valve);
 
     if (
       warfarin_acénocoumarol &&
@@ -823,11 +830,19 @@ export default function Result({ end }) {
         "Not possible to defer non-cardiac surgery",
     });
 
+    console.log(elective_non_cardiac_surgery )
+    console.log(bleeding_risk === "High bleeding risk" )
+    console.log(warfarin_acénocoumarol )
+    console.log(mechanical_prosthetic_heart_valve)
+
     if (
-      not_possible_to_defer_surgery &&
+      elective_non_cardiac_surgery &&
       bleeding_risk === "High bleeding risk" &&
-      high_thromboembolic_risk &&
-      vitamin_k_antagonist
+      warfarin_acénocoumarol &&
+      mechanical_prosthetic_heart_valve
+      // not_possible_to_defer_surgery &&
+      // high_thromboembolic_risk &&
+      // vitamin_k_antagonist
     ) {
       ARR2.push(
         {
