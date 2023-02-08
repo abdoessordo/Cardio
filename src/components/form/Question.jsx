@@ -7,7 +7,7 @@ export default function Question({ question, setShowPopup }) {
   return (
     <div>
       {/* Question Label */}
-      <div className="mt-3 h-6 text-xs font-bold uppercase leading-8 text-gray-500">
+      <div className="mt-3 h-6 text-sm font-bold uppercase leading-8 text-gray-500">
         {question.label}
       </div>
 
@@ -18,7 +18,7 @@ export default function Question({ question, setShowPopup }) {
           <div key={sectionIndex} className="ml-4">
             <div className="ml-4">
               {/* Section Title */}
-              <h1 className="font-bold">{section.title}</h1>
+              <h1 className="font-bold mt-3">{section.title}</h1>
 
               {/* Question */}
               <CheckboxGroup

@@ -55,23 +55,6 @@ export default function Result({ end }) {
     console.log(cv_atcd);
   }
 
-
-  // if (userData.coronary) {
-  //   str += userData.coronary;
-  //   // cv_atcd.push(userData.coronary);
-  // }
-  // if (userData.isStented) {
-  //   str += `, ${userData.isStented}`;
-  //   // cv_atcd.push(userData.isStented);
-  // }
-  // if (userData.bypassGraft) {
-  //   str += `, ${userData.bypassGraft}`;
-  //   // cv_atcd.push(userData.bypassGraft);
-  // }
-  // str += ")";
-  // cv_atcd.push(str);
-  // console.log(cv_atcd);
-
   
   useEffect(() => {
     preAssessment();
@@ -210,7 +193,7 @@ export default function Result({ end }) {
     }
     return (
       <strong>
-        {type_of_surgery_or_intervention} {timing_of_surgery}
+        <span className="detail">{type_of_surgery_or_intervention}</span> {timing_of_surgery}
       </strong>
     );
   };
@@ -278,7 +261,7 @@ export default function Result({ end }) {
     if (bleeding_risk === "" || typeof bleeding_risk === "undefined") {
       return <strong>no bleeding risk</strong>;
     }
-    return <strong>{bleeding_risk}</strong>;
+    return <strong className="detail">{bleeding_risk}</strong>;
   };
 
   function preAssessment() {
