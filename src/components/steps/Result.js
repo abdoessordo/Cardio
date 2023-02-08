@@ -793,11 +793,6 @@ export default function Result({ end }) {
       );
     }
 
-   
-
-    
-    
-
     if (
       elective_non_cardiac_surgery &&
       bleeding_risk === "High bleeding risk" &&
@@ -863,8 +858,6 @@ export default function Result({ end }) {
         "Not possible to defer non-cardiac surgery",
     });
 
-
-
     if (
       not_possible_to_defer_surgery &&
       bleeding_risk === "High bleeding risk" &&
@@ -906,7 +899,8 @@ export default function Result({ end }) {
     let very_high_thromboembolic_risk = false;
     if (
       medications_current_use?.includes("oral_anticoagulants") &&
-      medications_current_use?.includes("high_thromboembolic_risk") &&
+      medications_current_use?.includes("high_thrombotic_risk") &&
+      medications_current_use?.includes("very_high_thromboembolic_risk") &&
       (medications_current_use?.includes("recent_stroke_less_than_3_months") ||
         medications_current_use?.includes(
           "high_risk_of_venous_thromboembolism_recurrences"
@@ -919,12 +913,26 @@ export default function Result({ end }) {
       very_high_thromboembolic_risk = true;
     }
 
+    // console.log(
+    //   "not_possible_to_defer_surgery: ",
+    //   not_possible_to_defer_surgery
+    // );
+    // console.log("bleeding_risk: ", bleeding_risk === "High bleeding risk");
+    // console.log("high_thromboembolic_risk: ", high_thromboembolic_risk);
+    // console.log(
+    //   "very_high_thromboembolic_risk: ",
+    //   very_high_thromboembolic_risk
+    // );
+    // console.log(
+    //   "non_vitamin_k_antagonist_oral_anticoagulants: ",
+    //   non_vitamin_k_antagonist_oral_anticoagulants
+    // );
+
     if (
-      time_sensitive_non_cardiac_surgery &&
+      not_possible_to_defer_surgery &&
       bleeding_risk === "High bleeding risk" &&
       (very_high_thromboembolic_risk || high_thromboembolic_risk) &&
-      non_vitamin_k_antagonist_oral_anticoagulants &&
-      not_possible_to_defer_surgery
+      non_vitamin_k_antagonist_oral_anticoagulants
     ) {
       ARR2.push({
         label:
