@@ -22,6 +22,7 @@ body {
   width: 100%;
   overflow-x: hidden;
   background-color: #fafbfb;
+  background-color: #c4c4c4;
 }
 
 a {
@@ -235,7 +236,6 @@ button {
 }
 
 @media screen and (max-width: 991px) {
-
   .title {
     font-size: 16px;
   }
