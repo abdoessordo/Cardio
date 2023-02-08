@@ -371,13 +371,22 @@ export default function Result({ end }) {
       });
     }
 
+    let high_clinical_risk_factor = false;
+    for (let exam of examination) {
+      if (typeof exam === "object" && exam["High clinical risk factor (RCRI >= 1)"].length > 0) {
+        high_clinical_risk_factor = true
+      }
+    }
+
+    console.log("high_clinical_risk_factor: ", high_clinical_risk_factor)
+
     if (
       type_of_surgery_or_intervention === "High surgical risk (>5%)" &&
       examination.includes(
         "Poor functional capacity (METs<4 –if the patient cannot climb two flights of stairs-)"
       ) &&
-      bleeding_risk === "High bleeding risk"
-    ) {
+        high_clinical_risk_factor
+      ) {
       ARR.push({
         label: "Stress imaging",
         span: "(Class I)",

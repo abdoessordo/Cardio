@@ -13,7 +13,7 @@ export default function CheckboxGroup({ name, options, sections }) {
     console.log(e.target.name, e.target.value)
     const {name} = e.target
     setChecked(!checked);
-    setUserData({...userData, [name]: checked})
+    setUserData({...userData, [name]: !checked})
   };
 
   const handleChangeRadio = (e) => {
