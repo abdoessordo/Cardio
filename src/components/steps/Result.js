@@ -352,17 +352,17 @@ export default function Result({ end }) {
         class: "classIIb",
       });
     }
+    console.log(examination);
 
     if (
       type_of_surgery_or_intervention === "High surgical risk (>5%)" &&
       examination.includes(
         "Poor functional capacity (METs<4 –if the patient cannot climb two flights of stairs-)"
       ) &&
-      examination.includes("Asymptomatic")(
-        userData["Coronary artery disease"] &&
-          (userData.isStented === "Stented" ||
-            userData.bypassGraft === "bypass_graft")
-      )
+      examination.includes("Asymptomatic") &&
+      userData["Coronary artery disease"] &&
+      (userData.isStented === "Stented" ||
+        userData.bypassGraft === "bypass_graft")
     ) {
       ARR.push({
         label: "Stress imaging",
@@ -370,16 +370,13 @@ export default function Result({ end }) {
         class: "classIIa",
       });
     }
-    console.log(type_of_surgery_or_intervention);
-    console.log(examination);
+
     if (
       type_of_surgery_or_intervention === "High surgical risk (>5%)" &&
-      transformExamination(examination).includes(
+      examination.includes(
         "Poor functional capacity (METs<4 –if the patient cannot climb two flights of stairs-)"
       ) &&
-      transformExamination(examination).includes(
-        "High clinical risk factor (RCRI >= 1)"
-      )
+      bleeding_risk === "High bleeding risk"
     ) {
       ARR.push({
         label: "Stress imaging",
