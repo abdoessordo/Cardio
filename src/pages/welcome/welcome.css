@@ -2,7 +2,6 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Inter", sans-serif;
 }
 *,
 *::before,
@@ -12,10 +11,10 @@
 
 /* ==== CSS VARIABLES ==== */
 :root {
-  --primary-color: #335eea;
+  --primary-color: #9C254D;
   --link-color: #506690;
-  --btn-hover-color: #2b50c7;
-  --lg-heading: #161c2d;
+  --btn-hover-color: #9C254D;
+  --lg-heading: #6e1634;
 }
 
 /* ==== RESET HTML ==== */
@@ -26,7 +25,7 @@ body {
   background-color: #fafbfb;
 }
 ul li {
-  list-style-type: none;
+  /* list-style-type: none; */
 }
 a {
   text-decoration: none;
@@ -43,10 +42,11 @@ button {
 }
 
 /* ====  WRAPPER ==== */
-.wrapper {
+.wrapper.home {
   width: 100%;
   padding-left: 1rem;
   padding-right: 1rem;
+  height: 100vh;
 }
 .grid-cols-2 {
   width: 100%;
