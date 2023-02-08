@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useStepperContext } from "../../contexts/StepperContext";
 import Checkbox from "./Checkbox";
 import CheckboxWithCheckboxOptions from "./CheckboxWithCheckboxOptions";
 import CheckboxWithRadioOptions from "./CheckboxWithRadioOptions";
@@ -6,9 +7,18 @@ import CheckboxWithSections from "./CheckboxWithSections";
 
 export default function CheckboxGroup({ name, options, sections }) {
   const [checked, setChecked] = useState(false);
+  const { userData, setUserData } = useStepperContext()
 
   const handleChange = (e) => {
+    console.log(e.target.name, e.target.value)
+    const {name} = e.target
     setChecked(!checked);
+    setUserData({...userData, [name]: checked})
+  };
+
+  const handleChangeRadio = (e) => {
+    const { value, name } = e.target;
+    setUserData({...userData, [name]: value})
   };
 
   // console.log("options", options);
@@ -41,6 +51,7 @@ export default function CheckboxGroup({ name, options, sections }) {
                         name="coronary"
                         id="coronary_acute"
                         value="coronary_acute"
+                        onChange={(e) => handleChangeRadio(e)}
                       />
                       <label htmlFor="coronary_acute">
                         Acute (acute coronary syndrome)
@@ -53,6 +64,7 @@ export default function CheckboxGroup({ name, options, sections }) {
                         name="coronary"
                         id="coronary_chronic"
                         value="coronary_chronic"
+                        onChange={(e) => handleChangeRadio(e)}
                       />
                       <label htmlFor="coronary_chronic">
                         Chronic (chronic coronary syndrome)
@@ -66,6 +78,7 @@ export default function CheckboxGroup({ name, options, sections }) {
                         name="isStented"
                         id="Stented"
                         value="Stented"
+                        onChange={(e) => handleChangeRadio(e)}
                       />
                       <label htmlFor="Stented">Stented</label>
                       <br />
@@ -76,6 +89,7 @@ export default function CheckboxGroup({ name, options, sections }) {
                         name="isStented"
                         id="not_stented"
                         value="not_stented"
+                        onChange={(e) => handleChangeRadio(e)}
                       />
                       <label htmlFor="not_stented">Not stented</label>
                       <br />
@@ -87,6 +101,7 @@ export default function CheckboxGroup({ name, options, sections }) {
                         name="bypassGraft"
                         id="bypass_graft"
                         value="bypass_graft"
+                        onChange={(e) => handleChangeRadio(e)}
                       />
                       <label htmlFor="bypass_graft">Bypass graft</label>
                       <br />
@@ -97,6 +112,7 @@ export default function CheckboxGroup({ name, options, sections }) {
                         name="bypassGraft"
                         id="not_bypass_graft"
                         value="not_bypass_graft"
+                        onChange={(e) => handleChangeRadio(e)}
                       />
                       <label htmlFor="not_bypass_graft">Not bypass graft</label>
                       <br />

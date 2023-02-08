@@ -335,9 +335,15 @@ export default function Result({ end }) {
       "Abnormal ECG",
       "High clinical risk factor (RCRI >= 1)",
     ];
+
     if (
       type_of_surgery_or_intervention === "Intermediate surgical risk (1-5%)" &&
-      _.isEqual(examination, list)
+      (examination.includes(
+        "Poor functional capacity (METs<4 –if the patient cannot climb two flights of stairs-)"
+      ) ||
+        examination.includes("High NT-pro-BNP/BNP") ||
+        examination.includes("High clinical risk factor (RCRI >= 1)") ||
+        examination.includes("Abnormal ECG"))
     ) {
       console.log("kiderti liha");
       ARR.push({
@@ -347,14 +353,16 @@ export default function Result({ end }) {
       });
     }
 
-    list = [
-      "Poor functional capacity (METs<4 –if the patient cannot climb two flights of stairs-)",
-      "Asymptomatic",
-    ];
-
     if (
       type_of_surgery_or_intervention === "High surgical risk (>5%)" &&
-      _.isEqual(examination, list)
+      examination.includes(
+        "Poor functional capacity (METs<4 –if the patient cannot climb two flights of stairs-)"
+      ) &&
+      examination.includes("Asymptomatic")(
+        userData["Coronary artery disease"] &&
+          (userData.isStented === "Stented" ||
+            userData.bypassGraft === "bypass_graft")
+      )
     ) {
       ARR.push({
         label: "Stress imaging",
