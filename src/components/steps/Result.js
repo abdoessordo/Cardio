@@ -20,7 +20,7 @@ export default function Result({ end }) {
     non_cv_atcd,
     medications_current_use,
   } = userData;
-console.log(userData)
+  console.log(userData);
   if (userData["Coronary artery disease"]) {
     if (userData.coronary) {
       cv_atcd.push(userData.coronary);
@@ -343,12 +343,15 @@ console.log(userData)
       });
     }
 
-    let list = [
-      "Poor functional capacity (METs<4 –if the patient cannot climb two flights of stairs-)",
-      "High NT-pro-BNP/BNP",
-      "Abnormal ECG",
-      "High clinical risk factor (RCRI >= 1)",
-    ];
+    let high_clinical_risk_factor = false;
+    for (let exam of examination) {
+      if (
+        typeof exam === "object" &&
+        exam["High clinical risk factor (RCRI >= 1)"]?.length > 0
+      ) {
+        high_clinical_risk_factor = true;
+      }
+    }
 
     let abnormal_ecg = false;
     for (let exam of examination) {
@@ -365,7 +368,7 @@ console.log(userData)
         "Poor functional capacity (METs<4 –if the patient cannot climb two flights of stairs-)"
       ) ||
         examination.includes("High NT-pro-BNP/BNP") ||
-        examination.includes("High clinical risk factor (RCRI >= 1)") ||
+        high_clinical_risk_factor ||
         abnormal_ecg)
     ) {
       ARR.push({
@@ -392,17 +395,6 @@ console.log(userData)
         class: "classIIa",
       });
     }
-
-    let high_clinical_risk_factor = false;
-    for (let exam of examination) {
-      if (
-        typeof exam === "object" &&
-        exam["High clinical risk factor (RCRI >= 1)"]?.length > 0
-      ) {
-        high_clinical_risk_factor = true;
-      }
-    }
-
 
     if (
       type_of_surgery_or_intervention === "High surgical risk (>5%)" &&
