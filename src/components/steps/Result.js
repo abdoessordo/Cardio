@@ -920,7 +920,7 @@ export default function Result({ end }) {
     }
 
     if (
-      elective_non_cardiac_surgery &&
+      time_sensitive_non_cardiac_surgery &&
       bleeding_risk === "High bleeding risk" &&
       (very_high_thromboembolic_risk || high_thromboembolic_risk) &&
       non_vitamin_k_antagonist_oral_anticoagulants &&
