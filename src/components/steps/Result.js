@@ -524,6 +524,24 @@ export default function Result({ end }) {
       });
     }
 
+    console.log("medications_current_use", medications_current_use)
+    console.log(medications_current_use.includes("diuretics"))
+    console.log(medications_current_use.includes("to_treat_heart_failure1"))
+    console.log(medications_current_use.includes("other_indications"))
+
+    //
+    if (
+      medications_current_use.includes("diuretics") &&
+      (medications_current_use.includes("to_treat_heart_failure1") ||
+        medications_current_use.includes("other_indications"))
+    ) {
+      ARR2.push({
+        label: "Continue Diuretics",
+        span: "",
+        class: "",
+      });
+    }
+
     if (medications_current_use?.includes("amiodarone")) {
       ARR2.push({
         label: "Continue Amiodarone",
