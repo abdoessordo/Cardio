@@ -49,12 +49,12 @@ export default function CheckboxGroup({ name, options, sections }) {
                       <input
                         type="radio"
                         name="coronary"
-                        id="coronary_acute"
-                        value="coronary_acute"
+                        id="Acute coronary syndrome"
+                        value="Acute coronary syndrome"
                         onChange={(e) => handleChangeRadio(e)}
                       />
-                      <label htmlFor="coronary_acute">
-                        Acute (acute coronary syndrome)
+                      <label htmlFor="Acute coronary syndrome">
+                        Acute coronary syndrome
                       </label>
                       <br />
                     </div>
@@ -62,12 +62,12 @@ export default function CheckboxGroup({ name, options, sections }) {
                       <input
                         type="radio"
                         name="coronary"
-                        id="coronary_chronic"
-                        value="coronary_chronic"
+                        id="Chronic coronary syndrome"
+                        value="Chronic coronary syndrome"
                         onChange={(e) => handleChangeRadio(e)}
                       />
-                      <label htmlFor="coronary_chronic">
-                        Chronic (chronic coronary syndrome)
+                      <label htmlFor="Chronic coronary syndrome">
+                        Chronic coronary syndrome
                       </label>
                       <br />
                     </div>
@@ -87,11 +87,11 @@ export default function CheckboxGroup({ name, options, sections }) {
                       <input
                         type="radio"
                         name="isStented"
-                        id="not_stented"
-                        value="not_stented"
+                        id="Not stented"
+                        value="Not stented"
                         onChange={(e) => handleChangeRadio(e)}
                       />
-                      <label htmlFor="not_stented">Not stented</label>
+                      <label htmlFor="Not stented">Not stented</label>
                       <br />
                     </div>
 
@@ -99,22 +99,22 @@ export default function CheckboxGroup({ name, options, sections }) {
                       <input
                         type="radio"
                         name="bypassGraft"
-                        id="bypass_graft"
-                        value="bypass_graft"
+                        id="Bypass graft"
+                        value="Bypass graft"
                         onChange={(e) => handleChangeRadio(e)}
                       />
-                      <label htmlFor="bypass_graft">Bypass graft</label>
+                      <label htmlFor="Bypass graft">Bypass graft</label>
                       <br />
                     </div>
                     <div>
                       <input
                         type="radio"
                         name="bypassGraft"
-                        id="not_bypass_graft"
-                        value="not_bypass_graft"
+                        id="Not bypass graft"
+                        value="Not bypass graft"
                         onChange={(e) => handleChangeRadio(e)}
                       />
-                      <label htmlFor="not_bypass_graft">Not bypass graft</label>
+                      <label htmlFor="Not bypass graft">Not bypass graft</label>
                       <br />
                     </div>
                   </div>

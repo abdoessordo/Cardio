@@ -21,23 +21,61 @@ export default function Result({ end }) {
     medications_current_use,
   } = userData;
   console.log(userData);
+  
   if (userData["Coronary artery disease"]) {
+    if (!cv_atcd) {
+      console.log("cv_atcd is undefined");
+      cv_atcd = [];
+    }
+    let str = "Coronary artery disease (";
+    let checkedValues = []
+    // handle insertion with , or and
     if (userData.coronary) {
-      cv_atcd.push(userData.coronary);
+      checkedValues.push(userData.coronary);
     }
     if (userData.isStented) {
-      cv_atcd.push(userData.isStented);
+      checkedValues.push(userData.isStented);
     }
     if (userData.bypassGraft) {
-      cv_atcd.push(userData.bypassGraft);
+      checkedValues.push(userData.bypassGraft);
     }
+    // loop through the checked values and add them to the string with , or and
+    for (let index = 0; index < checkedValues.length; index++) {
+      const element = checkedValues[index];
+      str += element;
+      if (index < checkedValues.length - 2) {
+        str += ", ";
+      } else if (index === checkedValues.length - 2) {
+        str += " and ";
+      }
+    }
+
+    str += ")";
+    cv_atcd.push(str);
     console.log(cv_atcd);
   }
 
+
+  // if (userData.coronary) {
+  //   str += userData.coronary;
+  //   // cv_atcd.push(userData.coronary);
+  // }
+  // if (userData.isStented) {
+  //   str += `, ${userData.isStented}`;
+  //   // cv_atcd.push(userData.isStented);
+  // }
+  // if (userData.bypassGraft) {
+  //   str += `, ${userData.bypassGraft}`;
+  //   // cv_atcd.push(userData.bypassGraft);
+  // }
+  // str += ")";
+  // cv_atcd.push(str);
+  // console.log(cv_atcd);
+
+  
   useEffect(() => {
     preAssessment();
   }, []);
-  console.log(userData["Coronary artery disease"]);
 
   const get_patient_name = () => {
     if (patient_name === "" || typeof patient_name === "undefined") {
@@ -387,7 +425,7 @@ export default function Result({ end }) {
       examination.includes("Asymptomatic") &&
       userData["Coronary artery disease"] &&
       (userData.isStented === "Stented" ||
-        userData.bypassGraft === "bypass_graft")
+        userData.bypassGraft === "Bypass graft")
     ) {
       ARR.push({
         label: "Stress imaging",
