@@ -21,7 +21,6 @@ export default function QCheckbox({ id, name, label, value, groupName }) {
       checkedList.push(name);
     }
     setUserData({ ...userData, [groupName]: checkedList });
-    console.log(userData);
   };
 
   return (

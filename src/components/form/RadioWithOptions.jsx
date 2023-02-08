@@ -29,14 +29,12 @@ export default function RadioWithOptions({
     }
 
     childChecked = { [value]: e.target.value };
-    console.log(input_name);
     setUserData({ ...userData, [input_name]: childChecked });
   };
 
   const handleParent = (e) => {
     setUserData({ ...userData, [e.target.name]: "" });
     setParentChecked({ [input_name]: e.target.value });
-    console.log(parentChecked);
   };
 
   const checked =

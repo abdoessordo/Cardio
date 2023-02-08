@@ -16,7 +16,7 @@ const QuestionWithRecursion = ({ question, nested, parent }) => {
 
   const handleParent = (e) => {
     const { value, type } = e.target;
-    // console.log("checked: ", checked);
+    // ("checked: ", checked);
 
     if (type === "radio") {
       setSelectedOption(value);
@@ -25,7 +25,6 @@ const QuestionWithRecursion = ({ question, nested, parent }) => {
     }
 
     let tempSelectedOptionsCheckbox = userData.medications_current_use || [];
-
 
     if (selectedOptionsCheckbox.includes(value)) {
       // Remove from array
@@ -243,7 +242,7 @@ const QuestionWithRecursion = ({ question, nested, parent }) => {
               nested && index === question.options.length - 1 ? "mb-5" : ""
             }`}
           >
-            {/* {console.log(checkIfRadioChecked(userData, option.name))} */}
+            {/* {(checkIfRadioChecked(userData, option.name))} */}
             <input
               index={index}
               id={`${option.value}`}

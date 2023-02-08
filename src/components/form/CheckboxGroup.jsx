@@ -7,21 +7,20 @@ import CheckboxWithSections from "./CheckboxWithSections";
 
 export default function CheckboxGroup({ name, options, sections }) {
   const [checked, setChecked] = useState(false);
-  const { userData, setUserData } = useStepperContext()
+  const { userData, setUserData } = useStepperContext();
 
   const handleChange = (e) => {
-    console.log(e.target.name, e.target.value)
-    const {name} = e.target
+    const { name } = e.target;
     setChecked(!checked);
-    setUserData({...userData, [name]: !checked})
+    setUserData({ ...userData, [name]: !checked });
   };
 
   const handleChangeRadio = (e) => {
     const { value, name } = e.target;
-    setUserData({...userData, [name]: value})
+    setUserData({ ...userData, [name]: value });
   };
 
-  // console.log("options", options);
+  // ("options", options);
   if (sections) {
     return "";
   } else if (options) {

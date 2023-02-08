@@ -321,7 +321,7 @@ export default function CheckboxWithSections({
                                         {nestedOptions.label}
                                       </label>
                                       <br />
-                                      {console.log(nestedOptions)}
+                                      {nestedOptions}
 
                                       {nestedOptions.label ===
                                         "High risk of stent thrombosis " && (

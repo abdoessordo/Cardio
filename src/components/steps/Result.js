@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { useStepperContext } from "../../contexts/StepperContext";
 // import Dwon
-import _, { conforms } from "lodash";
+import _ from "lodash";
 
-import DownloadButton from "../DownloadButton";
+// import DownloadButton from "../DownloadButton";
 
 export default function Result({ end }) {
   const { userData } = useStepperContext();
@@ -20,15 +20,13 @@ export default function Result({ end }) {
     non_cv_atcd,
     medications_current_use,
   } = userData;
-  console.log(userData);
-  
+
   if (userData["Coronary artery disease"]) {
     if (!cv_atcd) {
-      console.log("cv_atcd is undefined");
       cv_atcd = [];
     }
     let str = "Coronary artery disease (";
-    let checkedValues = []
+    let checkedValues = [];
     // handle insertion with , or and
     if (userData.coronary) {
       checkedValues.push(userData.coronary);
@@ -52,12 +50,11 @@ export default function Result({ end }) {
 
     str += ")";
     cv_atcd.push(str);
-    console.log(cv_atcd);
   }
 
-  
   useEffect(() => {
     preAssessment();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const get_patient_name = () => {
@@ -193,7 +190,8 @@ export default function Result({ end }) {
     }
     return (
       <strong>
-        <span className="detail">{type_of_surgery_or_intervention}</span> {timing_of_surgery}
+        <span className="detail">{type_of_surgery_or_intervention}</span>{" "}
+        {timing_of_surgery}
       </strong>
     );
   };
@@ -218,17 +216,14 @@ export default function Result({ end }) {
         temp_examination.push(item);
       }
       if (item[handle(item)]?.length === 0) {
-        console.log("CONTINUe");
         continue;
       } else if (
         Array.isArray(item[handle(item)]) &&
         item[handle(item)]?.length > 0
       ) {
-        console.log("ARRAAAAY::: ", item[handle(item)]);
         let temp_item = `${handle(item)} (`;
         for (let i = 0; i < item[handle(item)].length; i++) {
           let child = item[handle(item)][i];
-          console.log("children: ", child);
           temp_item += child;
           if (i < item[handle(item)].length - 2) {
             temp_item += ", ";
@@ -241,13 +236,12 @@ export default function Result({ end }) {
         temp_examination.push(temp_item);
       }
     }
-    console.log("temp_examination: ", temp_examination);
     return (
       <strong>
         {temp_examination.map((item, index) => (
           <span key={index}>
             {typeof item === "object" ? handle(item) : item}
-            {console.log("item[handle]: ", item[handle(item)])}
+            {("item[handle]: ", item[handle(item)])}
             {/* adding , or and between items */}
             {index < examination.length - 2 && ", "}
             {index === examination.length - 2 && " and "}
@@ -294,10 +288,10 @@ export default function Result({ end }) {
     }
     // union of cv_atcd and non_cv_atcd
     let antecedent = [...cv_atcd, ...non_cv_atcd];
-    // console.log("type", type_of_surgery_or_intervention);
-    // console.log("ee", examination, transformExamination(examination));
-    // console.log("kole", userData);
-    // console.log(antecedent);
+    // ("type", type_of_surgery_or_intervention);
+    // ("ee", examination, transformExamination(examination));
+    // ("kole", userData);
+    // (antecedent);
     if (
       [
         "High surgical risk (>5%)",
@@ -381,7 +375,6 @@ export default function Result({ end }) {
       }
     }
 
-    console.log("abnormal_ecg: ", abnormal_ecg);
 
     if (
       type_of_surgery_or_intervention === "Intermediate surgical risk (1-5%)" &&
@@ -398,7 +391,6 @@ export default function Result({ end }) {
         class: "classIIb",
       });
     }
-    console.log(examination);
 
     if (
       type_of_surgery_or_intervention === "High surgical risk (>5%)" &&
@@ -545,12 +537,8 @@ export default function Result({ end }) {
       });
     }
 
-    console.log("medications_current_use", medications_current_use);
-    console.log(medications_current_use.includes("diuretics"));
-    console.log(medications_current_use.includes("to_treat_heart_failure1"));
-    console.log(medications_current_use.includes("other_indications"));
 
-    //
+
     if (
       medications_current_use.includes("diuretics") &&
       (medications_current_use.includes("to_treat_heart_failure1") ||
@@ -934,17 +922,17 @@ export default function Result({ end }) {
       very_high_thromboembolic_risk = true;
     }
 
-    // console.log(
+    // (
     //   "not_possible_to_defer_surgery: ",
     //   not_possible_to_defer_surgery
     // );
-    // console.log("bleeding_risk: ", bleeding_risk === "High bleeding risk");
-    // console.log("high_thromboembolic_risk: ", high_thromboembolic_risk);
-    // console.log(
+    // ("bleeding_risk: ", bleeding_risk === "High bleeding risk");
+    // ("high_thromboembolic_risk: ", high_thromboembolic_risk);
+    // (
     //   "very_high_thromboembolic_risk: ",
     //   very_high_thromboembolic_risk
     // );
-    // console.log(
+    // (
     //   "non_vitamin_k_antagonist_oral_anticoagulants: ",
     //   non_vitamin_k_antagonist_oral_anticoagulants
     // );
@@ -1418,28 +1406,3 @@ export default function Result({ end }) {
   );
 }
 
-/*
-transform this
-"examination": [
-        {
-          "Abnormal ECG": "[\"Pathological Q wave\"]"
-        },
-        "Acute coronary syndrome"
-      ]
-
-      to this
-["Abnormal ECG", "Acute coronary syndrome"]
-*/
-function transformExamination(examination) {
-  let result = [];
-  examination.forEach((item) => {
-    if (typeof item === "string") {
-      result.push(item);
-    } else {
-      for (let key in item) {
-        result.push(key);
-      }
-    }
-  });
-  return result;
-}

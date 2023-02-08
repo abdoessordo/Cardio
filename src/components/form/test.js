@@ -461,4 +461,4 @@ if (Array.isArray(current[path[path.length - 1]])) {
   current[path[path.length - 1]] = [valueToAppend];
 }
 
-console.log(data);
+data;

@@ -68,7 +68,7 @@ export const Question = ({ question }) => {
       );
       break;
     case "checkbox":
-      console.log();
+      ();
       questionComponent = (
         <CheckboxGroup name={question.name} options={question.options} />
       );
@@ -91,7 +91,7 @@ export const Question = ({ question }) => {
 export default function PartQuestions({ parts }) {
   const Part = ({ part }) => {
     const { title, questions } = part;
-    console.log(questions);
+    (questions);
     return (
       <div className="flex flex-col ">
         <h1 className="text-2xl font-bold">{title}</h1>
