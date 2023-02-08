@@ -350,6 +350,15 @@ console.log(userData)
       "High clinical risk factor (RCRI >= 1)",
     ];
 
+    let abnormal_ecg = false;
+    for (let exam of examination) {
+      if (typeof exam === "object" && exam["Abnormal ECG"]?.length > 0) {
+        abnormal_ecg = true;
+      }
+    }
+
+    console.log("abnormal_ecg: ", abnormal_ecg);
+
     if (
       type_of_surgery_or_intervention === "Intermediate surgical risk (1-5%)" &&
       (examination.includes(
@@ -357,9 +366,8 @@ console.log(userData)
       ) ||
         examination.includes("High NT-pro-BNP/BNP") ||
         examination.includes("High clinical risk factor (RCRI >= 1)") ||
-        examination.includes("Abnormal ECG"))
+        abnormal_ecg)
     ) {
-      console.log("kiderti liha");
       ARR.push({
         label: "Trans-thoracic echography (ETT)",
         span: "(Class IIb)",
@@ -395,7 +403,6 @@ console.log(userData)
       }
     }
 
-    console.log("high_clinical_risk_factor: ", high_clinical_risk_factor);
 
     if (
       type_of_surgery_or_intervention === "High surgical risk (>5%)" &&
