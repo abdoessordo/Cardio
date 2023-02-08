@@ -2,13 +2,19 @@ import React from "react";
 
 import "../welcome/welcome.css";
 import img from "../../assets/Intro.jpg";
+import logo1 from "../../assets/Logo CHU Cardio.jpg";
+import logo2 from "../../assets/Logo CHU med VI.png";
 
 import { Link } from "react-router-dom";
 
 const Welcome = () => {
   return (
     <>
-      <h6 className="title">Cardiac evaluation before non-cardiac surgery</h6>
+      <div className="header-nav">
+        <img src={logo1} alt="CHU Cardio" className="logo" />
+        <h6 className="title">Cardiac evaluation before non-cardiac surgery</h6>
+        <img src={logo2} alt="CHU med VI" className="logo" />
+      </div>
       <section className="wrapper home">
         <div className="container">
           <div className="grid-cols-2">

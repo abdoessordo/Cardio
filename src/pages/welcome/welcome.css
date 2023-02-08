@@ -45,6 +45,30 @@ button {
   outline: none;
   cursor: pointer;
 }
+
+.header-nav {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  background-color: #ffff;
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+.header-nav .logo {
+  width: 120px;
+}
+
+.header-nav .title {
+  text-align: center;
+  padding: 20px;
+  color: #9c254d;
+  font-size: 22px;
+  font-weight: 500;
+  text-transform: capitalize;
+}
+
 /* ==== CONTAINER ==== */
 .container {
   width: 100%;
@@ -64,7 +88,7 @@ button {
   gap: 5rem;
 }
 .grid-item-1 {
-  padding-top: 2rem;
+  padding-top: 1rem;
   padding-left: 0.5rem;
 }
 .main-heading {
@@ -154,16 +178,6 @@ button {
   object-fit: cover;
 }
 
-.title {
-  text-align: center;
-  padding: 20px;
-  color: #9c254d;
-  background-color: #ffff;
-  font-size: 20px;
-  font-weight: 500;
-  text-transform: capitalize;
-}
-
 /* ==== MEDIA QURIES FOR RESPONSIVE DESIGN ==== */
 @media screen and (min-width: 768px) {
   .toggle_btn {
@@ -238,9 +252,6 @@ button {
 }
 
 @media screen and (max-width: 991px) {
-  .title {
-    font-size: 16px;
-  }
   .wrapper {
     padding-top: 3rem;
   }
@@ -274,7 +285,7 @@ button {
 
   .names-wrapper {
     display: flex;
-    flex-direction: column-reverse;
+    flex-direction: column;
     align-items: center;
     padding: 30px;
     text-align: center;
@@ -294,5 +305,13 @@ button {
   }
   .featured_info span {
     font-size: 19px;
+  }
+
+  .header-nav .title {
+    font-size: 17px;
+  }
+
+  .header-nav .logo {
+    width: 80px;
   }
 }
