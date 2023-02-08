@@ -212,7 +212,7 @@ export default function Result({ end }) {
     };
     let temp_examination = [];
     for (let item of examination) {
-      if (typeof item === "string") {
+      if (typeof item === "string" && item.length > 1) {
         temp_examination.push(item);
       }
       if (item[handle(item)]?.length === 0) {
@@ -236,12 +236,12 @@ export default function Result({ end }) {
         temp_examination.push(temp_item);
       }
     }
+    console.log("temp_examination: ", temp_examination);
     return (
       <strong>
         {temp_examination.map((item, index) => (
           <span key={index}>
             {typeof item === "object" ? handle(item) : item}
-            {("item[handle]: ", item[handle(item)])}
             {/* adding , or and between items */}
             {index < examination.length - 2 && ", "}
             {index === examination.length - 2 && " and "}
