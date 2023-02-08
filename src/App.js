@@ -13,7 +13,7 @@ export default class App extends React.Component {
           <Route path="/survey" element={<Survey />} />
           <Route path="*" element={<Welcome />} />
         </Routes>
-      </BrowserRouter> 
+      </BrowserRouter>
     );
   }
 }
