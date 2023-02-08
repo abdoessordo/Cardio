@@ -20,10 +20,24 @@ export default function Result({ end }) {
     non_cv_atcd,
     medications_current_use,
   } = userData;
+console.log(userData)
+  if (userData["Coronary artery disease"]) {
+    if (userData.coronary) {
+      cv_atcd.push(userData.coronary);
+    }
+    if (userData.isStented) {
+      cv_atcd.push(userData.isStented);
+    }
+    if (userData.bypassGraft) {
+      cv_atcd.push(userData.bypassGraft);
+    }
+    console.log(cv_atcd);
+  }
 
   useEffect(() => {
     preAssessment();
   }, []);
+  console.log(userData["Coronary artery disease"]);
 
   const get_patient_name = () => {
     if (patient_name === "" || typeof patient_name === "undefined") {
@@ -375,7 +389,7 @@ export default function Result({ end }) {
     for (let exam of examination) {
       if (
         typeof exam === "object" &&
-        exam["High clinical risk factor (RCRI >= 1)"].length > 0
+        exam["High clinical risk factor (RCRI >= 1)"]?.length > 0
       ) {
         high_clinical_risk_factor = true;
       }
@@ -830,10 +844,10 @@ export default function Result({ end }) {
         "Not possible to defer non-cardiac surgery",
     });
 
-    console.log(elective_non_cardiac_surgery )
-    console.log(bleeding_risk === "High bleeding risk" )
-    console.log(warfarin_acénocoumarol )
-    console.log(mechanical_prosthetic_heart_valve)
+    console.log(elective_non_cardiac_surgery);
+    console.log(bleeding_risk === "High bleeding risk");
+    console.log(warfarin_acénocoumarol);
+    console.log(mechanical_prosthetic_heart_valve);
 
     if (
       elective_non_cardiac_surgery &&
