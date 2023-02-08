@@ -727,11 +727,30 @@ export default function Result({ end }) {
       not_high_thrombotic_risk = true;
     }
 
+    let warfarin_acénocoumarol = false;
+
+    if (
+      medications_current_use?.includes("oral_anticoagulants") &&
+      userData.oral_anticoagulants === "vitamin_k_antagonist" &&
+      ["Warfarin", "Acénocoumarol"].includes(userData.vitamin_k_antagonist)
+    ) {
+      warfarin_acénocoumarol = true;
+    }
+
+    let mechanical_prosthetic_heart_valve = false;
+    if (
+      medications_current_use?.includes("oral_anticoagulants") &&
+      medications_current_use?.includes("mechanical_prosthetic_heart_valve")
+    ) {
+      mechanical_prosthetic_heart_valve = true;
+    }
+
     if (
       elective_non_cardiac_surgery &&
       bleeding_risk === "High bleeding risk" &&
       not_high_thrombotic_risk &&
-      vitamin_k_antagonist
+      vitamin_k_antagonist &&
+      !mechanical_prosthetic_heart_valve
     ) {
       ARR2.push(
         {
@@ -774,23 +793,10 @@ export default function Result({ end }) {
       );
     }
 
-    let warfarin_acénocoumarol = false;
+   
 
-    if (
-      medications_current_use?.includes("oral_anticoagulants") &&
-      userData.oral_anticoagulants === "vitamin_k_antagonist" &&
-      ["Warfarin", "Acénocoumarol"].includes(userData.vitamin_k_antagonist)
-    ) {
-      warfarin_acénocoumarol = true;
-    }
-
-    let mechanical_prosthetic_heart_valve = false;
-    if (
-      medications_current_use?.includes("oral_anticoagulants") &&
-      medications_current_use?.includes("mechanical_prosthetic_heart_valve")
-    ) {
-      mechanical_prosthetic_heart_valve = true;
-    }
+    
+    
 
     if (
       elective_non_cardiac_surgery &&
@@ -857,18 +863,15 @@ export default function Result({ end }) {
         "Not possible to defer non-cardiac surgery",
     });
 
-    // console.log(time_sensitive_non_cardiac_surgery )
-    console.log(bleeding_risk === "High bleeding risk" )
-    console.log(not_high_thrombotic_risk )
-    console.log(not_possible_to_defer_surgery)
-    console.log(vitamin_k_antagonist)
+
 
     if (
-      // time_sensitive_non_cardiac_surgery &&
+      not_possible_to_defer_surgery &&
       bleeding_risk === "High bleeding risk" &&
       not_high_thrombotic_risk &&
-      not_possible_to_defer_surgery &&
       vitamin_k_antagonist
+
+      // time_sensitive_non_cardiac_surgery &&
       // warfarin_acénocoumarol &&
       // mechanical_prosthetic_heart_valve
       // vitamin_k_antagonist
