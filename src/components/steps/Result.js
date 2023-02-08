@@ -691,7 +691,7 @@ export default function Result({ end }) {
       medications_current_use?.includes("oral_anticoagulants") &&
       userData.oral_anticoagulants ===
         "non_vitamin_k_antagonist_oral_anticoagulants" &&
-      ["Rivaroxaban", "Rivaroxaban", "Apixaban", "Dabigatran"].includes(
+      ["Rivaroxaban", "Edoxaban", "Apixaban", "Dabigatran"].includes(
         userData.non_vitamin_k_antagonist_oral_anticoagulants
       )
     ) {
