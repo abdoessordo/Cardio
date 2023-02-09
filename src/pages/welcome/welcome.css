@@ -31,7 +31,7 @@ li {
   font-family: Arial, sans-serif;
   font-size: 16px;
   padding: 3px;
-  border-top: 1px solid lightgray;
+  border-top: 1px solid #9c254d;
   color: #334157;
 }
 
@@ -96,7 +96,8 @@ button {
 }
 .grid-item-1 {
   padding: 3rem;
-  margin-inline: 4rem;
+  padding-inline: 2rem;
+  margin-inline: 7rem;
   background-color: #f4f4f4d0;
 }
 
