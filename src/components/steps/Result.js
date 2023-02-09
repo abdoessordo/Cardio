@@ -54,7 +54,7 @@ export default function Result({ end }) {
 
   useEffect(() => {
     preAssessment();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const get_patient_name = () => {
@@ -374,7 +374,6 @@ export default function Result({ end }) {
       }
     }
 
-
     if (
       type_of_surgery_or_intervention === "Intermediate surgical risk (1-5%)" &&
       (examination.includes(
@@ -535,8 +534,6 @@ export default function Result({ end }) {
         class: "classIIa",
       });
     }
-
-
 
     if (
       medications_current_use.includes("diuretics") &&
@@ -1286,7 +1283,7 @@ export default function Result({ end }) {
           {end && (
             <div className="mt-5">
               <a className="mt-10" href="/">
-                <button className="h-10 px-5 text-green-700 transition-colors duration-150 border border-gray-300 rounded-lg focus:shadow-outline hover:bg-green-500 hover:text-green-100">
+                <button className="h-10 px-5 text-green-700 transition-colors duration-150 border border-gray-300  focus:shadow-outline hover:bg-green-500 hover:text-green-100">
                   Close
                 </button>
               </a>
@@ -1395,7 +1392,7 @@ export default function Result({ end }) {
 
         {end && (
           <a className="mt-10" href="/">
-            <button className="h-10 px-5 text-green-700 transition-colors duration-150 border border-gray-300 rounded-lg focus:shadow-outline hover:bg-green-500 hover:text-green-100">
+            <button className="h-10 px-5 text-green-700 transition-colors duration-150 border border-gray-300  focus:shadow-outline hover:bg-green-500 hover:text-green-100">
               Close
             </button>
           </a>
