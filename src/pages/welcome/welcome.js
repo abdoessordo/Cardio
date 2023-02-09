@@ -22,9 +22,6 @@ const Welcome = () => {
         <div className="container">
           <div className="grid-cols-2">
             <div className="grid-item-1">
-              <h1 className="main-heading">
-                <span> Introduction :</span>
-              </h1>
               <p className="info-text">
                 Cardiology opinion is a site designed to accompany the
                 cardiologist during his cardiac evaluation before non-cardiac
