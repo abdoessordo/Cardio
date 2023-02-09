@@ -72,7 +72,7 @@ const Welcome = () => {
             </div>
             <div className="grid-item-2">
               <div className="team_img_wrapper">
-                <img src={img} alt="team-img" />
+                <img src={img} alt="team-img" />  
               </div>
             </div>
           </div>
