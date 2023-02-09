@@ -295,6 +295,7 @@ button {
     align-items: center;
     justify-content: center;
     padding: 1rem;
+    margin-inline: 1rem;
   }
 
   .info-text {
@@ -337,7 +338,7 @@ button {
   }
 
   .header-nav .logo {
-    width: 110px;
+    width: 100px;
   }
 
   .header-nav{
