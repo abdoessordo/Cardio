@@ -47,7 +47,6 @@ export default function CheckboxWithCheckboxOptions({
             (item) => typeof item === "object" && item[tempNestedGroupName]
           ) || [];
 
-        console.log("nestedGroupList:", nestedGroupList);
 
         // initialize empty array if not exist
         let initialized = false;
@@ -90,7 +89,6 @@ export default function CheckboxWithCheckboxOptions({
       }
     }
 
-    console.log("checkedChildrenList", checkedChildrenList);
 
     const value = e.target.value;
     const isChecked = e.target.checked;
@@ -106,7 +104,7 @@ export default function CheckboxWithCheckboxOptions({
     // update the array
     for (let item of groupList) {
       if (typeof item === "object" && item[input_name]) {
-        // console.log("item", item);
+        // ("item", item);
         item[input_name] = checkedChildrenList;
         setUserData({ ...userData, [groupName]: groupList });
         return;
@@ -135,7 +133,6 @@ export default function CheckboxWithCheckboxOptions({
         for (let item of userData[groupName]) {
           if (Array.isArray(item)) {
             initialized = true;
-            console.log("initialized");
             break;
           }
         }
@@ -181,13 +178,11 @@ export default function CheckboxWithCheckboxOptions({
       );
     }
 
-    console.log("userData", userData);
 
     setUserData({ ...userData });
 
     // update userData
     let tempUserData = userData;
-    console.log("tempUserData", tempUserData);
     for (let item of tempUserData[groupName]) {
       if (typeof item === "object" && item[input_name]) {
         for (let nestedItem of item[input_name]) {
@@ -198,16 +193,15 @@ export default function CheckboxWithCheckboxOptions({
       }
     }
 
-    console.log("tempUserData", tempUserData);
 
     return;
 
-    // console.log("checkedChildrenList", checkedChildrenList)
+    // ("checkedChildrenList", checkedChildrenList)
 
     // update the array
     // for (let item of groupList) {
     //   if (typeof item === "object" && item[input_name]) {
-    //     console.log("item", item);
+    //     ("item", item);
     //     item[input_name] = checkedChildrenList;
     //     setUserData({ ...userData, [groupName]: groupList });
     //     return;
@@ -235,7 +229,6 @@ export default function CheckboxWithCheckboxOptions({
               return (
                 <div key={index}>
                   {option.sections?.map((section, sectionIndex) => {
-                    console.log("section", section);
                     return (
                       // Wrapper
                       <div key={sectionIndex} className="ml-4">

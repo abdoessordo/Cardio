@@ -35,7 +35,6 @@ export default function CheckboxWithRadioOptions({
   };
 
   const handleParent = (e) => {
-	  
     setParentChecked(e.target.checked);
     if (!e.target.checked) {
       //remove from userData
@@ -48,14 +47,13 @@ export default function CheckboxWithRadioOptions({
       // initialize empty array if not exist
       if (!userData[groupName]) {
         setUserData({ ...userData, [groupName]: [] });
-      console.log(userData);
       }
     }
   };
 
   return (
     <>
-	  {/* HHHHHHHHHHHhhhh */}
+      {/* HHHHHHHHHHHhhhh */}
       <input
         id={id}
         type="checkbox"
@@ -70,7 +68,6 @@ export default function CheckboxWithRadioOptions({
         <div className="flex flex-col ml-5">
           {options.map((option, index) => {
             if (option.nestedQuestion) {
-              console.log("ALEEEEEERT")
               return (
                 <CheckboxWithCheckboxOptions
                   id={option.value}

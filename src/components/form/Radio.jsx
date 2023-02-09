@@ -9,7 +9,6 @@ export default function Radio({ id, name, label, value, setShowPopup }) {
         e.target.value
       )
     ) {
-      console.log("show popup");
       setShowPopup(true);
     }
     setUserData({ ...userData, [e.target.name]: e.target.value });

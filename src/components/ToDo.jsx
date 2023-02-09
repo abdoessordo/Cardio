@@ -20,7 +20,7 @@ export default function ToDo({ end }) {
 
   useEffect(() => {
     preAssessment();
-    console.log("preAssessmentTodoList", preAssessmentTodoList);
+    "preAssessmentTodoList", preAssessmentTodoList;
   }, []);
 
   function preAssessment() {
@@ -344,7 +344,7 @@ export default function ToDo({ end }) {
     for (let med of medications_current_use) {
       if (typeof med === "object" && med.oral_anticoagulants?.length > 0) {
         for (let oral_meds of med.oral_anticoagulants) {
-          console.log(oral_meds);
+          oral_meds;
           if (
             typeof oral_meds === "object" &&
             ["Apixaban", "Dabigatran"].includes(
@@ -389,7 +389,7 @@ export default function ToDo({ end }) {
     for (let med of medications_current_use) {
       if (typeof med === "object" && med.oral_anticoagulants?.length > 0) {
         for (let oral_meds of med.oral_anticoagulants) {
-          console.log(oral_meds);
+          oral_meds;
           if (
             typeof oral_meds === "object" &&
             ["Rivaroxaban", "Edoxaban"].includes(
@@ -434,7 +434,7 @@ export default function ToDo({ end }) {
     for (let med of medications_current_use) {
       if (typeof med === "object" && med.oral_anticoagulants?.length > 0) {
         for (let oral_meds of med.oral_anticoagulants) {
-          console.log(oral_meds);
+          oral_meds;
           if (
             typeof oral_meds === "object" &&
             ["Rivaroxaban", "Edoxaban", "Apixaban", "Dabigatran"].includes(
@@ -484,7 +484,7 @@ export default function ToDo({ end }) {
       }
     }
 
-    console.log("vitamin_k_antagonist", vitamin_k_antagonist);
+    "vitamin_k_antagonist", vitamin_k_antagonist;
     if (
       elective_non_cardiac_surgery &&
       bleeding_risk === "High bleeding risk" &&
@@ -553,7 +553,7 @@ export default function ToDo({ end }) {
     for (let med of medications_current_use) {
       if (typeof med === "object" && med.oral_anticoagulants?.length > 0) {
         for (let oral_meds of med.oral_anticoagulants) {
-          console.log(oral_meds);
+          oral_meds;
           if (
             typeof oral_meds === "object" &&
             oral_meds.high_thrombotic_risk?.includes(

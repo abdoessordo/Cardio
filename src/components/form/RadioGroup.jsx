@@ -2,8 +2,7 @@ import Radio from "./Radio";
 import RadioWithOptions from "./RadioWithOptions";
 
 export default function RadioGroup({ name, options, question, setShowPopup}) {
-  // console.log("options", options);
-  console.log(question);
+  // ("options", options);
 
   return (
     <>

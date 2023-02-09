@@ -121,7 +121,6 @@ export default function PartQuestions({ parts }) {
 // }
 
 function Questionnaire({ questions, setShowPopup }) {
-  console.log(questions);
   if (questions[0].name === "medications_current_use") {
     return (
       <>
