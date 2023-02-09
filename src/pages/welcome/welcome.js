@@ -30,6 +30,7 @@ const Welcome = () => {
                 cardiologist during his cardiac evaluation before non-cardiac
                 surgery, and which is based on the latest recommendations of
                 <b> l’European Society of Cardiology ‘’ESC’’ 2022.</b>
+                <br />
                 <br /> The site has been created as part of an internship
                 project by a group of{" "}
                 <button
@@ -55,41 +56,39 @@ const Welcome = () => {
               </div>
             </div>
             <div className="grid-item-2">
-              <div className="team_img_wrapper">
-                <div className="names-wrapper">
-                  {externs && (
-                    <div className="names-1">
-                      <h6 className="names-title">1-Externes :</h6>
-                      <ul>
-                        <li>Boughlala Rajae</li>
-                        <li>Bouhjira Israe</li>
-                        <li>Bourimane Nouhaila</li>
-                        <li>Bourouhou Nouha</li>
-                        <li>Bouzid Maryam</li>
-                        <li>Chaarir Kaoutar</li>
-                      </ul>
-                    </div>
-                  )}
-                  {department && (
-                    <div className="names-2">
-                      <h6 className="names-title">2-Tuteurs :</h6>
-                      <ul>
-                        <li>
-                          <b>Chef de service :</b> <br />
-                          Professeur Raissouni Zainab
-                        </li>
-                        <li>
-                          <b>Professeur assistant :</b> <br />
-                          Professeur El Boussaadani Badr
-                        </li>
-                        <li>
-                          <b>Résident en cardiologie :</b> <br />
-                          Dr Berhil Taha
-                        </li>
-                      </ul>
-                    </div>
-                  )}
-                </div>
+              <div className="names-wrapper">
+                {externs && (
+                  <div className="names-1">
+                    <h6 className="names-title">1-Externes :</h6>
+                    <ul>
+                      <li>Boughlala Rajae</li>
+                      <li>Bouhjira Israe</li>
+                      <li>Bourimane Nouhaila</li>
+                      <li>Bourouhou Nouha</li>
+                      <li>Bouzid Maryam</li>
+                      <li>Chaarir Kaoutar</li>
+                    </ul>
+                  </div>
+                )}
+                {department && (
+                  <div className="names-2">
+                    <h6 className="names-title">2-Tuteurs :</h6>
+                    <ul>
+                      <li>
+                        <b>Chef de service :</b> <br />
+                        Professeur Raissouni Zainab
+                      </li>
+                      <li>
+                        <b>Professeur assistant :</b> <br />
+                        Professeur El Boussaadani Badr
+                      </li>
+                      <li>
+                        <b>Résident en cardiologie :</b> <br />
+                        Dr Berhil Taha
+                      </li>
+                    </ul>
+                  </div>
+                )}
               </div>
             </div>
           </div>
