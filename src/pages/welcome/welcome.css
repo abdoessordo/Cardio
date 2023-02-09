@@ -123,6 +123,7 @@ button {
 .externs {
   color: #9c254d;
   font-weight: 600;
+  text-decoration: underline;
 }
 
 .names-wrapper {
