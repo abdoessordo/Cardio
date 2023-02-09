@@ -1324,7 +1324,7 @@ export default function Result({ end }) {
           Cardiology opinion
         </div>
         <div
-          className="text-lg font-semibold text-gray-500 mt-5"
+          className="text-lg font-semibold text-gray-500 mt-5 text-align-justify"
           id="resultText"
         >
           It's about the patient Mr/Mrs {get_patient_name()}, having as a
