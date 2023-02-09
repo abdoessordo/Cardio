@@ -68,7 +68,7 @@ const Welcome = () => {
                   </div>
                 )}
                 {department && (
-                  <div className="names-2">
+                  <div className="names-1">
                     <h6 className="names-title">2-Tutors :</h6>
                     <ul>
                       <li>
