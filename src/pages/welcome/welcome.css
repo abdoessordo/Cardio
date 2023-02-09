@@ -26,7 +26,7 @@ body {
   background-color: #f2f2f2;
   background-image: url("../../assets/Intro.jpg");
   background-position: top;
-  background-repeat: no-repeat;
+  /* background-repeat: no-repeat; */
   background-size: cover;
 }
 
@@ -163,7 +163,6 @@ button {
   font-size: 16px;
   color: #fff;
   text-transform: capitalize;
-  border-radius: 7px;
   letter-spacing: 1px;
   transition: 0.4s;
 }
