@@ -20,7 +20,7 @@ const Survey = () => {
     newStep > 0 && newStep <= steps.length && setCurrentStep(newStep);
   };
   return (
-    <div className="mx-auto rounded-2xl bg-white mb-5 pb-2 shadow-xl md:w-2/3">
+    <div className="mx-auto bg-white  mb-5 pb-2 pl-2 pr-2 pt-1shadow-xl md:w-2/3">
       {/* Stepper */}
       <div className="horizontal container mt-5">
         <Stepper steps={steps} currentStep={currentStep} />
