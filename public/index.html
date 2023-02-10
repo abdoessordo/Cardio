@@ -5,14 +5,11 @@
     <link rel="icon" href="%PUBLIC_URL%/heartbeat.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000" />
-    <meta
-      name="description"
-      content="Cardiology opinion is a site designed to accompany the cardiologist during his cardiac evaluation before
+    <meta name="description" content="Cardiology opinion is a site designed to accompany the cardiologist during his cardiac evaluation before
       non-cardiac surgery, and which is based on the latest recommendations of l’European Society of Cardiology ‘’ESC’’
       2022.
       The site has been created as part of an internship project by a group of externs1 supervised by the Cardiology
-      department2 of the CHU Mohammed VI Tangier-Tetouan-AlHoceima."
-    />
+      department2 of the CHU Mohammed VI Tangier-Tetouan-AlHoceima." />
 
     <title>Cardiology Opinion</title>
   </head>
@@ -20,5 +17,18 @@
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
 
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-3FLJRD5MP5"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag('js', new Date());
+
+      gtag('config', 'G-3FLJRD5MP5');
+    </script>
   </body>
 </html>
