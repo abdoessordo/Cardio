@@ -52,7 +52,6 @@ export default function Result({ end }) {
     if (!cv_atcd.includes(str)) {
       cv_atcd.push(str);
     }
-    // cv_atcd.push(str);
   }
 
   useEffect(() => {

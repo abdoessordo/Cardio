@@ -4,6 +4,11 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Survey from "./pages/survey/survey";
 import Welcome from "./pages/welcome/welcome";
 
+import ReactGA from "react-ga";
+
+const trackingId = "G-3FLJRD5MP5";
+ReactGA.initialize(trackingId);
+
 export default class App extends React.Component {
   render() {
     return (
