@@ -15,19 +15,19 @@ export default class App extends React.Component {
   render() {
     return (
       <>
-        {/* <BrowserRouter>
+        <BrowserRouter>
           <Routes>
             <Route index path="/" element={<Welcome />} />
             <Route path="/survey" element={<Survey />} />
             <Route path="*" element={<Welcome />} />
           </Routes>
-        </BrowserRouter> */}
+        </BrowserRouter>
 
-        <BrowserRouter>
+        {/*<BrowserRouter>
           <Routes>
             <Route index path="/" element={<RequiredPaymentPage />} />
           </Routes>
-        </BrowserRouter>
+        </BrowserRouter>*/}
       </>
     );
   }
