@@ -6,7 +6,7 @@ import Welcome from "./pages/welcome/welcome";
 
 // Google Analytics
 import ReactGA from "react-ga";
-import RequiredPaymentPage from "./pages/requiredPaymentPage/requiredPaymentPage";
+// import RequiredPaymentPage from "./pages/requiredPaymentPage/requiredPaymentPage";
 
 const trackingId = "G-3FLJRD5MP5";
 ReactGA.initialize(trackingId);
